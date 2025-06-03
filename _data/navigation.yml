@@ -1,5 +1,9 @@
 # main links links
 main:
+  -title: "Home"
+  url: /
+  -title: "ERA% Maps"
+  url: /era5/
   # - title: "Publications"
   #   url: /publications/
 

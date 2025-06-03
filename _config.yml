@@ -190,10 +190,6 @@ collections:
   comida:
     output: true
     permalink: /:collection/:path/
-# Header Pages
-header_pages:
-  - index.md
-  -_pages/era5.html
 
 
 # Defaults
@@ -209,6 +205,13 @@ defaults:
       comments: true
       share: true
       related: true
+  _era5
+  - scope:
+      path: "/era5/"
+      type: pages
+    values:
+      layout: single
+      author_profile: true
   # _pages
   - scope:
       path: ""

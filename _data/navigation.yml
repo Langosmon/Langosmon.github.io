@@ -2,7 +2,7 @@
 main:
   -title: "Home"
   url: /
-  -title: "ERA% Maps"
+  -title: "ERA5 Maps"
   url: /era5/
   # - title: "Publications"
   #   url: /publications/

@@ -190,6 +190,10 @@ collections:
   comida:
     output: true
     permalink: /:collection/:path/
+# Header Pages
+header_pages:
+  - index.md
+  -_pages/era5.html
 
 
 # Defaults

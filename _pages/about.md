@@ -9,7 +9,7 @@ redirect_from:
 ---
 
 Hey there, first of all thanks for checking my website :) <br>
-I'm José Alfredo, originally from Guadalajara Jalisco in Mexico. I'm currently a Ph.D. candidate in atmospheric science at Purdue University, working with [Dan Chavas](https://web.ics.purdue.edu/~dchavas/). My scientific interests are in Tropical climate and tropical dynamics, particularly Tropical Cyclones and Monsoon systems. I'm also a foodie, and I love to see food (and languages!) as a window towards other cultures and to express ourselves in an easier (and delicious) way. 
+I'm José Alfredo Ocegueda Sanchez, originally from Guadalajara Jalisco in Mexico. I'm currently a Ph.D. candidate in atmospheric science at Purdue University, working with [Dan Chavas](https://web.ics.purdue.edu/~dchavas/). My scientific interests are in Tropical climate and tropical dynamics, particularly Tropical Cyclones and Monsoon systems. I'm also a foodie, and I love to see food (and languages!) as a window towards other cultures and to express ourselves in an easier (and delicious) way. 
 
 NEWS
 ======

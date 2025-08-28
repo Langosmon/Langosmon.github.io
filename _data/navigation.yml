@@ -4,6 +4,7 @@ main:
     url: /
 
   - title: "ERA5 Maps"
+    url: /era5/
     children:
       - title: "Monthly Means Maps"
         url: /era5/monthly-means/

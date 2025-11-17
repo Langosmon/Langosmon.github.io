@@ -1,0 +1,145 @@
+// script.js
+// Handles dark mode toggling, language switching, and dynamic year update.
+
+// Wait until DOM is loaded before running script
+document.addEventListener('DOMContentLoaded', () => {
+  const darkToggle = document.getElementById('dark-toggle');
+  const langToggle = document.getElementById('lang-toggle');
+  const body = document.body;
+
+  // Load preferences from localStorage if available
+  const storedTheme = localStorage.getItem('theme');
+  const storedLang = localStorage.getItem('lang');
+
+  if (storedTheme === 'dark') {
+    body.classList.add('dark-mode');
+  }
+  let currentLang = storedLang || 'en';
+  if (storedLang === 'es') {
+    currentLang = 'es';
+    langToggle.textContent = 'EN';
+  }
+
+  // Dark mode toggle handler
+  darkToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+  });
+
+  // Language toggle handler
+  langToggle.addEventListener('click', () => {
+    currentLang = currentLang === 'en' ? 'es' : 'en';
+    localStorage.setItem('lang', currentLang);
+    langToggle.textContent = currentLang === 'en' ? 'ES' : 'EN';
+    applyTranslations();
+  });
+
+  // Update the copyright year dynamically
+  const yearSpan = document.getElementById('year');
+  if (yearSpan) {
+    yearSpan.textContent = new Date().getFullYear();
+  }
+
+  // Translation dictionary
+  const translations = {
+    en: {
+      siteTitle: 'Jose Alfredo Ocegueda Sanchez',
+      siteName: 'Jose Alfredo',
+      navHome: 'Home',
+      navResearch: 'Research',
+      navCV: 'CV',
+      heroTitle: 'Jose Alfredo Ocegueda Sanchez',
+      heroSubtitle: 'Ph.D. Student in Atmospheric Sciences',
+      aboutTitle: 'About Me',
+      aboutContent: `I am a Ph.D. student in Atmospheric Sciences with a passion for understanding
+      tropical cyclones, the Intertropical Convergence Zone (ITCZ), and the complex
+      dynamics that govern our climate system. My research combines numerical modelling,
+      theoretical analysis and observational datasets to unravel the physical processes
+      behind hurricanes and climate variability.`,
+      footerName: 'Jose Alfredo Ocegueda Sanchez',
+      researchPageTitle: 'Research – Jose Alfredo',
+      researchTitle: 'Research',
+      researchIntro: `Below you’ll find a selection of my research projects. Images and animations are
+      included to visually communicate the essence of each project. Replace these
+      placeholders with your own figures, GIFs, or movies. Videos will autoplay and
+      loop by default.`,
+      project1Title: 'Tropical Cyclone Genesis',
+      project1Desc: `Investigating the environmental conditions and atmospheric dynamics that lead
+      to the formation of tropical cyclones in the Eastern North Pacific. This
+      includes analyzing vorticity, moisture convergence, and vertical wind shear.`,
+      project2Title: 'ITCZ Variability',
+      project2Desc: `Studying the seasonal and interannual variability of the Intertropical
+      Convergence Zone (ITCZ) and its impact on global weather patterns. This work
+      leverages satellite observations and reanalysis data to track shifts in the
+      ITCZ.`,
+      cvPageTitle: 'Curriculum Vitae – Jose Alfredo',
+      cvTitle: 'Curriculum Vitae',
+      cvIntro: `My CV is embedded below for your convenience. If you would like to download
+      a copy, right-click on the viewer and select “Save As…”. To update your CV,
+      replace the files/cv.pdf file in the repository.`,
+      cvDownload: 'Download PDF'
+    },
+    es: {
+      siteTitle: 'José Alfredo Ocegueda Sánchez',
+      siteName: 'José Alfredo',
+      navHome: 'Inicio',
+      navResearch: 'Investigación',
+      navCV: 'CV',
+      heroTitle: 'José Alfredo Ocegueda Sánchez',
+      heroSubtitle: 'Estudiante de doctorado en Ciencias Atmosféricas',
+      aboutTitle: 'Sobre mí',
+      aboutContent: `Soy estudiante de doctorado en Ciencias Atmosféricas y me apasiona comprender
+      los ciclones tropicales, la Zona de Convergencia Intertropical (ZCIT) y las
+      complejas dinámicas que gobiernan nuestro sistema climático. Mi investigación
+      combina modelado numérico, análisis teórico y conjuntos de datos observacionales
+      para desentrañar los procesos físicos detrás de los huracanes y la variabilidad
+      climática.`,
+      footerName: 'José Alfredo Ocegueda Sánchez',
+      researchPageTitle: 'Investigación – José Alfredo',
+      researchTitle: 'Investigación',
+      researchIntro: `A continuación encontrarás una selección de mis proyectos de investigación.
+      Se incluyen imágenes y animaciones para comunicar visualmente la esencia de cada
+      proyecto. Sustituye estos marcadores de posición con tus propias figuras, GIFs
+      o vídeos. Los vídeos se reproducen automáticamente y en bucle por defecto.`,
+      project1Title: 'Génesis de ciclones tropicales',
+      project1Desc: `Investigando las condiciones ambientales y la dinámica atmosférica que conducen
+      a la formación de ciclones tropicales en el Pacífico Norte oriental. Esto incluye
+      analizar la vorticidad, la convergencia de humedad y el cizallamiento vertical del viento.`,
+      project2Title: 'Variabilidad de la ZCIT',
+      project2Desc: `Estudiando la variabilidad estacional e interanual de la Zona de Convergencia
+      Intertropical (ZCIT) y su impacto en los patrones climáticos globales. Este trabajo
+      aprovecha observaciones satelitales y datos de reanálisis para rastrear los cambios
+      en la ZCIT.`,
+      cvPageTitle: 'Currículum vitae – José Alfredo',
+      cvTitle: 'Currículum vitae',
+      cvIntro: `Mi CV está incrustado a continuación para tu comodidad. Si deseas descargar una
+      copia, haz clic derecho en el visor y selecciona «Guardar como…». Para actualizar tu CV,
+      reemplaza el archivo files/cv.pdf en el repositorio.`,
+      cvDownload: 'Descargar PDF'
+    }
+  };
+
+  /**
+   * Applies translations to the page. Each element with a data-i18n attribute
+   * will be updated based on the current language selection.
+   */
+  function applyTranslations() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      const translation = translations[currentLang][key];
+      if (translation) {
+        el.textContent = translation;
+      }
+    });
+    // Update document title separately
+    const titleEl = document.querySelector('title');
+    const titleKey = titleEl.getAttribute('data-i18n');
+    if (titleKey) {
+      document.title = translations[currentLang][titleKey];
+    }
+  }
+
+  // Initial translation apply after page load
+  applyTranslations();
+});

@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title data-i18n="siteTitle">Jose Alfredo Ocegueda Sanchez</title>
   <link rel="stylesheet" href="css/style.css">
+  <!-- Font Awesome icons for social links -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <!-- Include Google Fonts for nicer typography -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -15,10 +17,11 @@
       <ul class="nav-links">
         <li><a href="index.html" data-i18n="navHome">Home</a></li>
         <li><a href="research.html" data-i18n="navResearch">Research</a></li>
+        <li><a href="era5.html" data-i18n="navERA5">ERA5 Maps</a></li>
         <li><a href="cv.html" data-i18n="navCV">CV</a></li>
       </ul>
       <div class="toggles">
-        <button id="dark-toggle" aria-label="Toggle dark mode">🌓</button>
+        <button id="dark-toggle" aria-label="Toggle dark mode">🌙</button>
         <button id="lang-toggle" aria-label="Toggle language">ES</button>
       </div>
     </nav>
@@ -30,6 +33,8 @@
   </section>
 
   <section class="about">
+    <!-- Profile picture displayed above the About section -->
+    <img src="images/Profile.png" alt="Profile Picture" class="profile-pic">
     <h2 data-i18n="aboutTitle">About Me</h2>
     <p data-i18n="aboutContent">
       I am a Ph.D. student in Atmospheric Sciences with a passion for understanding
@@ -40,7 +45,27 @@
     </p>
   </section>
 
+  <!-- News section showcasing recent updates -->
+  <section class="news">
+    <h2 data-i18n="newsTitle">News</h2>
+    <div class="news-item">
+      <h3 data-i18n="newsItem1Title">New Publication: Tropical Cyclone Research</h3>
+      <p data-i18n="newsItem1Desc">Published a new paper on the interactions between tropical cyclones and the ITCZ.</p>
+      <span class="news-date" data-i18n="newsItem1Date">Oct 15, 2025</span>
+    </div>
+    <div class="news-item">
+      <h3 data-i18n="newsItem2Title">Presented at AGU Conference</h3>
+      <p data-i18n="newsItem2Desc">Gave a talk at the AGU Fall Meeting on hurricane forecasting models.</p>
+      <span class="news-date" data-i18n="newsItem2Date">Dec 5, 2025</span>
+    </div>
+  </section>
+
   <footer>
+    <div class="social-links">
+      <!-- Social icons linking to GitHub and email -->
+      <a href="https://github.com/Langosmon" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="mailto:jocegue@purdue.edu" target="_blank" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    </div>
     <p>&copy; <span id="year"></span> <span data-i18n="footerName">Jose Alfredo Ocegueda Sanchez</span></p>
   </footer>
 

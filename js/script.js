@@ -11,13 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const storedTheme = localStorage.getItem('theme');
   const storedLang = localStorage.getItem('lang');
 
+  // Track current language (default to English)
+  let currentLang = storedLang || 'en';
+
   if (storedTheme === 'dark') {
     body.classList.add('dark-mode');
   }
-  let currentLang = storedLang || 'en';
   if (storedLang === 'es') {
     currentLang = 'es';
     langToggle.textContent = 'EN';
+    applyTranslations();
   }
 
   // Dark mode toggle handler
@@ -79,6 +82,28 @@ document.addEventListener('DOMContentLoaded', () => {
       a copy, right-click on the viewer and select “Save As…”. To update your CV,
       replace the files/cv.pdf file in the repository.`,
       cvDownload: 'Download PDF'
+      ,
+      // New keys for ERA5 and news sections
+      navERA5: 'ERA5 Maps',
+      newsTitle: 'News',
+      newsItem1Title: 'New Publication: Tropical Cyclone Research',
+      newsItem1Desc: 'Published a new paper on the interactions between tropical cyclones and the ITCZ.',
+      newsItem1Date: 'Oct 15, 2025',
+      newsItem2Title: 'Presented at AGU Conference',
+      newsItem2Desc: 'Gave a talk at the AGU Fall Meeting on hurricane forecasting models.',
+      newsItem2Date: 'Dec 5, 2025',
+
+      // New entry for ClimART 2025 news
+      newsItem3Title: 'ClimART 2025',
+      newsItem3Desc: `I finally was able to create the first Climate X Art competition at Purdue EAPS. Here is a small video of the winners. ClimART exists because I believe that data can be gorgeous and art can be scientific. Plots, Art, Schematics, etc., are ways to say “Hey, this is me,” even in a scientific environment.`,
+      newsItem3Date: 'Nov 2025',
+      era5Title: 'ERA5 Maps',
+      era5Intro: 'This page provides interactive ERA5 climate maps.',
+      era5MonthlyTitle: 'Monthly Means Maps',
+      era5MonthlyDesc: 'Use this map to explore monthly mean data.',
+      era5HourlyTitle: 'Hourly Maps',
+      era5HourlyDesc: 'Use this map to explore hourly data.',
+      openMapLink: 'Open map in a new tab ↗'
     },
     es: {
       siteTitle: 'José Alfredo Ocegueda Sánchez',
@@ -117,6 +142,28 @@ document.addEventListener('DOMContentLoaded', () => {
       copia, haz clic derecho en el visor y selecciona «Guardar como…». Para actualizar tu CV,
       reemplaza el archivo files/cv.pdf en el repositorio.`,
       cvDownload: 'Descargar PDF'
+      ,
+      // New keys for ERA5 and news sections (Spanish)
+      navERA5: 'Mapas ERA5',
+      newsTitle: 'Noticias',
+      newsItem1Title: 'Nueva publicación: Investigación de ciclones tropicales',
+      newsItem1Desc: 'Publicado un nuevo artículo sobre las interacciones entre ciclones tropicales y la ZCIT.',
+      newsItem1Date: '15 Oct 2025',
+      newsItem2Title: 'Presentación en la conferencia AGU',
+      newsItem2Desc: 'Presenté una charla en la reunión anual de otoño de la AGU sobre modelos de predicción de huracanes.',
+      newsItem2Date: '5 Dic 2025',
+
+      // Nueva entrada para ClimART 2025
+      newsItem3Title: 'ClimART 2025',
+      newsItem3Desc: `Finalmente pude crear la primera competencia de Climate X Art en Purdue EAPS. Aquí hay un pequeño video de los ganadores. ClimART existe porque creo que los datos pueden ser hermosos y el arte puede ser científico. Gráficas, arte, esquemas, etc., son formas de decir “Hey, este soy yo”, incluso en un entorno científico.`,
+      newsItem3Date: 'Nov 2025',
+      era5Title: 'Mapas ERA5',
+      era5Intro: 'Esta página proporciona mapas climáticos interactivos de ERA5.',
+      era5MonthlyTitle: 'Mapas de medias mensuales',
+      era5MonthlyDesc: 'Utilice este mapa para explorar datos de medias mensuales.',
+      era5HourlyTitle: 'Mapas por hora',
+      era5HourlyDesc: 'Utilice este mapa para explorar datos horarios.',
+      openMapLink: 'Abrir mapa en una nueva pestaña ↗'
     }
   };
 
@@ -133,8 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     // Update document title separately
-    const titleEl = document.querySelector('title');
-    const titleKey = titleEl.getAttribute('data-i18n');
+    const titleKey = document.querySelector('title').getAttribute('data-i18n');
     if (titleKey) {
       document.title = translations[currentLang][titleKey];
     }

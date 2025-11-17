@@ -1,0 +1,212 @@
+/* Basic resets and theming variables */
+:root {
+  --bg-color: #fdfdfd;
+  --text-color: #333333;
+  --primary-color: #005f73;
+  --secondary-color: #0a9396;
+  --accent-color: #94d2bd;
+  --nav-bg: rgba(255, 255, 255, 0.8);
+  --nav-text: #333333;
+  --link-hover: #005f73;
+}
+
+/* Dark mode overrides */
+.dark-mode {
+  --bg-color: #111827;
+  --text-color: #d1d5db;
+  --primary-color: #0a9396;
+  --secondary-color: #94d2bd;
+  --accent-color: #ee9b00;
+  --nav-bg: rgba(17, 24, 39, 0.9);
+  --nav-text: #d1d5db;
+  --link-hover: #94d2bd;
+}
+
+/* Reset and global styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-weight: 700;
+  color: var(--nav-text);
+  font-size: 1.25rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-links li a {
+  color: var(--nav-text);
+  font-weight: 500;
+}
+
+.nav-links li a:hover {
+  color: var(--link-hover);
+}
+
+.toggles button {
+  margin-left: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: var(--secondary-color);
+  color: #ffffff;
+  transition: background-color 0.2s ease;
+}
+
+.toggles button:hover {
+  background-color: var(--primary-color);
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.85), rgba(10, 147, 150, 0.85));
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* About Section */
+.about {
+  padding: 3rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.about p {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* Page Header */
+.page-header {
+  padding: 3rem 1rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.page-header p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Research Project List */
+.project-list {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.project h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.project p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* CV Page PDF Container */
+.pdf-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  height: 80vh;
+  border: 1px solid var(--accent-color);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  color: var(--nav-text);
+  font-size: 0.9rem;
+}

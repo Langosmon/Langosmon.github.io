@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="cvPageTitle">Curriculum Vitae – Jose Alfredo</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo" data-i18n="siteName">Jose Alfredo</div>
+      <ul class="nav-links">
+        <li><a href="index.html" data-i18n="navHome">Home</a></li>
+        <li><a href="research.html" data-i18n="navResearch">Research</a></li>
+        <li><a href="cv.html" data-i18n="navCV">CV</a></li>
+      </ul>
+      <div class="toggles">
+        <button id="dark-toggle" aria-label="Toggle dark mode">🌓</button>
+        <button id="lang-toggle" aria-label="Toggle language">ES</button>
+      </div>
+    </nav>
+  </header>
+
+  <section class="page-header">
+    <h1 data-i18n="cvTitle">Curriculum Vitae</h1>
+    <p data-i18n="cvIntro">
+      My CV is embedded below for your convenience. If you would like to download
+      a copy, right-click on the viewer and select “Save As…”. To update your CV,
+      replace the <code>files/cv.pdf</code> file in the repository.
+    </p>
+  </section>
+
+  <section class="cv-viewer">
+    <iframe src="files/cv.pdf" width="100%" height="800px" frameborder="0">
+      <p>Your browser does not support PDFs. Please download the PDF to view it:
+        <a href="files/cv.pdf" data-i18n="cvDownload">Download PDF</a>.</p>
+    </iframe>
+  </section>
+
+  <footer>
+    <p>&copy; <span id="year"></span> <span data-i18n="footerName">Jose Alfredo Ocegueda Sanchez</span></p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

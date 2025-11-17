@@ -1,4 +1,11 @@
-/* Basic resets and theming variables */
+/*
+ * Base styling for the personal website. The design is clean and modern with
+ * support for light and dark themes. CSS variables are used extensively to
+ * simplify theming. The user can toggle between English and Spanish using
+ * the language switcher implemented in script.js.
+ */
+
+/* Root variables define the colour palette for the light theme */
 :root {
   --bg-color: #fdfdfd;
   --text-color: #333333;
@@ -22,7 +29,7 @@
   --link-hover: #94d2bd;
 }
 
-/* Reset and global styles */
+/* Global reset and typography */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -54,9 +61,9 @@ a:hover {
 }
 
 header {
+  width: 100%;
   position: sticky;
   top: 0;
-  width: 100%;
   z-index: 1000;
 }
 
@@ -111,12 +118,16 @@ header {
 .hero {
   position: relative;
   height: 80vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: #ffffff;
+  /* Use a dynamic gradient background instead of an image. The gradient blends
+     complementary colours that evoke an atmospheric flow, eliminating the need
+     for a separate image file. */
   background: linear-gradient(135deg, rgba(17, 24, 39, 0.85), rgba(10, 147, 150, 0.85));
   background-size: cover;
   background-position: center;
@@ -153,7 +164,7 @@ header {
   line-height: 1.8;
 }
 
-/* Page Header */
+/* Page header for research and CV pages */
 .page-header {
   padding: 3rem 1rem 1rem;
   max-width: 800px;
@@ -172,7 +183,7 @@ header {
   line-height: 1.6;
 }
 
-/* Research Project List */
+/* Research project layout */
 .project-list {
   max-width: 1000px;
   margin: 0 auto;
@@ -189,24 +200,134 @@ header {
 }
 
 .project p {
-  font-size: 1rem;
-  line-height: 1.6;
   margin-bottom: 1rem;
 }
 
-/* CV Page PDF Container */
-.pdf-container {
+.media-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  align-items: start;
+}
+
+/* CV viewer */
+.cv-viewer {
   max-width: 1000px;
-  margin: 2rem auto;
-  height: 80vh;
-  border: 1px solid var(--accent-color);
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
 /* Footer */
 footer {
   text-align: center;
   padding: 1rem;
-  margin-top: 2rem;
+  background-color: var(--nav-bg);
   color: var(--nav-text);
-  font-size: 0.9rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .navbar {
+    flex-wrap: wrap;
+  }
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+  .toggles {
+    margin-top: 0.5rem;
+  }
+}
+
+/* Profile picture styling */
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 1rem;
+}
+
+/* News section */
+.news {
+  padding: 3rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.news h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.news-item {
+  margin-bottom: 1.5rem;
+}
+
+.news-item h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.3rem;
+  color: var(--secondary-color);
+}
+
+.news-item p {
+  margin-bottom: 0.2rem;
+}
+
+.news-date {
+  font-size: 0.85rem;
+  color: var(--primary-color);
+}
+
+/* Additional styling for news media (images or GIFs) */
+.news-media {
+  display: block;
+  margin: 0.5rem 0;
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* Social links */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.social-links a {
+  color: var(--nav-text);
+  font-size: 1.4rem;
+  transition: color 0.2s ease;
+}
+
+.social-links a:hover {
+  color: var(--link-hover);
+}
+
+/* ERA5 page sections */
+.era5-section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.era5-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.era5-section p {
+  margin-bottom: 1rem;
 }

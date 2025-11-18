@@ -55,11 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
       heroTitle: 'Jose Alfredo Ocegueda Sanchez',
       heroSubtitle: 'Ph.D. Student in Atmospheric Sciences',
       aboutTitle: 'About Me',
-      aboutContent: `I am a Ph.D. student in Atmospheric Sciences with a passion for understanding
-      tropical cyclones, the Intertropical Convergence Zone (ITCZ), and the complex
-      dynamics that govern our climate system. My research combines numerical modelling,
-      theoretical analysis and observational datasets to unravel the physical processes
-      behind hurricanes and climate variability.`,
+      aboutContent: `I'm José Alfredo Ocegueda Sanchez, originally from Guadalajara Jalisco in Mexico. I'm currently a Ph.D. candidate in atmospheric science at Purdue University, working with Dan Chavas. My scientific interests are in tropical climate and tropical dynamics, particularly Tropical Cyclones and Monsoon systems. I'm also a foodie, and I love to see food (and languages!) as a window towards other cultures and to express ourselves in an easier (and delicious) way.`,
       footerName: 'Jose Alfredo Ocegueda Sanchez',
       researchPageTitle: 'Research – Jose Alfredo',
       researchTitle: 'Research',
@@ -97,12 +93,19 @@ document.addEventListener('DOMContentLoaded', () => {
       newsItem3Title: 'ClimART 2025',
       newsItem3Desc: `I finally was able to create the first Climate X Art competition at Purdue EAPS. Here is a small video of the winners. ClimART exists because I believe that data can be gorgeous and art can be scientific. Plots, Art, Schematics, etc., are ways to say “Hey, this is me,” even in a scientific environment.`,
       newsItem3Date: 'Nov 2025',
+      // Additional news entries
+      newsItem4Title: 'Passed my preliminary exam (May 2025)!',
+      newsItem4Desc: `I passed my preliminary exam, with a presentation titled “Climatology of ITCZ Breakdown Events and Their Impact on East Pacific Tropical Cyclogenesis,” so expect some ITCZ–TC genesis science in the coming months and years.`,
+      newsItem4Date: 'May 2025',
+      newsItem5Title: 'First manuscript accepted to GRL (April 2025)!',
+      newsItem5Desc: `My first project at Purdue was related to Eastern North Pacific tropical cyclone landfalls. We found that: (1) the Eastern North Pacific seasonal cycle has a bimodal distribution of tropical cyclone landfalls due to its orography; (2) during high landfall years, tropical cyclones make landfall in vulnerable southern Mexico due to a stronger reversal of the easterlies; and (3) steering wind anomalies are the main driver of interannual landfall variability in the eastern Pacific. You can read it here: https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2024GL113807.`,
+      newsItem5Date: 'Apr 2025',
       era5Title: 'ERA5 Maps',
-      era5Intro: 'This page provides interactive ERA5 climate maps.',
+      era5Intro: 'This page serves as a central hub for my interactive climate data visualizations using ERA5 data. Below you will find a brief tutorial (pending) on how to use the maps and links to the different applications.',
       era5MonthlyTitle: 'Monthly Means Maps',
-      era5MonthlyDesc: 'Use this map to explore monthly mean data.',
+      era5MonthlyDesc: 'View maps of monthly average with anomalies available data.',
       era5HourlyTitle: 'Hourly Maps',
-      era5HourlyDesc: 'Use this map to explore hourly data.',
+      era5HourlyDesc: 'Have a particular date that you want to check the weather?.',
       openMapLink: 'Open map in a new tab ↗'
     },
     es: {
@@ -114,12 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
       heroTitle: 'José Alfredo Ocegueda Sánchez',
       heroSubtitle: 'Estudiante de doctorado en Ciencias Atmosféricas',
       aboutTitle: 'Sobre mí',
-      aboutContent: `Soy estudiante de doctorado en Ciencias Atmosféricas y me apasiona comprender
-      los ciclones tropicales, la Zona de Convergencia Intertropical (ZCIT) y las
-      complejas dinámicas que gobiernan nuestro sistema climático. Mi investigación
-      combina modelado numérico, análisis teórico y conjuntos de datos observacionales
-      para desentrañar los procesos físicos detrás de los huracanes y la variabilidad
-      climática.`,
+      aboutContent: `Soy José Alfredo Ocegueda Sánchez, originario de Guadalajara, Jalisco, México. Actualmente soy candidato a doctorado en ciencias atmosféricas en la Universidad Purdue, trabajando con Dan Chavas. Mis intereses científicos están en el clima tropical y la dinámica tropical, especialmente los ciclones tropicales y los sistemas monzónicos. También soy un amante de la comida, y me encanta ver la comida (¡y los idiomas!) como una ventana hacia otras culturas y una forma deliciosa y sencilla de expresarnos.`,
       footerName: 'José Alfredo Ocegueda Sánchez',
       researchPageTitle: 'Investigación – José Alfredo',
       researchTitle: 'Investigación',
@@ -157,12 +155,19 @@ document.addEventListener('DOMContentLoaded', () => {
       newsItem3Title: 'ClimART 2025',
       newsItem3Desc: `Finalmente pude crear la primera competencia de Climate X Art en Purdue EAPS. Aquí hay un pequeño video de los ganadores. ClimART existe porque creo que los datos pueden ser hermosos y el arte puede ser científico. Gráficas, arte, esquemas, etc., son formas de decir “Hey, este soy yo”, incluso en un entorno científico.`,
       newsItem3Date: 'Nov 2025',
+      // Entradas de noticias adicionales
+      newsItem4Title: '¡Aprobé mi examen preliminar (mayo de 2025)!',
+      newsItem4Desc: `Aprobé mi examen preliminar con una presentación titulada “Climatología de los eventos de ruptura de la ZCIT y su impacto en la ciclogénesis tropical del Pacífico oriental”, así que esperen ver ciencia sobre la relación ZCIT–generación de ciclones tropicales en los próximos meses y años.`,
+      newsItem4Date: 'Mayo 2025',
+      newsItem5Title: '¡Primer manuscrito aceptado en GRL (abril de 2025)!',
+      newsItem5Desc: `Mi primer proyecto en Purdue se relacionó con los impactos de los ciclones tropicales del Pacífico nororiental. Encontramos que: (1) el ciclo estacional del Pacífico norte oriental tiene una distribución bimodal de los ciclones tropicales que tocan tierra debido a su orografía; (2) durante años con muchos ciclones, éstos tocan tierra en el sur vulnerable de México debido a una inversión más fuerte de los vientos alisios; y (3) las anomalías del viento de dirección son el principal factor de la variabilidad interanual de los ciclones que tocan tierra en el Pacífico oriental. Puedes leerlo aquí: https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2024GL113807.`,
+      newsItem5Date: 'Abr 2025',
       era5Title: 'Mapas ERA5',
-      era5Intro: 'Esta página proporciona mapas climáticos interactivos de ERA5.',
+      era5Intro: 'Esta página sirve como un centro para mis visualizaciones interactivas de datos climáticos utilizando los datos ERA5. A continuación encontrarás un breve tutorial (pendiente) sobre cómo utilizar los mapas y enlaces a las distintas aplicaciones.',
       era5MonthlyTitle: 'Mapas de medias mensuales',
-      era5MonthlyDesc: 'Utilice este mapa para explorar datos de medias mensuales.',
+      era5MonthlyDesc: 'Consulta mapas de promedios mensuales y anomalías disponibles.',
       era5HourlyTitle: 'Mapas por hora',
-      era5HourlyDesc: 'Utilice este mapa para explorar datos horarios.',
+      era5HourlyDesc: '¿Tienes una fecha en particular que quieras verificar el clima?.',
       openMapLink: 'Abrir mapa en una nueva pestaña ↗'
     }
   };

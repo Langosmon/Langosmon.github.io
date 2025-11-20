@@ -228,6 +228,41 @@ header .navbar .toggles button:focus {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
+/* Hacemos transparente el fondo principal para ver el globo */
+body {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* Aseguramos que el html (la base) sea oscuro por si el globo tarda en cargar */
+html {
+  background-color: #000; 
+}
+
+/* Ajustamos el texto para que sea legible sobre el espacio */
+body, p, h1, h2, h3, h4, h5, h6, li {
+  color: #ffffff; /* Texto blanco por defecto para contrastar con el espacio */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Sombra negra para leer mejor */
+}
+
+/* Forzamos colores oscuros en los enlaces para que se vean brillantes */
+a {
+  color: var(--secondary-colour) !important; 
+}
+
+/* Las tarjetas (noticias/proyectos) necesitan ser semi-transparentes pero legibles */
+.archive__item, .project, .news-item {
+  background: rgba(20, 30, 50, 0.85) !important; /* Azul oscuro casi negro semi-transparente */
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff !important;
+}
+
+/* El encabezado (Navbar) también semi-transparente */
+.masthead {
+  background: rgba(0, 0, 0, 0.6) !important;
+}
+
+
 /* Style the More News button */
 .news-toggle-btn {
   display: inline-block;

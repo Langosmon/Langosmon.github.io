@@ -2,22 +2,20 @@
 layout: home
 permalink: /
 title: "Home"
+author_profile: false
 ---
 
 <section class="hero">
   <h1><span class="lang-en">Jose Alfredo Ocegueda Sanchez</span><span class="lang-es">José Alfredo Ocegueda Sánchez</span></h1>
-  <p><span class="lang-en">Ph.D. Student in Atmospheric Sciences</span><span class="lang-es">Estudiante de doctorado en Ciencias Atmosféricas</span></p>
-  <!-- Provide a data-texture attribute so the JS can load the Earth texture via Three.js.
-       Jekyll will expand the relative_url filter correctly in the final HTML. -->
-  <canvas id="globeCanvas" data-texture="{{ '/images/earthmap.jpg' | relative_url }}"></canvas>
+  <p><span class="lang-en">Ph.D. Candidate in Atmospheric Sciences</span><span class="lang-es">Candidato a doctor en Ciencias Atmosféricas</span></p>
 </section>
 
 <section class="about">
   <img src="{{ '/images/Profile.JPEG' | relative_url }}" alt="Profile Picture" class="profile-pic">
   <h2><span class="lang-en">About Me</span><span class="lang-es">Sobre mí</span></h2>
   <p>
-    <span class="lang-en">I'm José Alfredo Ocegueda Sanchez, originally from Guadalajara Jalisco in Mexico. I'm currently a Ph.D. candidate in atmospheric science at Purdue University, working with Dan Chavas. My scientific interests are in tropical climate and tropical dynamics, particularly Tropical Cyclones and Monsoon systems. I'm also a foodie, and I love to see food (and languages!) as a window towards other cultures and to express ourselves in an easier (and delicious) way.</span>
-    <span class="lang-es">Soy José Alfredo Ocegueda Sánchez, originario de Guadalajara, Jalisco, México. Actualmente soy candidato a doctorado en ciencias atmosféricas en la Universidad Purdue, trabajando con Dan Chavas. Mis intereses científicos están en el clima tropical y la dinámica tropical, especialmente los ciclones tropicales y los sistemas monzónicos. También soy un amante de la comida, y me encanta ver la comida (¡y los idiomas!) como una ventana hacia otras culturas y una forma deliciosa y sencilla de expresarnos.</span>
+    <span class="lang-en">I'm José Alfredo Ocegueda Sanchez, originally from Guadalajara Jalisco in Mexico. I'm currently a Ph.D. candidate in atmospheric science at Purdue University, working with [Dan Chavas](https://web.ics.purdue.edu/~dchavas/). My scientific interests are in tropical climate and tropical dynamics, particularly Tropical Cyclones and Monsoon systems. I'm also a foodie, and I love to see food (and languages!) as a window towards other cultures and to express ourselves in an easier (and delicious) way.</span>
+    <span class="lang-es">Soy José Alfredo Ocegueda Sánchez, originario de Guadalajara, Jalisco, México. Actualmente soy candidato a doctorado en ciencias atmosféricas en la Universidad Purdue, trabajando con [Dan Chavas](https://web.ics.purdue.edu/~dchavas/). Mis intereses científicos están en el clima tropical y la dinámica tropical, especialmente los ciclones tropicales y los sistemas monzónicos. También soy un amante de la comida, y me encanta ver la comida (¡y los idiomas!) como una ventana hacia otras culturas y una forma deliciosa y sencilla de expresarnos.</span>
   </p>
 </section>
 

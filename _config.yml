@@ -146,6 +146,13 @@ exclude:
   - package.json
   - tmp
   - vendor
+  # Prevent Jekyll from processing legacy static pages and unused assets.
+  - index.html
+  - cv.html
+  - era5.html
+  - research.html
+  - css/style.css
+  - js/script.js
 keep_files:
   - .git
   - .svn

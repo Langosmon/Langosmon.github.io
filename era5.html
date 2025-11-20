@@ -7,12 +7,10 @@
   <link rel="stylesheet" href="css/style.css">
   <!-- Font Awesome icons for social links -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <!-- Google Fonts: Montserrat for headings/body and Fira Code for code snippets -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Fira+Code&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- 3D background container for Vanta.js effect -->
-  <div id="vanta-bg"></div>
   <header>
     <nav class="navbar">
       <div class="logo" data-i18n="siteName">Jose Alfredo</div>
@@ -29,19 +27,17 @@
     </nav>
   </header>
   <section class="page-header">
-    <div class="glass-panel">
-      <h1 data-i18n="era5Title">ERA5 Maps</h1>
-      <p data-i18n="era5Intro">This page serves as a central hub for my interactive climate data visualizations using ERA5 data. Below you will find a brief tutorial (pending) on how to use the maps and links to the different applications.</p>
-    </div>
+    <h1 data-i18n="era5Title">ERA5 Maps</h1>
+    <p data-i18n="era5Intro">This page serves as a central hub for my interactive climate data visualizations using ERA5 data. Below you will find a brief tutorial (pending) on how to use the maps and links to the different applications.</p>
   </section>
-  <section class="era5-section glass-panel">
+  <section class="era5-section">
     <h2 data-i18n="era5MonthlyTitle">Monthly Means Maps</h2>
     <p data-i18n="era5MonthlyDesc">View maps of monthly average with anomalies available data.</p>
     <iframe src="https://era5app-alfredocegueda.streamlit.app/?embed=true&embed_host=langosmon.github.io&embed_options=show_toolbar,show_padding,show_footer,light_theme"
             width="100%" height="600" frameborder="0" scrolling="no" style="min-width: 850px;" loading="lazy"></iframe>
     <p class="open-map"><a href="https://era5app-alfredocegueda.streamlit.app/" target="_blank" data-i18n="openMapLink">Open map in a new tab ↗</a></p>
   </section>
-  <section class="era5-section glass-panel">
+  <section class="era5-section">
     <h2 data-i18n="era5HourlyTitle">Hourly Maps</h2>
     <p data-i18n="era5HourlyDesc">Have a particular date that you want to check the weather?.</p>
     <iframe src="https://era5hourlyapp-alfredocegueda.streamlit.app/?embed=true&embed_host=langosmon.github.io&embed_options=show_toolbar,show_padding,show_footer,light_theme"
@@ -55,9 +51,6 @@
     </div>
     <p>&copy; <span id="year"></span> <span data-i18n="footerName">Jose Alfredo Ocegueda Sanchez</span></p>
   </footer>
-  <!-- Load three.js and Vanta.js for the interactive background -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>

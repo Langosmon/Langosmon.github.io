@@ -7,12 +7,10 @@
   <link rel="stylesheet" href="css/style.css">
   <!-- Font Awesome icons for social links -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <!-- Include Google Fonts: Montserrat for headings/body and Fira Code for code snippets -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Fira+Code&display=swap" rel="stylesheet">
+  <!-- Include Google Fonts for nicer typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- 3D background container for Vanta.js effect -->
-  <div id="vanta-bg"></div>
   <header>
     <nav class="navbar">
       <div class="logo" data-i18n="siteName">Jose Alfredo</div>
@@ -30,77 +28,71 @@
   </header>
 
   <section class="hero">
-    <div class="glass-panel">
-      <h1 data-i18n="heroTitle">Jose Alfredo Ocegueda Sanchez</h1>
-      <p data-i18n="heroSubtitle">Ph.D. Student in Atmospheric Sciences</p>
-    </div>
+    <h1 data-i18n="heroTitle">Jose Alfredo Ocegueda Sanchez</h1>
+    <p data-i18n="heroSubtitle">Ph.D. Student in Atmospheric Sciences</p>
   </section>
 
 <section class="about">
-  <div class="glass-panel">
-    <!-- Profile picture displayed above the About section -->
-    <img src="images/Profile.JPEG" alt="Profile Picture" class="profile-pic">
-    <h2 data-i18n="aboutTitle">About Me</h2>
-    <p data-i18n="aboutContent">
-      I'm José Alfredo Ocegueda Sanchez, originally from Guadalajara Jalisco in Mexico.
-      I'm currently a Ph.D. candidate in atmospheric science at Purdue University,
-      working with
-      <a href="https://web.ics.purdue.edu/~dchavas/" target="_blank" rel="noopener">
-        Dan Chavas
-      </a>.
-      My scientific interests are in Tropical climate and tropical dynamics, particularly
-      Tropical Cyclones and Monsoon systems.
-      I'm also a foodie, and I love to see food (and languages!) as a window towards other
-      cultures and to express ourselves in an easier (and delicious) way.
-    </p>
-  </div>
+  <!-- Profile picture displayed above the About section -->
+  <img src="images/Profile.JPEG" alt="Profile Picture" class="profile-pic">
+  <h2 data-i18n="aboutTitle">About Me</h2>
+  <p data-i18n="aboutContent">
+    I'm José Alfredo Ocegueda Sanchez, originally from Guadalajara Jalisco in Mexico.
+    I'm currently a Ph.D. candidate in atmospheric science at Purdue University,
+    working with
+    <a href="https://web.ics.purdue.edu/~dchavas/" target="_blank" rel="noopener">
+      Dan Chavas
+    </a>.
+    My scientific interests are in Tropical climate and tropical dynamics, particularly
+    Tropical Cyclones and Monsoon systems.
+    I'm also a foodie, and I love to see food (and languages!) as a window towards other
+    cultures and to express ourselves in an easier (and delicious) way.
+  </p>
 </section>
 
 <!-- News section showcasing recent updates -->
 <section class="news">
-  <div class="glass-panel">
-    <h2 data-i18n="newsTitle">News</h2>
+  <h2 data-i18n="newsTitle">News</h2>
 
-    <!-- Existing news entry with media (ClimART 2025) -->
-    <div class="news-item">
-      <h3 data-i18n="newsItem3Title">ClimART 2025</h3>
-      <p data-i18n="newsItem3Desc">
-        I finally was able to create the first Climate X Art competition at Purdue EAPS.
-        Here is a small video of the winners. ClimART exists because I believe that data
-        can be gorgeous and art can be scientific. Plots, art, schematics, etc., are ways
-        to say “Hey, this is me,” even in a scientific environment.
-      </p>
-      <!-- Embedded GIF illustrating the winners; adjust path as needed -->
-      <img src="images/climart2025.gif" alt="ClimART 2025 winners video" class="news-media">
-      <span class="news-date" data-i18n="newsItem3Date">Nov 2025</span>
-    </div>
+  <!-- Existing news entry with media (ClimART 2025) -->
+  <div class="news-item">
+    <h3 data-i18n="newsItem3Title">ClimART 2025</h3>
+    <p data-i18n="newsItem3Desc">
+      I finally was able to create the first Climate X Art competition at Purdue EAPS.
+      Here is a small video of the winners. ClimART exists because I believe that data
+      can be gorgeous and art can be scientific. Plots, art, schematics, etc., are ways
+      to say “Hey, this is me,” even in a scientific environment.
+    </p>
+    <!-- Embedded GIF illustrating the winners; adjust path as needed -->
+    <img src="images/climart2025.gif" alt="ClimART 2025 winners video" class="news-media">
+    <span class="news-date" data-i18n="newsItem3Date">Nov 2025</span>
+  </div>
 
-    <!-- New news entry: Preliminary exam -->
-    <div class="news-item">
-      <h3 data-i18n="newsItem4Title">Passed my preliminary exam (May 2025)!</h3>
-      <p data-i18n="newsItem4Desc">
-        I passed my preliminary exam, with a presentation titled
-        “Climatology of ITCZ Breakdown Events and Their Impact on East Pacific Tropical Cyclogenesis,”
-        so expect some ITCZ–TC genesis science in the coming months and years.
-      </p>
-      <span class="news-date" data-i18n="newsItem4Date">May 2025</span>
-    </div>
+  <!-- New news entry: Preliminary exam -->
+  <div class="news-item">
+    <h3 data-i18n="newsItem4Title">Passed my preliminary exam (May 2025)!</h3>
+    <p data-i18n="newsItem4Desc">
+      I passed my preliminary exam, with a presentation titled
+      “Climatology of ITCZ Breakdown Events and Their Impact on East Pacific Tropical Cyclogenesis,”
+      so expect some ITCZ–TC genesis science in the coming months and years.
+    </p>
+    <span class="news-date" data-i18n="newsItem4Date">May 2025</span>
+  </div>
 
-    <!-- New news entry: First GRL manuscript -->
-    <div class="news-item">
-      <h3 data-i18n="newsItem5Title">First manuscript accepted to GRL (April 2025)!</h3>
-      <p data-i18n="newsItem5Desc">
-        My first project at Purdue was related to Eastern North Pacific tropical cyclone landfalls.
-        We found that: (1) the Eastern North Pacific seasonal cycle has a bimodal distribution of
-        tropical cyclone landfalls due to its orography; (2) during high landfall years, tropical
-        cyclones make landfall in vulnerable southern Mexico due to a stronger reversal of the
-        easterlies; and (3) steering wind anomalies are the main driver of interannual landfall
-        variability in the eastern Pacific. You can read it
-        <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2024GL113807"
-           target="_blank" rel="noopener">here</a>.
-      </p>
-      <span class="news-date" data-i18n="newsItem5Date">Apr 2025</span>
-    </div>
+  <!-- New news entry: First GRL manuscript -->
+  <div class="news-item">
+    <h3 data-i18n="newsItem5Title">First manuscript accepted to GRL (April 2025)!</h3>
+    <p data-i18n="newsItem5Desc">
+      My first project at Purdue was related to Eastern North Pacific tropical cyclone landfalls.
+      We found that: (1) the Eastern North Pacific seasonal cycle has a bimodal distribution of
+      tropical cyclone landfalls due to its orography; (2) during high landfall years, tropical
+      cyclones make landfall in vulnerable southern Mexico due to a stronger reversal of the
+      easterlies; and (3) steering wind anomalies are the main driver of interannual landfall
+      variability in the eastern Pacific. You can read it
+      <a href="https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2024GL113807"
+         target="_blank" rel="noopener">here</a>.
+    </p>
+    <span class="news-date" data-i18n="newsItem5Date">Apr 2025</span>
   </div>
 </section>
 
@@ -115,9 +107,6 @@
     <p>&copy; <span id="year"></span> <span data-i18n="footerName">Jose Alfredo Ocegueda Sanchez</span></p>
   </footer>
 
-  <!-- Load three.js and Vanta.js for the interactive background -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>

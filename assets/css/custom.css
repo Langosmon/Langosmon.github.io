@@ -1,0 +1,326 @@
+/*
+ * Custom site styling for José Alfredo Ocegueda Sánchez’s portfolio.
+ *
+ * This stylesheet defines a modern colour palette with high contrast and
+ * readability in both light and dark modes. It also provides layout and
+ * component styles tailored to the custom Jekyll layouts used in this
+ * website. All colours are defined as CSS variables so they can be
+ * easily switched via the `dark-mode` class on the body element.
+ */
+
+/* Colour variables – light mode (default) */
+:root {
+  /* Base background and text colours */
+  --bg-colour: #f5f5f5;
+  --text-colour: #102a43;
+  /* Primary and secondary accent colours inspired by tropical oceans and
+   * coral reefs. These provide a vibrant but tasteful contrast against
+   * the neutral backgrounds. */
+  --primary-colour: #0077b6; /* deep ocean blue */
+  --secondary-colour: #00b4d8; /* turquoise wave */
+  --accent-colour: #f9c74f; /* golden sand */
+  --muted-colour: #e0e1dd; /* soft neutral for cards and panels */
+  /* Link and button colours */
+  --link-colour: var(--primary-colour);
+  --link-hover-colour: var(--secondary-colour);
+  /* Navbar colours */
+  --navbar-bg: var(--primary-colour);
+  --navbar-text: #ffffff;
+  --navbar-hover-bg: var(--secondary-colour);
+  /* Footer colours */
+  --footer-bg: var(--primary-colour);
+  --footer-text: #ffffff;
+}
+
+/* Colour variables – dark mode overrides */
+body.dark-mode {
+  --bg-colour: #0d253f; /* deep midnight blue */
+  --text-colour: #e0e1dd; /* very light gray for readability */
+  --primary-colour: #00a6fb; /* brighter blue for dark backgrounds */
+  --secondary-colour: #90e0ef; /* pale turquoise */
+  --accent-colour: #f7b32b; /* warm golden accent */
+  --muted-colour: #1e3a5f; /* muted panel background */
+  --link-colour: var(--secondary-colour);
+  --link-hover-colour: var(--accent-colour);
+  --navbar-bg: #001d3d;
+  --navbar-text: #e0e1dd;
+  --navbar-hover-bg: #003566;
+  --footer-bg: #001d3d;
+  --footer-text: #e0e1dd;
+}
+
+/* Global reset and typography */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-colour);
+  color: var(--text-colour);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  font-weight: 600;
+  color: var(--primary-colour);
+}
+
+section {
+  padding: 2rem 1rem;
+}
+
+a {
+  color: var(--link-colour);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover, a:focus {
+  color: var(--link-hover-colour);
+  text-decoration: underline;
+}
+
+/* Navbar styling */
+header .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--navbar-bg);
+  color: var(--navbar-text);
+}
+header .navbar .logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+header .navbar .nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+}
+header .navbar .nav-links li a {
+  color: var(--navbar-text);
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.3rem;
+  transition: background-color 0.2s ease;
+}
+header .navbar .nav-links li a:hover,
+header .navbar .nav-links li a:focus {
+  background-color: var(--navbar-hover-bg);
+  color: var(--navbar-text);
+}
+header .navbar .toggles button {
+  margin-left: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  background: var(--secondary-colour);
+  color: #fff;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s ease;
+}
+header .navbar .toggles button:hover,
+header .navbar .toggles button:focus {
+  background-color: var(--accent-colour);
+}
+
+/* Hero section */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1rem;
+  min-height: 60vh;
+  overflow: hidden;
+}
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+#globeCanvas {
+  width: 300px;
+  height: 300px;
+  pointer-events: none;
+}
+
+/* About section */
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.about .profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 4px solid var(--secondary-colour);
+}
+
+/* News section */
+.news {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.news-item {
+  background-color: var(--muted-colour);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.news-item h3 {
+  color: var(--primary-colour);
+}
+.news-item .news-media {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 0.3rem;
+  margin: 0.5rem 0;
+}
+.news-date {
+  font-size: 0.9rem;
+  color: var(--secondary-colour);
+}
+
+/* Footer styling */
+footer {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  text-align: center;
+  padding: 2rem 1rem;
+  margin-top: 3rem;
+}
+footer .social-links {
+  margin-bottom: 1rem;
+}
+footer .social-links a {
+  margin: 0 0.5rem;
+  color: var(--footer-text);
+  font-size: 1.3rem;
+  transition: color 0.2s ease;
+}
+footer .social-links a:hover,
+footer .social-links a:focus {
+  color: var(--accent-colour);
+}
+footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .hero {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    text-align: left;
+  }
+  #globeCanvas {
+    width: 400px;
+    height: 400px;
+  }
+  .about {
+    flex-direction: row;
+    text-align: left;
+  }
+  .about .profile-pic {
+    margin-right: 2rem;
+    margin-bottom: 0;
+  }
+}
+
+/* Page header for secondary pages (Research, CV, ERA5) */
+.page-header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+}
+.page-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-colour);
+}
+.page-header p {
+  font-size: 1rem;
+  color: var(--text-colour);
+}
+
+/* Research projects styling */
+.project-list {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.project {
+  background-color: var(--muted-colour);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+.project h2 {
+  margin-top: 0;
+  color: var(--primary-colour);
+}
+.project .media-container {
+  margin-top: 0.5rem;
+}
+.project .media-container img {
+  width: 100%;
+  border-radius: 0.3rem;
+}
+
+/* CV viewer styling */
+.cv-viewer {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.cv-viewer iframe {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* ERA5 maps section styling */
+.era5-section {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.era5-section h2 {
+  color: var(--primary-colour);
+}
+.era5-section ul {
+  list-style: none;
+  padding: 0;
+}
+.era5-section ul li {
+  margin-bottom: 0.5rem;
+}
+.era5-section ul li a {
+  background-color: var(--muted-colour);
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  display: inline-block;
+  transition: background-color 0.2s ease;
+  color: var(--primary-colour);
+}
+.era5-section ul li a:hover,
+.era5-section ul li a:focus {
+  background-color: var(--secondary-colour);
+  color: #ffffff;
+}

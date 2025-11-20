@@ -6,18 +6,7 @@
  */
 
 /* Root variables define the colour palette for the light theme */
-/*
- * Colour palette definitions
- *
- * The site supports both light and dark themes via CSS variables. The default
- * palette defines a subtle light scheme used when the page first loads and
- * no theme preference has been set. A richer tropical dark scheme is defined
- * below under the `.dark-mode` selector. When the user toggles dark mode the
- * variables in the `.dark-mode` block override the defaults, creating a neon
- * inspired look reminiscent of tropical storms and ITCZ dynamics.
- */
 :root {
-  /* Light theme variables (default) */
   --bg-color: #fdfdfd;
   --text-color: #333333;
   --primary-color: #005f73;
@@ -29,25 +18,15 @@
 }
 
 /* Dark mode overrides */
-/*
- * Dark theme overrides
- *
- * Inspired by the deep blues and magentas of a tropical night sky, this
- * palette uses a nearly black base for the background with neon cyan and
- * magenta highlights to evoke the feel of swirling hurricanes and the
- * shimmering ITCZ. The nav bar remains semi‑transparent, allowing the
- * Vanta.js background to shine through. Adjust these values to taste if
- * additional contrast is desired.
- */
 .dark-mode {
-  --bg-color: #020b14;      /* deep ocean blue */
-  --text-color: #e0e6ed;    /* soft white for legibility */
-  --primary-color: #00f3ff; /* neon cyan accent (wind/ocean) */
-  --secondary-color: #bc13fe; /* neon magenta (heat/energy) */
-  --accent-color: #00f3ff;
-  --nav-bg: rgba(2, 11, 20, 0.9);
-  --nav-text: #e0e6ed;
-  --link-hover: #bc13fe;
+  --bg-color: #111827;
+  --text-color: #d1d5db;
+  --primary-color: #0a9396;
+  --secondary-color: #94d2bd;
+  --accent-color: #ee9b00;
+  --nav-bg: rgba(17, 24, 39, 0.9);
+  --nav-text: #d1d5db;
+  --link-hover: #94d2bd;
 }
 
 /* Global reset and typography */
@@ -58,8 +37,7 @@
 }
 
 body {
-  /* Use Montserrat for a modern, clean look that pairs well with neon accents */
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
   line-height: 1.6;
@@ -335,65 +313,6 @@ footer {
 
 .social-links a:hover {
   color: var(--link-hover);
-}
-
-/* ------------------------------------------------------------------ */
-/* Custom styles for the tropical cyclone theme                           */
-/*                                                                       */
-/* The following classes introduce glassmorphism panels, interactive
- * profile images, and a background container for the Vanta.js 3D effect.
- * These elements collectively create a modern, neon‑lit aesthetic that
- * reflects the user's interest in hurricanes and the Intertropical
- * Convergence Zone.
- */
-
-/* 3D background container for Vanta.js animations */
-#vanta-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: -1;
-}
-
-/* Glassmorphism panels: apply to divs, sections, articles etc. */
-.glass-panel,
-article,
-section,
-.sidebar {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-  margin-bottom: 20px;
-}
-
-/* Impactful headings with neon accent bar */
-h1, h2, h3 {
-  color: #ffffff;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  border-left: 4px solid var(--primary-color);
-  padding-left: 15px;
-}
-
-/* Rotating profile images: simulate the eye of a hurricane */
-.profile-img,
-.profile-pic,
-.avatar {
-  border-radius: 50%;
-  border: 3px solid var(--secondary-color);
-  transition: transform 1s ease;
-}
-.profile-img:hover,
-.profile-pic:hover,
-.avatar:hover {
-  transform: rotate(360deg);
-  box-shadow: 0 0 20px var(--secondary-color);
 }
 
 /* ERA5 page sections */

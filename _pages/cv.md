@@ -1,59 +1,17 @@
 ---
-layout: archive
+layout: site
 title: "CV"
 permalink: /cv/
-author_profile: true
-redirect_from:
-  - /resume
 ---
 
-{% include base_path %}
+<section class="page-header">
+  <h1><span class="lang-en">Curriculum Vitae</span><span class="lang-es">Currículum vitae</span></h1>
+  <p>
+    <span class="lang-en">My CV is embedded below for your convenience. If you would like to download a copy, right-click on the viewer and select “Save As…”. To update your CV, replace the <code>files/cv.pdf</code> file in the repository.</span>
+    <span class="lang-es">Mi CV está incrustado a continuación para tu comodidad. Si deseas descargar una copia, haz clic derecho en el visor y selecciona «Guardar como…». Para actualizar tu CV, reemplaza el archivo <code>files/cv.pdf</code> en el repositorio.</span>
+  </p>
+</section>
 
-Education
-======
-* B.S. in GitHub, GitHub University, 2012
-* M.S. in Jekyll, GitHub University, 2014
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-
-Work experience
-======
-* Summer 2015: Research Assistant
-  * Github University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
-
-* Fall 2015: Research Assistant
-  * Github University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
-  
-Skills
-======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
-
-Publications
-======
-  <ul>{% for post in site.publications %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks %}
-    {% include archive-single-talk-cv.html %}
-  {% endfor %}</ul>
-  
-Teaching
-======
-  <ul>{% for post in site.teaching %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
+<section class="cv-viewer">
+  <iframe src="{{ '/files/cv.pdf' | relative_url }}" width="100%" height="800px" frameborder="0"></iframe>
+</section>

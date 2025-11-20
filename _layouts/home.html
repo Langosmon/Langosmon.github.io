@@ -1,0 +1,49 @@
+{% comment %}
+  Home layout for Jose Alfredo's personal website.
+  Provides a custom header with language and theme toggles and a footer. Content is inserted via {{ content }}.
+{% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {%- include head.html -%}
+  {%- include head/custom.html -%}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <span class="lang-en">Jose Alfredo</span>
+        <span class="lang-es">Jose Alfredo</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="{{ '/' | relative_url }}"><span class="lang-en">Home</span><span class="lang-es">Inicio</span></a></li>
+        <li><a href="{{ '/research/' | relative_url }}"><span class="lang-en">Research</span><span class="lang-es">Investigación</span></a></li>
+        <li><a href="{{ '/era5/' | relative_url }}"><span class="lang-en">ERA5 Maps</span><span class="lang-es">Mapas ERA5</span></a></li>
+        <li><a href="{{ '/cv/' | relative_url }}"><span class="lang-en">CV</span><span class="lang-es">CV</span></a></li>
+      </ul>
+      <div class="toggles">
+        <button id="dark-toggle" aria-label="Toggle dark mode">🌓</button>
+        <button id="lang-toggle" aria-label="Toggle language">ES</button>
+      </div>
+    </nav>
+  </header>
+  <main>
+    {{ content }}
+  </main>
+  <footer>
+    <div class="social-links">
+      <a href="https://github.com/{{ site.author.github }}" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      {% if site.author.linkedin %}
+      <a href="{{ site.author.linkedin }}" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      {% endif %}
+      <a href="mailto:{{ site.author.email }}" target="_blank" aria-label="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+    <p>&copy; <span id="year"></span> <span class="lang-en">{{ site.title }}</span><span class="lang-es">{{ site.title }}</span></p>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="{{ '/assets/js/site.js' | relative_url }}"></script>
+</body>
+</html>

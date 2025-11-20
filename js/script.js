@@ -191,39 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /**
-   * Initialise the Vanta.NET 3D background on the element with id
-   * `vanta-bg`.  The Vanta scripts are expected to be loaded via
-   * <script> tags in the HTML.  If the library has not yet loaded
-   * or the target element does not exist this function exits
-   * silently and may be called repeatedly without error.
-   */
-  function initializeVanta() {
-    if (typeof VANTA !== 'undefined' && document.getElementById('vanta-bg')) {
-      VANTA.NET({
-        el: '#vanta-bg',
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200.0,
-        minWidth: 200.0,
-        scale: 1.0,
-        scaleMobile: 1.0,
-        color: 0x00f3ff,        // neon cyan (wind/ocean)
-        backgroundColor: 0x020b14, // deep ocean backdrop
-        pointsColor: 0xbc13fe,  // magenta nodes (heat)
-        maxDistance: 22.0,
-        spacing: 18.0
-      });
-    }
-  }
-
   // Initial translation apply after page load
   applyTranslations();
-
-  // Initialise the Vanta background once translations have been set.
-  // This call will only run successfully if the Vanta library has been
-  // loaded via <script> tags in the HTML and an element with id
-  // 'vanta-bg' exists on the page.
-  initializeVanta();
 });

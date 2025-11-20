@@ -1,0 +1,33 @@
+<div id="globe-viz"></div>
+
+<script src="//unpkg.com/globe.gl"></script>
+<script>
+  // Configuración básica del globo
+  const world = Globe()
+    (document.getElementById('globe-viz'))
+    .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg') // Textura tipo NASA
+    .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+    .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png') // Fondo estrellado
+    .showAtmosphere(true) // ¡Importante para tu campo!
+    .atmosphereColor('lightskyblue')
+    .atmosphereAltitude(0.15);
+
+  // Auto-rotación suave
+  world.controls().autoRotate = true;
+  world.controls().autoRotateSpeed = 0.6;
+  
+  // Ajuste de cámara para que no moleste al texto (ligeramente alejado)
+  world.pointOfView({ lat: 20, lng: -80, altitude: 2.5 }); // Enfocado aprox en el Atlántico Tropical (zona de huracanes)
+</script>
+
+<style>
+  #globe-viz {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Detrás de todo */
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.6; /* Un poco transparente para que no distraiga mucho del texto */
+  }
+</style>

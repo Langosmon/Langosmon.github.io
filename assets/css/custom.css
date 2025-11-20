@@ -204,6 +204,30 @@ header .navbar .toggles button:focus {
   display: none;
 }
 
+/* assets/css/custom.css */
+
+/* Asegura que la imagen del teaser se vea completa y no recortada */
+.archive__item-teaser {
+  max-height: none !important; /* Quita la restricción de altura */
+  width: 100%;
+}
+
+.archive__item-teaser img {
+  width: 100%;
+  height: auto;
+  object-fit: contain !important; /* Esto es la clave: fuerza a que se vea toda la imagen */
+  border-radius: 4px; /* Un toque estético suave */
+}
+
+/* Opcional: Darle un poco de sombra a las tarjetas de noticias para que destaquen */
+.archive__item {
+    background: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente si ponemos el globo 3D */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 2em;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
 /* Style the More News button */
 .news-toggle-btn {
   display: inline-block;

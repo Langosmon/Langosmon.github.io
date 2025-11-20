@@ -1,33 +1,60 @@
 <div id="globe-viz"></div>
 
+<script src="//unpkg.com/three"></script>
 <script src="//unpkg.com/globe.gl"></script>
+
 <script>
-  // Configuración básica del globo
+  const globeContainer = document.getElementById('globe-viz');
+
+  // 1. Inicializar el globo base
   const world = Globe()
-    (document.getElementById('globe-viz'))
-    .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg') // Textura tipo NASA
+    (globeContainer)
+    .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
     .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
-    .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png') // Fondo estrellado
-    .showAtmosphere(true) // ¡Importante para tu campo!
+    .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+    .showAtmosphere(true)
     .atmosphereColor('lightskyblue')
     .atmosphereAltitude(0.15);
 
-  // Auto-rotación suave
+  // 2. Añadir capa de NUBES (Cloud Layer)
+  // Usamos una textura de nubes con transparencia
+  const CLOUDS_IMG_URL = '//unpkg.com/three-globe/example/img/clouds.png'; 
+  const CLOUDS_ALT = 0.004; // Altitud ligera sobre la superficie
+  const CLOUDS_ROTATION_SPEED = -0.01; // Rotación lenta y distinta a la tierra
+
+  new THREE.TextureLoader().load(CLOUDS_IMG_URL, cloudsTexture => {
+    const clouds = new THREE.Mesh(
+      new THREE.SphereGeometry(world.getGlobeRadius() * (1 + CLOUDS_ALT), 75, 75),
+      new THREE.MeshPhongMaterial({ map: cloudsTexture, transparent: true })
+    );
+    
+    // Añadimos las nubes a la escena del globo
+    world.scene().add(clouds);
+
+    // Función para rotar las nubes independientemente
+    (function rotateClouds() {
+      clouds.rotation.y += CLOUDS_ROTATION_SPEED * Math.PI / 180;
+      requestAnimationFrame(rotateClouds);
+    })();
+  });
+
+  // 3. Configuración de movimiento del mundo
   world.controls().autoRotate = true;
   world.controls().autoRotateSpeed = 0.6;
   
-  // Ajuste de cámara para que no moleste al texto (ligeramente alejado)
-  world.pointOfView({ lat: 20, lng: -80, altitude: 2.5 }); // Enfocado aprox en el Atlántico Tropical (zona de huracanes)
+  // Ajuste de cámara inicial (Enfocando Pacífico Oriental/México para tu investigación)
+  world.pointOfView({ lat: 18, lng: -100, altitude: 2.0 }); 
+
 </script>
 
 <style>
   #globe-viz {
-    position: fixed;
+    position: fixed; /* Fijo en el fondo */
     top: 0;
     left: 0;
-    z-index: -1; /* Detrás de todo */
+    z-index: -1; /* Detrás de todo el contenido */
     width: 100vw;
     height: 100vh;
-    opacity: 0.6; /* Un poco transparente para que no distraiga mucho del texto */
+    opacity: 0.65; /* Opacidad para que no compita con el texto */
   }
 </style>

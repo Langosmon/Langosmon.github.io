@@ -46,18 +46,20 @@ window.addEventListener('DOMContentLoaded', function() {
   if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
   }
-  // Initialize 3D globe if the canvas is present and Three.js is loaded
-  const canvas = document.getElementById('globeCanvas');
-  if (canvas && typeof THREE !== 'undefined') {
+  // Initialize 3D globe on demand. To ensure Three.js is available, this
+  // function encapsulates all globe setup logic. It can be invoked
+  // immediately if THREE is already loaded, or after dynamically
+  // loading the library when necessary.
+  function initGlobe() {
+    const canvas = document.getElementById('globeCanvas');
+    if (!canvas || typeof THREE === 'undefined') return;
     // Create renderer with transparent background so the globe floats over the page.
     const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
     camera.position.z = 7;
-
     // Geometry for the globe
     const geometry = new THREE.SphereGeometry(3, 64, 64);
-
     // Load Earth texture from the data attribute on the canvas.
     const texturePath = canvas.getAttribute('data-texture');
     const loader = new THREE.TextureLoader();
@@ -72,14 +74,12 @@ window.addEventListener('DOMContentLoaded', function() {
       });
       const sphere = new THREE.Mesh(geometry, material);
       scene.add(sphere);
-
       // Lighting – a soft white ambient and a directional light to highlight texture details.
       const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
       scene.add(ambientLight);
       const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
       directionalLight.position.set(5, 3, 5);
       scene.add(directionalLight);
-
       // Animation loop
       function animate() {
         requestAnimationFrame(animate);
@@ -92,7 +92,6 @@ window.addEventListener('DOMContentLoaded', function() {
       }
       animate();
     });
-
     // Handle window resizing
     window.addEventListener('resize', () => {
       renderer.setSize(canvas.clientWidth, canvas.clientHeight);
@@ -100,4 +99,63 @@ window.addEventListener('DOMContentLoaded', function() {
       camera.updateProjectionMatrix();
     });
   }
+
+  // Attempt to initialise the globe. If Three.js is not yet loaded, load it
+  // dynamically from a CDN and then initialise when available.
+  (function() {
+    const canvas = document.getElementById('globeCanvas');
+    if (!canvas) return;
+    if (typeof THREE !== 'undefined') {
+      initGlobe();
+    } else {
+      // Dynamically load Three.js from unpkg. Choose a version that is widely available.
+      const script = document.createElement('script');
+      script.src = 'https://unpkg.com/three@0.128.0/build/three.min.js';
+      script.onload = function() {
+        initGlobe();
+      };
+      script.onerror = function() {
+        console.error('Failed to load Three.js. Globe visualization will not be displayed.');
+      };
+      document.head.appendChild(script);
+    }
+  })();
+
+  // Collapse news items beyond the first three and create a "More News" toggle button
+  (function() {
+    const newsSection = document.querySelector('.news');
+    if (!newsSection) return;
+    const newsItems = newsSection.querySelectorAll('.news-item');
+    if (newsItems.length > 3) {
+      // Hide items beyond index 2
+      newsItems.forEach((item, index) => {
+        if (index >= 3) {
+          item.classList.add('collapsed');
+        }
+      });
+      // Create the toggle button
+      const toggleBtn = document.createElement('button');
+      toggleBtn.id = 'show-more-news';
+      toggleBtn.textContent = 'More News';
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      toggleBtn.className = 'news-toggle-btn';
+      newsSection.appendChild(toggleBtn);
+      toggleBtn.addEventListener('click', function() {
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        if (expanded) {
+          // Collapse back to top 3
+          newsItems.forEach((item, index) => {
+            if (index >= 3) item.classList.add('collapsed');
+          });
+          this.textContent = 'More News';
+          this.setAttribute('aria-expanded', 'false');
+        } else {
+          // Show all
+          newsItems.forEach(item => item.classList.remove('collapsed'));
+          this.textContent = 'Show Less';
+          this.setAttribute('aria-expanded', 'true');
+        }
+      });
+    }
+  })();
 });

@@ -1,15 +1,13 @@
-/*
- * Custom site styling for José Alfredo Ocegueda Sánchez’s portfolio.
- */
+/* Custom site styling for José Alfredo Ocegueda Sánchez’s portfolio */
 
-/* Colour variables – light mode (default) */
+/* Colour variables – light mode */
 :root {
   --bg-colour: #f5f5f5;
   --text-colour: #102a43;
   --primary-colour: #0077b6; /* deep ocean blue */
   --secondary-colour: #00b4d8; /* turquoise wave */
   --accent-colour: #f9c74f; /* golden sand */
-  --muted-colour: #e0e1dd; /* soft neutral for cards and panels */
+  --muted-colour: #e0e1dd; /* soft neutral */
   --link-colour: var(--primary-colour);
   --link-hover-colour: var(--secondary-colour);
   --navbar-bg: var(--primary-colour);
@@ -19,10 +17,10 @@
   --footer-text: #ffffff;
 }
 
-/* Colour variables – dark mode overrides */
+/* Dark mode overrides */
 body.dark-mode {
   --bg-colour: #0d253f; /* deep midnight blue */
-  --text-colour: #e0e1dd; /* very light gray for readability */
+  --text-colour: #e0e1dd; /* very light gray */
   --primary-colour: #00a6fb; 
   --secondary-colour: #90e0ef; 
   --accent-colour: #f7b32b; 
@@ -36,15 +34,15 @@ body.dark-mode {
   --footer-text: #e0e1dd;
 }
 
-/* Global reset */
+/* Global Styles */
 body {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-  background-color: transparent; /* Transparente para ver el globo */
+  background-color: transparent !important; /* IMPORTANTE: Transparente para el globo */
   color: var(--text-colour);
   line-height: 1.6;
-  overflow-x: hidden; /* Evita scroll horizontal indeseado */
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -53,21 +51,17 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--primary-colour);
 }
 
-section {
-  padding: 2rem 1rem;
-}
-
 a {
   color: var(--link-colour);
   text-decoration: none;
   transition: color 0.2s ease;
 }
-a:hover, a:focus {
+a:hover {
   color: var(--link-hover-colour);
   text-decoration: underline;
 }
 
-/* Navbar styling */
+/* Navbar */
 header .navbar {
   display: flex;
   justify-content: space-between;
@@ -75,48 +69,25 @@ header .navbar {
   padding: 0.5rem 1rem;
   background-color: var(--navbar-bg);
   color: var(--navbar-text);
-  /* Asegura que la barra de navegación esté siempre arriba */
   position: relative;
   z-index: 100;
 }
-header .navbar .logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-}
+header .navbar .logo { font-size: 1.5rem; font-weight: 700; }
 header .navbar .nav-links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  gap: 1rem;
+  list-style: none; margin: 0; padding: 0; display: flex; gap: 1rem;
 }
 header .navbar .nav-links li a {
-  color: var(--navbar-text);
-  padding: 0.3rem 0.6rem;
-  border-radius: 0.3rem;
-  transition: background-color 0.2s ease;
+  color: var(--navbar-text); padding: 0.3rem 0.6rem; border-radius: 0.3rem; transition: background 0.2s;
 }
-header .navbar .nav-links li a:hover,
-header .navbar .nav-links li a:focus {
-  background-color: var(--navbar-hover-bg);
-  color: var(--navbar-text);
-}
+header .navbar .nav-links li a:hover { background-color: var(--navbar-hover-bg); }
 header .navbar .toggles button {
-  margin-left: 0.5rem;
-  padding: 0.3rem 0.6rem;
-  background: var(--secondary-colour);
-  color: #fff;
-  border: none;
-  border-radius: 0.3rem;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.2s ease;
+  margin-left: 0.5rem; padding: 0.3rem 0.6rem; background: var(--secondary-colour);
+  color: #fff; border: none; border-radius: 0.3rem; cursor: pointer;
 }
-header .navbar .toggles button:hover {
-  background-color: var(--accent-colour);
-}
+header .navbar .toggles button:hover { background-color: var(--accent-colour); }
 
-/* Hero section (Donde está tu nombre) */
+
+/* Hero Section (Transparente para ver el globo) */
 .hero {
   position: relative;
   display: flex;
@@ -125,171 +96,84 @@ header .navbar .toggles button:hover {
   justify-content: center;
   text-align: center;
   padding: 4rem 1rem;
-  min-height: 60vh;
-  background-color: transparent; /* IMPORTANTE: Transparente para ver el globo */
+  min-height: 50vh; /* Altura suficiente para disfrutar el globo */
+  background-color: transparent;
   z-index: 10; 
 }
 .hero h1, .hero p {
-  text-shadow: 0 4px 15px rgba(0,0,0,0.9); /* Sombra fuerte para leer sobre el globo */
+  text-shadow: 0 4px 15px rgba(0,0,0,0.9);
   color: #ffffff; 
 }
 
-/* Corrección del ID del globo para que coincida con _includes/background-globe.html */
-#globe-viz, #globeCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none; /* Deja pasar los clics */
-}
-
-/* About section */
-.about {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
-}
-.about .profile-pic {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1rem;
-  border: 4px solid var(--secondary-colour);
-}
-
-/* News section */
-.news {
-  max-width: 800px;
-  margin: 0 auto;
-}
-.news-item {
-  background-color: var(--muted-colour);
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-.news-item h3 {
-  color: var(--primary-colour);
-}
-.news-item .news-media {
-  width: 100%;
-  height: auto;
-  max-height: 300px;
-  object-fit: contain;
-  border-radius: 0.3rem;
-  margin: 0.5rem 0;
-}
-.news-date {
-  font-size: 0.9rem;
-  color: var(--secondary-colour);
-}
-
-/* --- BLOQUES DE CONTENIDO SÓLIDO --- */
-/* Esto recupera el fondo blanco/azul debajo del Hero para que se lea el texto */
+/* --- BLOQUES DE CONTENIDO (Tarjetas sólidas) --- */
+/* Esto asegura que el texto de Research/CV tenga fondo y sea legible */
 .about, 
 .news, 
-.page-header, 
-.project-list, 
-.cv-viewer, 
-.era5-section,
+.page,       /* <--- Añadido para páginas genéricas */
+.archive,    /* <--- Añadido para listas de posts */
+.page__content, 
 footer {
   background-color: var(--bg-colour); 
   position: relative;
   z-index: 10; 
   padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto; /* Centrado */
 }
 
-/* Estilo de tarjeta flotante para About */
-.about {
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  margin-top: 0; 
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+/* Estilo visual de tarjeta flotante */
+.about, .page, .archive {
+  border-radius: 20px;
+  margin-top: 20px; 
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
-.news-item.collapsed {
-  display: none;
+/* News Section Styling */
+.news-item {
+  background-color: var(--muted-colour);
+  padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
+.news-item h3 { color: var(--primary-colour); }
+.news-item .news-media {
+  width: 100%; height: auto; max-height: 300px; object-fit: contain; margin: 0.5rem 0;
+}
+.news-date { font-size: 0.9rem; color: var(--secondary-colour); }
+.news-item.collapsed { display: none; }
+
+/* Botón Ver Más Noticias */
 .news-toggle-btn {
-  display: inline-block;
-  margin: 1rem auto 0 auto;
-  padding: 0.5rem 1rem;
-  background-color: var(--secondary-colour);
-  color: #fff;
-  border: none;
-  border-radius: 0.3rem;
-  cursor: pointer;
-  font-size: 1rem;
-  text-align: center;
-  transition: background-color 0.2s ease;
+  display: inline-block; margin: 1rem auto; padding: 0.5rem 1rem;
+  background-color: var(--secondary-colour); color: #fff; border: none;
+  border-radius: 0.3rem; cursor: pointer; text-align: center;
 }
+.news-toggle-btn:hover { background-color: var(--accent-colour); }
 
-/* Footer styling */
+/* Footer */
 footer {
-  background-color: var(--footer-bg);
-  color: var(--footer-text);
-  text-align: center;
-  padding: 2rem 1rem;
-  margin-top: 0; /* Pegado al contenido */
+  background-color: var(--footer-bg); color: var(--footer-text);
+  text-align: center; margin-top: 0; width: 100%; max-width: 100%;
+  border-radius: 0;
 }
 footer .social-links a {
-  margin: 0 0.5rem;
-  color: var(--footer-text);
-  font-size: 1.3rem;
+  margin: 0 0.5rem; color: var(--footer-text); font-size: 1.3rem;
 }
 
-/* --- MOBILE / RESPONSIVE FIXES (ESTO ARREGLA EL SCROLL HORIZONTAL) --- */
+/* --- MOBILE FIXES --- */
 @media screen and (max-width: 850px) {
-  /* Hacemos que la barra de navegación se apile verticalmente */
   header .navbar {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem;
+    flex-direction: column; text-align: center; padding: 1rem;
   }
-
   header .navbar .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 10px 0;
-    gap: 0.5rem;
+    flex-wrap: wrap; justify-content: center; margin: 10px 0; gap: 0.5rem;
   }
-
   header .navbar .toggles {
-    margin-top: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  /* Ajustamos el tamaño de fuente del hero en móviles */
-  .hero h1 {
-    font-size: 1.8rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .hero {
-    flex-direction: row;
-    justify-content: space-around;
-  }
-  .about {
-    flex-direction: column;
+    margin-top: 10px; width: 100%; display: flex; justify-content: center; gap: 10px;
   }
 }
 
 .about .profile-pic {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1rem;
-  border: 6px solid var(--secondary-colour);
+  width: 200px; height: 200px; border-radius: 50%; object-fit: cover;
+  margin-bottom: 1rem; border: 6px solid var(--secondary-colour);
 }

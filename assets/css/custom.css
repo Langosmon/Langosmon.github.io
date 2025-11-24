@@ -54,9 +54,10 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-  background-color: var(--bg-colour);
+  background-color: transparent; /* ANTES ERA: var(--bg-colour) */
   color: var(--text-colour);
   line-height: 1.6;
+  overflow-x: hidden; /* Esto evita el scroll horizontal en celulares */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -136,15 +137,12 @@ header .navbar .toggles button:focus {
   text-align: center;
   padding: 4rem 1rem;
   min-height: 60vh;
-  overflow: hidden;
+  background-color: transparent; /* Aseguramos que sea invisible */
+  z-index: 10; /* Para que el texto esté sobre el globo */
 }
-.hero h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-}
-.hero p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
+.hero h1, .hero p {
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8); 
+  color: #ffffff; /* Forzamos blanco en el hero para contraste con el espacio */
 }
 #globeCanvas {
   width: 300px;
@@ -197,6 +195,29 @@ header .navbar .toggles button:focus {
 .news-date {
   font-size: 0.9rem;
   color: var(--secondary-colour);
+}
+
+
+/* --- New Modification --- */
+.about, 
+.news, 
+.page-header, 
+.project-list, 
+.cv-viewer, 
+.era5-section,
+footer {
+  background-color: var(--bg-colour); /* Aquí recuperamos el color (blanco o azul oscuro) */
+  position: relative;
+  z-index: 10; /* Encima del globo */
+  padding: 2rem 1rem; /* Mantenemos el padding */
+}
+
+/* Ajuste visual: Un pequeño borde superior para separar el hero del contenido */
+.about {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin-top: 0; 
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
 }
 
 /* Collapse news items beyond the first three by default */

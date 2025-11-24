@@ -1,7 +1,3 @@
-{% comment %}
-  Home layout for Jose Alfredo's personal website.
-  Provides a custom header with language and theme toggles and a footer. Content is inserted via {{ content }}.
-{% endcomment %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,12 +7,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
 </head>
-<body>
+<body style="background-color: #000;"> {% include background-globe.html %}
+
   <header>
     <nav class="navbar">
       <div class="logo">
         <span class="lang-en">Jose Alfredo</span>
-        <span class="lang-es">Jose Alfredo</span>
+        <span class="lang-es">José Alfredo</span>
       </div>
       <ul class="nav-links">
         <li><a href="{{ '/' | relative_url }}"><span class="lang-en">Home</span><span class="lang-es">Inicio</span></a></li>
@@ -30,9 +27,11 @@
       </div>
     </nav>
   </header>
+  
   <main>
     {{ content }}
   </main>
+  
   <footer>
     <div class="social-links">
       <a href="https://github.com/{{ site.author.github }}" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
@@ -43,7 +42,12 @@
     </div>
     <p>&copy; <span id="year"></span> <span class="lang-en">{{ site.title }}</span><span class="lang-es">{{ site.title }}</span></p>
   </footer>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="{{ '/assets/js/site.js' | relative_url }}"></script>
+  
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>

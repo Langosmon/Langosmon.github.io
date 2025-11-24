@@ -5,10 +5,10 @@ title: "Home"
 author_profile: false
 ---
 
-<section class="hero" style="background-image: url('https://eoimages.gsfc.nasa.gov/images/imagerecords/144000/144057/florence_iss_2018257_lrg.jpg'); background-size: cover; background-position: center; padding: 100px 20px; color: white; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); border-radius: 5px;">
+<section class="hero">
   <div style="max-width: 800px; margin: 0 auto;">
-  <h1 style="color: white;"><span class="lang-en">Jose Alfredo Ocegueda Sanchez</span><span class="lang-es">José Alfredo Ocegueda Sánchez</span></h1>
-  <p style="font-size: 1.5em; font-weight: bold;"><span class="lang-en">Ph.D. Candidate in Atmospheric Sciences</span><span class="lang-es">Candidato a doctor en Ciencias Atmosféricas</span></p>
+    <h1 style="color: white;"><span class="lang-en">Jose Alfredo Ocegueda Sanchez</span><span class="lang-es">José Alfredo Ocegueda Sánchez</span></h1>
+    <p style="font-size: 1.5em; font-weight: bold;"><span class="lang-en">Ph.D. Candidate in Atmospheric Sciences</span><span class="lang-es">Candidato a doctor en Ciencias Atmosféricas</span></p>
   </div>
 </section>
 

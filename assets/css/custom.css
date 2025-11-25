@@ -1,13 +1,17 @@
-/* Custom site styling for José Alfredo Ocegueda Sánchez’s portfolio */
+/*
+ * Custom site styling for José Alfredo Ocegueda Sánchez’s portfolio.
+ */
 
-/* Colour variables – light mode */
+/* Colour variables – light mode (default) */
 :root {
   --bg-colour: #f5f5f5;
   --text-colour: #102a43;
   --primary-colour: #0077b6; /* deep ocean blue */
   --secondary-colour: #00b4d8; /* turquoise wave */
   --accent-colour: #f9c74f; /* golden sand */
-  --muted-colour: #e0e1dd; /* soft neutral */
+  --muted-colour: #ffffff;   /* Blanco sólido para tarjetas en modo luz */
+  --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  
   --link-colour: var(--primary-colour);
   --link-hover-colour: var(--secondary-colour);
   --navbar-bg: var(--primary-colour);
@@ -17,14 +21,16 @@
   --footer-text: #ffffff;
 }
 
-/* Dark mode overrides */
+/* Colour variables – dark mode overrides */
 body.dark-mode {
   --bg-colour: #0d253f; /* deep midnight blue */
-  --text-colour: #e0e1dd; /* very light gray */
+  --text-colour: #e0e1dd; /* very light gray for readability */
   --primary-colour: #00a6fb; 
   --secondary-colour: #90e0ef; 
   --accent-colour: #f7b32b; 
-  --muted-colour: #1e3a5f; 
+  --muted-colour: #1e3a5f; /* Azul oscuro para tarjetas en modo oscuro */
+  --card-shadow: 0 4px 6px rgba(0,0,0,0.3);
+
   --link-colour: var(--secondary-colour);
   --link-hover-colour: var(--accent-colour);
   --navbar-bg: #001d3d;
@@ -34,15 +40,15 @@ body.dark-mode {
   --footer-text: #e0e1dd;
 }
 
-/* Global Styles */
+/* Global reset */
 body {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-  background-color: transparent !important; /* IMPORTANTE: Transparente para el globo */
+  background-color: transparent !important; /* Transparente para ver el globo */
   color: var(--text-colour);
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: hidden; /* Evita scroll horizontal */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -56,12 +62,12 @@ a {
   text-decoration: none;
   transition: color 0.2s ease;
 }
-a:hover {
+a:hover, a:focus {
   color: var(--link-hover-colour);
   text-decoration: underline;
 }
 
-/* Navbar */
+/* Navbar styling */
 header .navbar {
   display: flex;
   justify-content: space-between;
@@ -87,7 +93,7 @@ header .navbar .toggles button {
 header .navbar .toggles button:hover { background-color: var(--accent-colour); }
 
 
-/* Hero Section (Transparente para ver el globo) */
+/* Hero section (Transparente para el globo) */
 .hero {
   position: relative;
   display: flex;
@@ -96,68 +102,117 @@ header .navbar .toggles button:hover { background-color: var(--accent-colour); }
   justify-content: center;
   text-align: center;
   padding: 4rem 1rem;
-  min-height: 50vh; /* Altura suficiente para disfrutar el globo */
+  min-height: 50vh; 
   background-color: transparent;
   z-index: 10; 
 }
 .hero h1, .hero p {
-  text-shadow: 0 4px 15px rgba(0,0,0,0.9);
+  text-shadow: 0 4px 15px rgba(0,0,0,0.9); /* Sombra para leer sobre el globo */
   color: #ffffff; 
 }
 
-/* --- BLOQUES DE CONTENIDO (Tarjetas sólidas) --- */
-/* Esto asegura que el texto de Research/CV tenga fondo y sea legible */
+/* Globo en el fondo */
+#globe-viz, #globeCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}
+
+/* --- CONTENEDORES PRINCIPALES (Readability & Width Fix) --- */
+
+/* 1. Fondo sólido adaptativo para que se lea el texto sobre el globo */
+/* 2. MAX-WIDTH para que no se estire en pantallas gigantes */
 .about, 
 .news, 
-.page,       /* <--- Añadido para páginas genéricas */
-.archive,    /* <--- Añadido para listas de posts */
-.page__content, 
+.page, 
+.archive, 
+.page__inner-wrap,
+.page__content,
 footer {
-  background-color: var(--bg-colour); 
+  background-color: var(--bg-colour); /* Se adapta a modo oscuro/claro */
   position: relative;
   z-index: 10; 
   padding: 2rem 1rem;
-  max-width: 1200px;
-  margin: 0 auto; /* Centrado */
+  
+  /* CINTURÓN DE SEGURIDAD PARA PANTALLAS GRANDES */
+  max-width: 1280px !important; 
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Estilo visual de tarjeta flotante */
+/* Estilo de "Tarjeta Flotante" para las secciones principales */
 .about, .page, .archive {
-  border-radius: 20px;
+  border-radius: 15px;
   margin-top: 20px; 
   margin-bottom: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1); /* Sombra suave */
 }
 
-/* News Section Styling */
-.news-item {
-  background-color: var(--muted-colour);
-  padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+/* --- TARJETAS INDIVIDUALES (News, Projects, Papers) --- */
+.news-item, 
+.archive__item,
+.project {
+  background-color: var(--muted-colour); /* <--- ESTA ES LA CORRECCIÓN DEL MODO OSCURO */
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(0,0,0,0.05); /* Borde sutil */
 }
-.news-item h3 { color: var(--primary-colour); }
-.news-item .news-media {
-  width: 100%; height: auto; max-height: 300px; object-fit: contain; margin: 0.5rem 0;
-}
-.news-date { font-size: 0.9rem; color: var(--secondary-colour); }
-.news-item.collapsed { display: none; }
 
-/* Botón Ver Más Noticias */
+/* Asegura que el texto dentro de las tarjetas tenga el color correcto */
+.news-item h3, .archive__item-title, .project h2 {
+  color: var(--primary-colour);
+}
+.news-item p, .archive__item-excerpt, .project p {
+  color: var(--text-colour);
+}
+
+/* Imágenes dentro de las noticias/proyectos */
+.news-item .news-media, 
+.project .media-container img,
+.archive__item-teaser img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+.news-date {
+  font-size: 0.9rem;
+  color: var(--secondary-colour);
+  font-weight: bold;
+}
+
+/* Botón Ver Más */
 .news-toggle-btn {
-  display: inline-block; margin: 1rem auto; padding: 0.5rem 1rem;
-  background-color: var(--secondary-colour); color: #fff; border: none;
-  border-radius: 0.3rem; cursor: pointer; text-align: center;
+  display: block; 
+  margin: 1rem auto; 
+  padding: 0.8rem 2rem;
+  background-color: var(--secondary-colour);
+  color: #fff; border: none;
+  border-radius: 2rem; cursor: pointer; text-align: center;
+  font-weight: bold;
 }
 .news-toggle-btn:hover { background-color: var(--accent-colour); }
 
 /* Footer */
 footer {
-  background-color: var(--footer-bg); color: var(--footer-text);
-  text-align: center; margin-top: 0; width: 100%; max-width: 100%;
-  border-radius: 0;
+  text-align: center; 
+  margin-top: 0; 
+  width: 100%;
+  border-radius: 0; /* Footer ocupa todo el ancho visualmente al final */
 }
 footer .social-links a {
-  margin: 0 0.5rem; color: var(--footer-text); font-size: 1.3rem;
+  margin: 0 0.5rem; color: var(--footer-text); font-size: 1.5rem;
 }
 
 /* --- MOBILE FIXES --- */
@@ -170,6 +225,12 @@ footer .social-links a {
   }
   header .navbar .toggles {
     margin-top: 10px; width: 100%; display: flex; justify-content: center; gap: 10px;
+  }
+  /* En celular, quitamos el margen lateral grande para aprovechar espacio */
+  .about, .news, .page, .archive {
+    width: 95%;
+    margin: 10px auto;
+    padding: 1.5rem 1rem;
   }
 }
 

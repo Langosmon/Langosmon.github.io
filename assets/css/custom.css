@@ -4,12 +4,12 @@
 
 /* Colour variables – light mode (default) */
 :root {
-  --bg-colour: #f5f5f5;
+  --bg-colour: rgba(245, 245, 245, 0.85);
   --text-colour: #102a43;
   --primary-colour: #0077b6; /* deep ocean blue */
   --secondary-colour: #00b4d8; /* turquoise wave */
-  --accent-colour: #f9c74f; /* golden sand */
-  --muted-colour: #ffffff;   /* Blanco sólido para tarjetas en modo luz */
+  -accent-colour: #f9c74f; /* golden sand */
+  --muted-colour: rgba(255, 255, 255, 0.8);
   --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
   
   --link-colour: var(--primary-colour);
@@ -23,12 +23,11 @@
 
 /* Colour variables – dark mode overrides */
 body.dark-mode {
-  --bg-colour: #0d253f; /* deep midnight blue */
-  --text-colour: #e0e1dd; /* very light gray for readability */
+  ---bg-colour: rgba(13, 37, 63, 0.85); /* deep midnight blue */
   --primary-colour: #00a6fb; 
-  --secondary-colour: #90e0ef; 
+  --scondary-colour: #90e0ef; 
   --accent-colour: #f7b32b; 
-  --muted-colour: #1e3a5f; /* Azul oscuro para tarjetas en modo oscuro */
+  --muted-colour: rgba(30, 58, 95, 0.8); /* Azul oscuro para tarjetas en modo oscuro */
   --card-shadow: 0 4px 6px rgba(0,0,0,0.3);
 
   --link-colour: var(--secondary-colour);

@@ -13,5 +13,5 @@ permalink: /cv/
 </section>
 
 <section class="cv-viewer">
-  <iframe src="{{ '/files/cv.pdf' | relative_url }}" width="100%" height="800px" frameborder="0"></iframe>
+  <<irame src="{{ '/files/Jose_Ocegueda_CV.pdf' | relative_url }}" width="100%" height="800px" frameborder="0"></iframe>
 </section>

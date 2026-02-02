@@ -8,8 +8,8 @@
   --text-colour: #102a43;
   --primary-colour: #0077b6; /* deep ocean blue */
   --secondary-colour: #00b4d8; /* turquoise wave */
-  -accent-colour: #f9c74f; /* golden sand */
-  ---muted-colour: rgba(245, 245, 245, 0.85);
+  --accent-colour: #f9c74f; /* golden sand */
+  --muted-colour: rgba(245, 245, 245, 0.85);
   --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
   
   --link-colour: var(--primary-colour);
@@ -25,7 +25,7 @@
 body.dark-mode {
   ---bg-colour: rgba(13, 37, 63, 0.85); /* deep midnight blue */
   --primary-colour: #00a6fb; 
-  --scondary-colour: #90e0ef; 
+  ---secondary-colour: #90e0ef;
   --accent-colour: #f7b32b; 
   --muted-colour: rgba(13, 37, 63, 0.85); /* Azul oscuro para tarjetas en modo oscuro */
   --card-shadow: 0 4px 6px rgba(0,0,0,0.3);
@@ -154,9 +154,14 @@ footer {
 }
 
 /* --- TARJETAS INDIVIDUALES (News, Projects, Papers) --- */
-.n.news-item,
-.archive__item,
-.project {
+.news-item,
+.archive__item.project {
+  padding: 1.5rem 0;
+  margin-bottom: 1.5rem;
+  background-color: var(--bg-colour);
+  border: none;
+  box-shadow: none;
+}/*roject {
   padding: 1.5rem 0;
   margin-bottom: 1.5rem;
   background-color: transparent;

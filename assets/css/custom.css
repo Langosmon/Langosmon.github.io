@@ -154,20 +154,20 @@ footer {
 }
 
 /* --- TARJETAS INDIVIDUALES (News, Projects, Papers) --- */
-.news-item, 
+.n.news-item,
 .archive__item,
 .project {
-  background-color: var(--bg-colour); /* unify backgrounds */
-  padding: 1.5rem;
-  border-radius: 0.5rem;
+  padding: 1.5rem 0;
   margin-bottom: 1.5rem;
-  box-shadow: var(--card-shadow);
-  border: 1px solid rgba(0,0,0,0.05); /* Borde sutil */
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
 }
 
-/* Asegura que el texto dentro de las tarjetas tenga el color correcto */
-.news-item h3, .archive__item-title, .project h2 {
-  color: var(--primary-colour);
+
+er: none;
+  box-shadow: none;
+or: var(--primary-colour);
 }
 .news-item p, .archive__item-excerpt, .project p {
   color: var(--text-colour);
@@ -236,4 +236,17 @@ footer .social-links a {
 .about .profile-pic {
   width: 200px; height: 200px; border-radius: 50%; object-fit: cover;
   margin-bottom: 1rem; border: 6px solid var(--secondary-colour);
+}
+
+
+/* Override card styles to remove separate backgrounds for posts/projects */
+.news-item,
+.archive___item,
+.project {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }

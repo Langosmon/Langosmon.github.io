@@ -9,7 +9,7 @@
   --primary-colour: #0077b6; /* deep ocean blue */
   --secondary-colour: #00b4d8; /* turquoise wave */
   -accent-colour: #f9c74f; /* golden sand */
-  --muted-colour: rgba(255, 255, 255, 0.8);
+  ---muted-colour: rgba(245, 245, 245, 0.85);
   --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
   
   --link-colour: var(--primary-colour);
@@ -27,7 +27,7 @@ body.dark-mode {
   --primary-colour: #00a6fb; 
   --scondary-colour: #90e0ef; 
   --accent-colour: #f7b32b; 
-  --muted-colour: rgba(30, 58, 95, 0.8); /* Azul oscuro para tarjetas en modo oscuro */
+  --muted-colour: rgba(13, 37, 63, 0.85); /* Azul oscuro para tarjetas en modo oscuro */
   --card-shadow: 0 4px 6px rgba(0,0,0,0.3);
 
   --link-colour: var(--secondary-colour);
@@ -157,7 +157,7 @@ footer {
 .news-item, 
 .archive__item,
 .project {
-  background-color: var(--muted-colour); /* <--- ESTA ES LA CORRECCIÓN DEL MODO OSCURO */
+  background-color: var(--bg-colour); /* unify backgrounds */
   padding: 1.5rem;
   border-radius: 0.5rem;
   margin-bottom: 1.5rem;

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Places · Jose Alfredo Ocegueda Sanchez</title>
+  <meta name="description" content="A world map of conferences, workshops, and talks I've been to — click any pin for details and materials." />
+
+  <meta name="theme-color" content="#171c2a" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f6f4ed" media="(prefers-color-scheme: light)" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div data-nav="places" data-on-dark></div>
+
+  <section class="page-hero">
+    <div class="page-hero__grid"></div>
+    <div class="wrap">
+      <div class="section-label" style="color:var(--on-ink-dim);">
+        <span class="num">05</span>
+        <span class="lang-en">Places</span><span class="lang-es">Lugares</span>
+      </div>
+      <h1>
+        <span class="lang-en">Where the <em>science</em> has taken me.</span>
+        <span class="lang-es">A dónde me ha llevado la <em>ciencia.</em></span>
+      </h1>
+      <p>
+        <span class="lang-en">Click a pin for the conference, workshop, or talk — plus any slides or videos. Multiple visits per city group together.</span>
+        <span class="lang-es">Haz clic en un alfiler para ver el congreso, taller o charla — junto con cualquier diapositiva o video. Las múltiples visitas a una ciudad se agrupan.</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div id="places-root"></div>
+    </div>
+  </section>
+
+  <div data-footer></div>
+  <div data-tweaks></div>
+
+  <script src="data.js"></script>
+  <script src="world-geometry.js"></script>
+  <script src="places-map.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

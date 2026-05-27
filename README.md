@@ -1,31 +1,151 @@
-A Github Pages template for academic websites. This was forked (then detached) by [Stuart Geiger](https://github.com/staeiou) from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/), which is © 2016 Michael Rose and released under the MIT License. See LICENSE.md.
+# Langosmon.github.io — v2
 
-I think I've got things running smoothly and fixed some major bugs, but feel free to file issues or make pull requests if you want to improve the generic template / theme.
+Personal site for Jose Alfredo Ocegueda Sanchez. Vanilla HTML + CSS + a small
+amount of JS. Zero dependencies, zero build step.
 
-### Note: if you are using this repo and now get a notification about a security vulnerability, delete the Gemfile.lock file. 
+## Preview locally
 
-# Instructions
+```bash
+cd /Users/jocegue/Documents/Langosmon.github.io-v2
+python -m http.server 8000
+# open http://localhost:8000 in your browser
+```
 
-1. Register a GitHub account if you don't have one and confirm your e-mail (required!)
-1. Fork [this repository](https://github.com/academicpages/academicpages.github.io) by clicking the "fork" button in the top right. 
-1. Go to the repository's settings (rightmost item in the tabs that start with "Code", should be below "Unwatch"). Rename the repository "[your GitHub username].github.io", which will also be your website's URL.
-1. Set site-wide configuration and create content & metadata (see below -- also see [this set of diffs](http://archive.is/3TPas) showing what files were changed to set up [an example site](https://getorg-testacct.github.io) for a user with the username "getorg-testacct")
-1. Upload any files (like PDFs, .zip files, etc.) to the files/ directory. They will appear at https://[your GitHub username].github.io/files/example.pdf.  
-1. Check status by going to the repository settings, in the "GitHub pages" section
-1. (Optional) Use the Jupyter notebooks or python scripts in the `markdown_generator` folder to generate markdown files for publications and talks from a TSV file.
+## Edit content
 
-See more info at https://academicpages.github.io/
+Everything that goes on every page lives in **one file: `data.js`**. Every
+translatable string is `{ en: "...", es: "..." }`. To change anything, open
+`data.js`, find the relevant section, edit, save, refresh the browser.
 
-## To run locally (not on GitHub Pages, to serve on your own computer)
+### Add a news item
 
-1. Clone the repository and made updates as detailed above
-1. Make sure you have ruby-dev, bundler, and nodejs installed: `sudo apt install ruby-dev ruby-bundler nodejs`
-1. Run `bundle clean` to clean up the directory (no need to run `--force`)
-1. Run `bundle install` to install ruby dependencies. If you get errors, delete Gemfile.lock and try again.
-1. Run `bundle exec jekyll liveserve` to generate the HTML and serve it from `localhost:4000` the local server will automatically rebuild and refresh the pages on change.
+In `data.js`, find the `news:` array. Add a new block at the top (newest first):
 
-# Changelog -- bugfixes and enhancements
+```js
+{
+  date: "2026-06-15",
+  tag: { en: "Talk", es: "Charla" },
+  featured: true,                          // optional — terracotta dot on the rail
+  title: {
+    en: "Invited talk at AOML",
+    es: "Charla invitada en AOML",
+  },
+  body: {
+    en: "Spoke about *ITCZ breakdown × ENP cyclogenesis*. Slides at [link](https://...).",
+    es: "Hablé sobre *ruptura ZCIT × ciclogénesis ENP*.",
+  },
+  link: { url: "https://example.com", label: { en: "Slides", es: "Diapositivas" } },
+  mediaSrc: "images/aoml.jpg",             // optional image/gif/mp4
+  mediaCaption: { en: "AOML / Miami", es: "AOML / Miami" },
+}
+```
 
-There is one logistical issue with a ready-to-fork template theme like academic pages that makes it a little tricky to get bug fixes and updates to the core theme. If you fork this repository, customize it, then pull again, you'll probably get merge conflicts. If you want to save your various .yml configuration files and markdown files, you can delete the repository and fork it again. Or you can manually patch. 
+Inline markdown supported in body fields:
+- `*italic*` → italic
+- `[text](url)` → link
 
-To support this, all changes to the underlying code appear as a closed issue with the tag 'code change' -- get the list [here](https://github.com/academicpages/academicpages.github.io/issues?q=is%3Aclosed%20is%3Aissue%20label%3A%22code%20change%22%20). Each issue thread includes a comment linking to the single commit or a diff across multiple commits, so those with forked repositories can easily identify what they need to patch.
+### Add a research project
+
+In `data.js`, find the `research:` array, append a block:
+
+```js
+{
+  num: "04",
+  title: { en: "...", es: "..." },
+  tags: ["TC", "Monsoon"],
+  body:  { en: "...", es: "..." },
+  caption: { en: "What goes in the placeholder card", es: "..." },
+}
+```
+
+### Add a publication
+
+In `data.js`, `publications:` array. Newest first by year:
+
+```js
+{
+  year: 2026,
+  authors: "Ocegueda-Sanchez, J. A., et al.",
+  title: { en: "...", es: "..." },
+  venue: "Journal of Climate",
+  doi: "10.1175/...",
+  url: "https://doi.org/10.1175/...",
+  tag: { en: "Journal", es: "Revista" },
+}
+```
+
+### Add a place to the world map
+
+In `data.js`, `places:` array. Multiple `entries` per city are allowed (they
+all show in the same popup when you click the pin).
+
+```js
+{
+  city: "Boulder, CO",
+  lat: 40.015, lon: -105.2705,
+  entries: [
+    {
+      date: "2025-07-10",
+      tag: { en: "Workshop", es: "Taller" },
+      title: { en: "NCAR ASP Summer Colloquium", es: "Coloquio NCAR ASP" },
+      brief: {
+        en: "Two weeks on tropical convection. Met half the cyclone community.",
+        es: "Dos semanas sobre convección tropical. Conocí a media comunidad de ciclones.",
+      },
+      // Materials are optional — drop files into assets/places/ and reference them.
+      materials: [
+        { kind: "pdf",   src: "assets/places/ncar2025.pdf", label: { en: "Slides", es: "Diapositivas" } },
+        { kind: "video", src: "assets/places/ncar2025.mp4", label: { en: "Talk video", es: "Video" } },
+        { kind: "link",  src: "https://...",                label: { en: "Program", es: "Programa" } },
+      ],
+    },
+  ],
+}
+```
+
+For pin coordinates, look up `lat, lon` on Google Maps (right-click → "What's here?").
+
+## File map
+
+| File | Purpose |
+|---|---|
+| `index.html`        | Home: animated IR hero, about, scrubbable IR widget, news timeline |
+| `research.html`     | Research projects + publications list |
+| `era5.html`         | ERA5 maps landing (links to your existing interactive apps) |
+| `cv.html`           | CV embedded PDF + download |
+| `places.html`       | World map with clickable pins |
+| `data.js`           | **All content lives here** (edit this) |
+| `styles.css`        | Editorial design system + light/dark themes |
+| `app.js`            | Vanilla templating, theme/lang toggles, scroll reveals, tweaks panel |
+| `ir-satellite.js`   | Procedural IR satellite animation (canvas) |
+| `world-geometry.js` | Simplified continent outlines for the places map |
+| `places-map.js`     | SVG world map + pin popups |
+| `assets/places/`    | Drop PDFs / MP4s here for places-page materials |
+| `files/cv.pdf`      | Your CV (replace this file to update) |
+
+## Themes and languages
+
+- **Theme:** the site follows the visitor's OS dark/light preference by default.
+  The ☾ / ☼ button in the nav lets them override. Saved to localStorage.
+- **Language:** the ES / EN button toggles between English and Spanish. Saved
+  to localStorage. Every translatable string is `{ en, es }` in `data.js`.
+- **Accent color:** the floating ⚙ button (bottom right) reveals a hue slider.
+  Visitors can change the accent color live; their choice is remembered.
+
+## Deploy
+
+This repo is `Langosmon.github.io` — pushing to `main` deploys automatically to
+https://Langosmon.github.io.
+
+To go live with this v2:
+1. Preview locally first (`python -m http.server 8000`).
+2. Once happy, copy these files into your existing
+   `/Users/jocegue/Documents/Langosmon.github.io/` repo, replacing the old
+   `index.html`, `research.html`, etc. Keep `files/cv.pdf` and `images/`.
+3. Add a `.nojekyll` file at the repo root so GitHub doesn't try to run Jekyll.
+4. `git add . && git commit -m "Site redesign" && git push`.
+
+## License
+
+Content (text, images): all rights reserved by Jose Alfredo Ocegueda Sanchez.
+Site code: feel free to learn from / reuse with credit.

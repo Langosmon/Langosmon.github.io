@@ -1,56 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="era5Title">ERA5 Maps</title>
-  <link rel="stylesheet" href="css/style.css">
-  <!-- Font Awesome icons for social links -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ERA5 Maps · Jose Alfredo Ocegueda Sanchez</title>
+  <meta name="description" content="Interactive climate visualizations built on ERA5 reanalysis — monthly means and hourly maps." />
+
+  <meta name="theme-color" content="#171c2a" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f6f4ed" media="(prefers-color-scheme: light)" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo" data-i18n="siteName">Jose Alfredo</div>
-      <ul class="nav-links">
-        <li><a href="index.html" data-i18n="navHome">Home</a></li>
-        <li><a href="research.html" data-i18n="navResearch">Research</a></li>
-        <li><a href="era5.html" data-i18n="navERA5">ERA5 Maps</a></li>
-        <li><a href="cv.html" data-i18n="navCV">CV</a></li>
-      </ul>
-      <div class="toggles">
-        <button id="dark-toggle" aria-label="Toggle dark mode">🌓</button>
-        <button id="lang-toggle" aria-label="Toggle language">ES</button>
+
+  <div data-nav="era5" data-on-dark></div>
+
+  <section class="page-hero">
+    <div class="page-hero__grid"></div>
+    <div class="wrap">
+      <div class="section-label" style="color:var(--on-ink-dim);">
+        <span class="num">02</span>
+        <span>ERA5</span>
       </div>
-    </nav>
-  </header>
-  <section class="page-header">
-    <h1 data-i18n="era5Title">ERA5 Maps</h1>
-    <p data-i18n="era5Intro">This page serves as a central hub for my interactive climate data visualizations using ERA5 data. Below you will find a brief tutorial (pending) on how to use the maps and links to the different applications.</p>
-  </section>
-  <section class="era5-section">
-    <h2 data-i18n="era5MonthlyTitle">Monthly Means Maps</h2>
-    <p data-i18n="era5MonthlyDesc">View maps of monthly average with anomalies available data.</p>
-    <iframe src="https://era5app-alfredocegueda.streamlit.app/?embed=true&embed_host=langosmon.github.io&embed_options=show_toolbar,show_padding,show_footer,light_theme"
-            width="100%" height="600" frameborder="0" scrolling="no" style="min-width: 850px;" loading="lazy"></iframe>
-    <p class="open-map"><a href="https://era5app-alfredocegueda.streamlit.app/" target="_blank" data-i18n="openMapLink">Open map in a new tab ↗</a></p>
-  </section>
-  <section class="era5-section">
-    <h2 data-i18n="era5HourlyTitle">Hourly Maps</h2>
-    <p data-i18n="era5HourlyDesc">Have a particular date that you want to check the weather?.</p>
-    <iframe src="https://era5hourlyapp-alfredocegueda.streamlit.app/?embed=true&embed_host=langosmon.github.io&embed_options=show_toolbar,show_padding,show_footer,light_theme"
-            width="100%" height="600" frameborder="0" scrolling="no" style="min-width: 850px;" loading="lazy"></iframe>
-    <p class="open-map"><a href="https://era5hourlyapp-alfredocegueda.streamlit.app/" target="_blank" data-i18n="openMapLink">Open map in a new tab ↗</a></p>
-  </section>
-  <footer>
-    <div class="social-links">
-      <a href="https://github.com/Langosmon" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-      <a href="mailto:jocegue@purdue.edu" target="_blank" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <h1>
+        <span class="lang-en">The atmosphere, <em>browsable.</em></span>
+        <span class="lang-es">La atmósfera, <em>navegable.</em></span>
+      </h1>
+      <p data-era5-intro>
+        <span class="lang-en">Interactive climate visualizations built on ERA5 reanalysis. Pick a map type to explore monthly climatologies, anomalies, or specific dates and times.</span>
+        <span class="lang-es">Visualizaciones climáticas interactivas con reanálisis ERA5. Elige un tipo de mapa para explorar climatologías mensuales, anomalías o fechas y horas específicas.</span>
+      </p>
     </div>
-    <p>&copy; <span id="year"></span> <span data-i18n="footerName">Jose Alfredo Ocegueda Sanchez</span></p>
-  </footer>
-  <script src="js/script.js"></script>
+  </section>
+
+  <section class="block">
+    <div class="wrap" data-era5></div>
+  </section>
+
+  <div data-footer></div>
+  <div data-tweaks></div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

@@ -75,7 +75,6 @@ window.SITE_DATA = {
       },
     },
     {
-    {
       date: "2025-11-08",
       tag: { en: "Outreach", es: "Divulgación" },
       featured: true,

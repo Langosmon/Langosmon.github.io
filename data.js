@@ -52,7 +52,7 @@ window.SITE_DATA = {
     { label: { en: "Field",     es: "Campo" },        value: { en: "Tropical Meteorology", es: "Meteorología Tropical" } },
     { label: { en: "Lab",       es: "Laboratorio" },  value: "Chavas Group" },
     { label: { en: "Tools",     es: "Herramientas" }, value: "Python · MPAS-A · SpeedyWeather" },
-    { label: { en: "Languages", es: "Idiomas" },      value: "Español · English" },
+    { label: { en: "Languages", es: "Idiomas" },      value: "Español · English · 日本語 (少しだけ)" },
   ],
 
   // --------------------------------------------------------------------------

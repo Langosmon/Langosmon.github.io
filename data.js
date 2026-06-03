@@ -48,8 +48,8 @@ window.SITE_DATA = {
   facts: [
     { label: { en: "Field",     es: "Campo" },        value: { en: "Tropical Dynamics", es: "Dinámica Tropical" } },
     { label: { en: "Lab",       es: "Laboratorio" },  value: "Chavas Group" },
-    { label: { en: "Tools",     es: "Herramientas" }, value: "Python · ERA5 · GridSat" },
-    { label: { en: "Languages", es: "Idiomas" },      value: "Español · English" },
+    { label: { en: "Tools",     es: "Herramientas" }, value: "Python · MPAS-A · SpeedyWeather" },
+    { label: { en: "Languages", es: "Idiomas" },      value: "Español · English · 日本語、少しだけ" },
   ],
 
   // --------------------------------------------------------------------------
@@ -58,6 +58,20 @@ window.SITE_DATA = {
   // Optional fields: featured, link, mediaSrc, mediaCaption
   // --------------------------------------------------------------------------
   news: [
+    {
+      date: "2026-04-03",
+      tag: { en: "Award", es: "Premiación" },
+      featured: true,
+      title: {
+        en: "AMS Tropical Oustanding Student Poster Presentation",
+        es: "Premio a la mejor presentación de póster estudiantil de la AMS en meteorología tropical",
+      },
+      body: {
+        en: "I’m very honored to have received one of the Outstanding Student Poster Awards in AMS Tropical 2026.I presented my poster, “The Importance of Seed Types for Tropical Cyclone Genesis in the Eastern and Central Pacific,” where I shared my work on how different precursor disturbances may influence the likelihood of tropical cyclone genesis across the basin.",
+        es: "Me siento muy honrado de haber recibido uno de los Premios al Póster Destacado para Estudiantes en el AMS Tropical 2026. Presenté mi póster titulado «La importancia de los tipos de semillas para la génesis de ciclones tropicales en el Pacífico oriental y central», en el que compartí mi trabajo sobre cómo diferentes precursores de ciclones tropicales pueden influir en la probabilidad de génesis de todo el Pacífco este",
+      },
+    },
+    {
     {
       date: "2025-11-08",
       tag: { en: "Outreach", es: "Divulgación" },

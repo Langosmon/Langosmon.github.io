@@ -49,7 +49,7 @@ window.SITE_DATA = {
 
   // Mini cards shown next to the portrait. Edit freely.
   facts: [
-    { label: { en: "Field",     es: "Campo" },        value: { en: "Tropical Dynamics", es: "Dinámica Tropical" } },
+    { label: { en: "Field",     es: "Campo" },        value: { en: "Tropical Meteorology", es: "Meteorología Tropical" } },
     { label: { en: "Lab",       es: "Laboratorio" },  value: "Chavas Group" },
     { label: { en: "Tools",     es: "Herramientas" }, value: "Python · Julia · MPAS-A · ERA5" },
     { label: { en: "Languages", es: "Idiomas" },      value: "Español · English" },

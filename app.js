@@ -367,7 +367,7 @@
       sub.append(
         "Studying ",
         el("strong", {}, "tropical cyclones, the ITCZ, and monsoon systems"),
-        " — why storms land where they do, and what makes some seasons quietly tense and others outright catastrophic."
+        ". Understanding why storms forms in the Eastern and Central Pacific, what controls landfall variability, i.e., what makes some seasons quietly tense and others catastrophic."
       );
     }
 

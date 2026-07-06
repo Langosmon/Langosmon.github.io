@@ -34,16 +34,17 @@ window.SITE_DATA = {
   // --------------------------------------------------------------------------
   about: {
     en: [
-      "I'm Jose Alfredo Ocegueda Sanchez, originally from Guadalajara, Jalisco. I'm a Ph.D. candidate in atmospheric science at Purdue University, working with [Dan Chavas](https://web.ics.purdue.edu/~dchavas/) on the dynamics of the tropical atmosphere.",
-      "My research orbits *tropical climate and tropical dynamics* — particularly tropical cyclones, the ITCZ, and monsoon systems. I look for the physical reasons storms strike land where they do, and what large-scale circulations make some seasons quietly tense and others outright catastrophic.",
-      "Before Purdue I studied physics at the Universidad de Guadalajara (Best of the Generation medal), and before that I trained as an industrial chemistry technologist — earning a state innovation award for a new industrial design patent along the way.",
-      "I'm also a foodie; I see food and language as windows into other cultures, and the most delicious way to express ourselves. *We do science for the people.*",
+      "I'm a Ph.D. candidate in the EAPS department at Purdue University, where I have been since 2022. I work with [Prof. Daniel Chavas](https://web.ics.purdue.edu/~dchavas/) to quantify the role of ITCZ breakdowns in tropical cyclogenesis in the Eastern Pacific.",
+      "My research interests include weather and climate extremes such as hurricanes, monsoons, atmospheric rivers, cut-off lows, and atmospheric blocking. I enjoy formulating observation-based hypotheses and testing them by integrating theoretical frameworks with numerical modeling.",
+      "I am particularly passionate about studying regions that have received relatively little scientific attention. For me, science is not only about understanding the Earth system, but also about producing knowledge that can serve people and communities.",
+      "Outside of research, I'm a foodie; I see food and language as windows into other cultures and as delicious, human ways of connecting with one another.",
     ],
     es: [
-      "Soy José Alfredo Ocegueda Sánchez, originario de Guadalajara, Jalisco. Soy candidato a doctor en ciencias atmosféricas en Purdue, trabajando con [Dan Chavas](https://web.ics.purdue.edu/~dchavas/) sobre la dinámica de la atmósfera tropical.",
-      "Mi investigación gira en torno al *clima tropical y la dinámica tropical* — en particular los ciclones tropicales, la ZCIT y los sistemas monzónicos. Busco las razones físicas por las que las tormentas tocan tierra donde lo hacen, y qué circulaciones de gran escala hacen que algunas temporadas sean calladamente tensas y otras francamente catastróficas.",
-      "Antes de Purdue estudié física en la Universidad de Guadalajara (medalla al Mejor de la Generación), y antes fui tecnólogo en química industrial — con un premio estatal de innovación por una nueva patente de diseño industrial en el camino.",
-      "También soy foodie; veo la comida y los idiomas como ventanas hacia otras culturas, y la forma más deliciosa de expresarnos. *Hacemos ciencia para la gente.*",
+      "Soy estudiante de doctorado en el Departamento de Ciencias de la Tierra, Atmosféricas y Planetarias de Purdue University, donde he estado desde 2022.",
+      "Trabajo con el [Prof. Daniel Chavas](https://web.ics.purdue.edu/~dchavas/) para cuantificar el papel de los rompimientos de la ZCIT en la ciclogénesis tropical en el Pacífico Oriental. Mis intereses de investigación incluyen extremos meteorológicos y climáticos como huracanes, monzones, ríos atmosféricos, bajas segregadas y bloqueos atmosféricos.",
+      "Me interesa formular hipótesis basadas en observaciones y ponerlas a prueba integrando marcos teóricos con modelación numérica.",
+      "En particular, me apasiona estudiar regiones que han recibido relativamente poca atención científica, con el objetivo de mejorar nuestra comprensión del sistema Tierra y desarrollar ciencia que sirva a las personas y a sus comunidades.",
+      "Fuera de la investigación, soy amante de la comida; veo la comida y el lenguaje como ventanas hacia otras culturas y como dos de las formas más deliciosas de conectar entre nosotros.",
     ],
   },
 
@@ -51,8 +52,8 @@ window.SITE_DATA = {
   facts: [
     { label: { en: "Field",     es: "Campo" },        value: { en: "Tropical Meteorology", es: "Meteorología Tropical" } },
     { label: { en: "Lab",       es: "Laboratorio" },  value: "Chavas Group" },
-    { label: { en: "Tools",     es: "Herramientas" }, value: "Python · Julia · MPAS-A · ERA5" },
-    { label: { en: "Languages", es: "Idiomas" },      value: "Español · English" },
+    { label: { en: "Tools",     es: "Herramientas" }, value: "Python · MPAS-A · SpeedyWeather" },
+    { label: { en: "Languages", es: "Idiomas" },      value: "Español · English · 日本語 (少しだけ)" },
   ],
 
   // --------------------------------------------------------------------------
@@ -90,15 +91,15 @@ window.SITE_DATA = {
   news: [
     {
       date: "2026-04-03",
-      tag: { en: "Award", es: "Premio" },
+      tag: { en: "Award", es: "Premiación" },
       featured: true,
       title: {
-        en: "2nd place, Outstanding Student Poster — AMS Hurricanes 2026",
-        es: "2.º lugar, Póster Estudiantil Sobresaliente — AMS Hurricanes 2026",
+        en: "AMS Tropical Outstanding Student Poster Presentation",
+        es: "Premio a la mejor presentación de póster estudiantil de la AMS en meteorología tropical",
       },
       body: {
-        en: "My poster on *the importance of seed types for tropical cyclone genesis in the Eastern and Central Pacific* took second place among student presentations at the AMS 37th Conference on Hurricanes and Tropical Meteorology in San Diego.",
-        es: "Mi póster sobre *la importancia de los tipos de semillas para la génesis de ciclones tropicales en el Pacífico Oriental y Central* obtuvo el segundo lugar entre las presentaciones estudiantiles en la 37.ª Conferencia de Huracanes y Meteorología Tropical de la AMS en San Diego.",
+        en: "I'm very honored to have received one of the Outstanding Student Poster Awards at AMS Tropical 2026. I presented my poster, *The Importance of Seed Types for Tropical Cyclone Genesis in the Eastern and Central Pacific*, where I shared my work on how different precursor disturbances may influence the likelihood of tropical cyclone genesis across the basin.",
+        es: "Me siento muy honrado de haber recibido uno de los Premios al Póster Destacado para Estudiantes en el AMS Tropical 2026. Presenté mi póster titulado *La importancia de los tipos de semillas para la génesis de ciclones tropicales en el Pacífico oriental y central*, en el que compartí mi trabajo sobre cómo diferentes precursores de ciclones tropicales pueden influir en la probabilidad de génesis en todo el Pacífico este.",
       },
       link: {
         url: "assets/places/ams2026-poster.pdf",

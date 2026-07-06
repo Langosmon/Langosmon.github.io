@@ -361,13 +361,13 @@
       sub.append(
         "Investigando ",
         el("strong", {}, "ciclones tropicales, la ZCIT y los monzones"),
-        " — por qué las tormentas tocan tierra donde lo hacen, y qué hace que algunas temporadas sean calladamente tensas y otras francamente catastróficas."
+        ". Analizando por qué las tormentas tropicales se forman en el Pacífico Oriental, dónde tocan tierra, y qué hace que algunas temporadas sean catastróficas."
       );
     } else {
       sub.append(
         "Studying ",
         el("strong", {}, "tropical cyclones, the ITCZ, and monsoon systems"),
-        ". Understanding why storms forms in the Eastern and Central Pacific, what controls landfall variability, i.e., what makes some seasons quietly tense and others catastrophic."
+        ". Understanding why storms form in the Eastern and Central Pacific, what controls landfall variability — and what makes some seasons quietly tense and others catastrophic."
       );
     }
 

@@ -6,7 +6,7 @@ amount of JS. Zero dependencies, zero build step.
 ## Preview locally
 
 ```bash
-cd /Users/jocegue/Documents/Langosmon.github.io-v2
+cd /Users/jocegue/Documents/Langosmon.github.io
 python -m http.server 8000
 # open http://localhost:8000 in your browser
 ```
@@ -35,7 +35,8 @@ In `data.js`, find the `news:` array. Add a new block at the top (newest first):
     es: "Hablé sobre *ruptura ZCIT × ciclogénesis ENP*.",
   },
   link: { url: "https://example.com", label: { en: "Slides", es: "Diapositivas" } },
-  mediaSrc: "images/aoml.jpg",             // optional image/gif/mp4
+  mediaSrc: "images/clip.mp4",             // optional image or mp4/webm video
+  mediaPoster: "images/clip-poster.jpg",   // poster frame for videos
   mediaCaption: { en: "AOML / Miami", es: "AOML / Miami" },
 }
 ```
@@ -109,7 +110,7 @@ For pin coordinates, look up `lat, lon` on Google Maps (right-click → "What's 
 
 | File | Purpose |
 |---|---|
-| `index.html`        | Home: animated IR hero, about, scrubbable IR widget, news timeline |
+| `index.html`        | Home: Hurricane Otis IR hero, about, evidence beat, news timeline |
 | `research.html`     | Research projects + publications list |
 | `era5.html`         | ERA5 maps landing (links to your existing interactive apps) |
 | `cv.html`           | CV embedded PDF + download |
@@ -117,7 +118,6 @@ For pin coordinates, look up `lat, lon` on Google Maps (right-click → "What's 
 | `data.js`           | **All content lives here** (edit this) |
 | `styles.css`        | Editorial design system + light/dark themes |
 | `app.js`            | Vanilla templating, theme/lang toggles, scroll reveals, tweaks panel |
-| `ir-satellite.js`   | Procedural IR satellite animation (canvas) |
 | `world-geometry.js` | Simplified continent outlines for the places map |
 | `places-map.js`     | SVG world map + pin popups |
 | `assets/places/`    | Drop PDFs / MP4s here for places-page materials |

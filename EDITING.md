@@ -40,7 +40,7 @@ auto-translate — you provide both.
 Open Terminal (Applications → Utilities → Terminal) and run:
 
 ```
-cd /Users/jocegue/Documents/Langosmon.github.io-v2
+cd /Users/jocegue/Documents/Langosmon.github.io
 python3 -m http.server 8000
 ```
 
@@ -55,7 +55,7 @@ stop the server when you're done.
 When you're happy with what you see locally:
 
 ```
-cd /Users/jocegue/Documents/Langosmon.github.io-v2
+cd /Users/jocegue/Documents/Langosmon.github.io
 git add .
 git commit -m "Update news / research / places (describe what you changed)"
 git push
@@ -112,7 +112,8 @@ To add a new entry, copy this block **right after the opening `news: [`**:
       url: "https://example.com",
       label: { en: "Slides", es: "Diapositivas" },
     },
-    mediaSrc: "images/aoml.jpg",          // optional — show an image or video
+    mediaSrc: "images/clip.mp4",          // optional — image or mp4/webm video
+    mediaPoster: "images/clip-poster.jpg", // poster frame shown before a video plays
     mediaCaption: {
       en: "AOML / Miami",
       es: "AOML / Miami",
@@ -270,7 +271,7 @@ Drop your new photo into `images/` (call it whatever you like, e.g.
 ```js
 profile: {
   ...
-  portrait: "https://raw.githubusercontent.com/Langosmon/Langosmon.github.io/master/images/Profile.JPEG",
+  portrait: "images/profile-720.jpg",
 },
 ```
 
@@ -345,7 +346,7 @@ Three things to check:
 If you haven't pushed yet:
 
 ```
-cd /Users/jocegue/Documents/Langosmon.github.io-v2
+cd /Users/jocegue/Documents/Langosmon.github.io
 git checkout -- data.js                    # undo edits to data.js
 ```
 
@@ -378,3 +379,45 @@ These need code changes — ask Claude:
 - Media files go in `images/` (news) or `assets/places/` (places). Reference them by relative path.
 - Preview with `python3 -m http.server 8000`. Push to GitHub when happy.
 - Errors? Browser Console (right-click → Inspect → Console) shows what's wrong.
+
+---
+
+## New in this version (2026-07)
+
+### Research projects can now carry real media and a pull-quote
+
+```js
+{
+  num: "01",
+  title: { en: "...", es: "..." },
+  tags: ["..."],
+  body: { en: "...", es: "..." },
+  media:  { kind: "video", src: "assets/research/clip.mp4", poster: "assets/research/clip-poster.jpg",
+            caption: { en: "...", es: "..." } },       // or kind: "image"
+  media2: { ... },                                      // optional second figure
+  quote:  { text: { en: "...", es: "..." }, cite: "GRL 2025 · doi:..." },  // optional
+  link:   { url: "https://...", label: { en: "Read the paper", es: "Leer el artículo" } },
+}
+```
+
+Videos autoplay muted only while on screen (they use `data-inview`), so keep
+each under ~3 MB: `ffmpeg -i in.mp4 -vf "scale=-2:900" -c:v libx264 -crf 27 -preset slow -an -movflags +faststart out.mp4`
+and make a poster with `ffmpeg -ss 3 -i out.mp4 -frames:v 1 -q:v 4 out-poster.jpg`.
+
+### Places entries: story, remote pins, video materials
+
+- `story:` — a longer reflection shown under the one-line `brief:` in the popup.
+- `remote: true` on a *place* renders its pin hollow (events attended online).
+- materials now support `{ kind: "video", src, poster, label }`; PDFs/videos
+  only download when the visitor opens the Materials panel.
+
+### Home "evidence" section
+
+`SITE_DATA.evidence` drives the science moment between About and the Logbook —
+swap `media.src` to feature a different animation.
+
+### Asset layout
+
+- `assets/research/` — project animations + posters + figures
+- `assets/places/`   — conference posters (PDF), talk videos
+- `images/`          — portrait, news media

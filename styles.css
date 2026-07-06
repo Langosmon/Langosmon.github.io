@@ -9,7 +9,7 @@
    Accent hue is a custom property so the tweaks panel can rotate it live.
    -------------------------------------------------------------------------- */
 :root {
-  --accent-h: 55;                /* Jalisco terracotta default */
+  --accent-h: 38;                /* Jalisco terracotta (matches the ERA5 apps' #d97757) */
   --accent-c: 0.135;
   --accent-l: 0.72;
 
@@ -40,6 +40,8 @@
   --text-dim:  oklch(0.45 0.012 240);
   --on-ink:    oklch(0.95 0.005 80);
   --on-ink-dim: oklch(0.72 0.010 80);
+  /* accent for TEXT on paper — darker so links/tags pass WCAG AA (≥4.5:1) */
+  --accent-ink: oklch(0.50 0.14 var(--accent-h));
 }
 
 /* Dark theme */
@@ -54,6 +56,7 @@
   --text-dim:  oklch(0.68 0.010 80);
   --on-ink:    oklch(0.95 0.005 80);
   --on-ink-dim: oklch(0.72 0.010 80);
+  --accent-ink: oklch(0.75 0.125 var(--accent-h));
 }
 
 /* Follow system if no manual override */
@@ -67,7 +70,14 @@
     --ink-3:     oklch(0.26 0.018 240);
     --text:      oklch(0.93 0.005 80);
     --text-dim:  oklch(0.68 0.010 80);
+    --accent-ink: oklch(0.75 0.125 var(--accent-h));
   }
+}
+
+/* Dark SURFACES (hero, footer, page heroes) keep the bright accent for text,
+   whatever the page theme — the cascade re-scopes the token. */
+.hero, .page-hero, .foot, .nav.on-dark, section.block.dark {
+  --accent-ink: var(--accent);
 }
 
 /* --------------------------------------------------------------------------
@@ -89,10 +99,10 @@ body {
 }
 
 a { color: inherit; text-decoration: none; transition: color 0.15s; }
-a:not(.bare):hover { color: var(--accent); }
+a:not(.bare):hover { color: var(--accent-ink); }
 img, video { max-width: 100%; display: block; }
 
-::selection { background: var(--accent); color: var(--bg); }
+::selection { background: var(--accent); color: var(--ink); }
 
 button { font: inherit; cursor: pointer; }
 
@@ -161,7 +171,7 @@ button { font: inherit; cursor: pointer; }
   border-radius: 2px;
   transition: all 0.15s;
 }
-.nav__btn:hover { border-color: var(--accent); color: var(--accent); }
+.nav__btn:hover { border-color: var(--accent-ink); color: var(--accent-ink); }
 
 /* Mobile menu — burger appears at small widths, links collapse */
 .nav__burger { display: none; }
@@ -242,6 +252,8 @@ button { font: inherit; cursor: pointer; }
   flex-wrap: wrap; gap: 8px;
 }
 .hero__meta span { display: inline-flex; align-items: center; gap: 8px; }
+.hero__meta { text-shadow: 0 1px 8px color-mix(in oklch, var(--ink) 80%, transparent); }
+.hero__meta a:hover { color: var(--on-ink); }
 .hero__meta .live-dot {
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--accent);
@@ -347,7 +359,7 @@ section.block.dark {
   width: 24px; height: 1px; background: currentColor;
   opacity: 0.5;
 }
-.section-label .num { color: var(--accent); font-weight: 600; }
+.section-label .num { color: var(--accent-ink); font-weight: 600; }
 
 h2.display {
   font-family: var(--serif);
@@ -404,7 +416,7 @@ h2.display em {
   line-height: 1.45;
   font-weight: 400;
 }
-.about__body a { color: var(--accent); border-bottom: 1px solid currentColor; }
+.about__body a { color: var(--accent-ink); border-bottom: 1px solid currentColor; }
 .about__meta {
   font-size: 14px;
   color: var(--text-dim);
@@ -434,128 +446,41 @@ h2.display em {
 }
 
 /* --------------------------------------------------------------------------
-   IR WIDGET (scrubbable, on home page)
+   EVIDENCE BEAT (home page — a moment of actual science)
    -------------------------------------------------------------------------- */
-.ir-widget {
-  position: relative;
-  background: var(--ink);
-  border: 1px solid var(--ink-3);
-  margin-top: 32px;
-}
-.ir-widget__header {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 12px 18px;
-  border-bottom: 1px solid var(--ink-3);
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--on-ink-dim);
-  flex-wrap: wrap; gap: 8px;
-}
-.ir-widget__title { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
-.ir-widget__title strong { color: var(--on-ink); font-weight: 500; }
-.ir-widget__channels { display: flex; gap: 4px; }
-.ir-chan {
-  background: transparent;
-  border: 1px solid var(--ink-3);
-  color: var(--on-ink-dim);
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 5px 9px;
-  transition: all 0.15s;
-}
-.ir-chan:hover { color: var(--on-ink); }
-.ir-chan.active {
-  background: var(--accent);
-  color: var(--ink);
-  border-color: var(--accent);
-}
-.ir-widget__view {
-  position: relative;
-  aspect-ratio: 16 / 7;
-  overflow: hidden;
-  background: var(--ink);
-}
-.ir-widget__view canvas { width: 100%; height: 100%; display: block; }
-.ir-widget__view canvas#ir-widget-canvas { position: absolute; inset: 0; }
-.ir-widget__coast {
-  position: absolute; inset: 0;
-  pointer-events: none;
-  opacity: 0.45;
-  mix-blend-mode: screen;
-}
-[data-theme="light"] .ir-widget__coast { opacity: 0.55; }
-
-.ir-synthetic-badge {
-  display: inline-block;
-  padding: 3px 8px;
-  background: color-mix(in oklch, var(--accent) 22%, transparent);
-  border: 1px solid color-mix(in oklch, var(--accent) 40%, transparent);
-  color: var(--accent);
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.ir-widget__overlay {
-  position: absolute; inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, transparent 70%, color-mix(in oklch, var(--ink) 50%, transparent) 100%);
-}
-.ir-widget__hud {
-  position: absolute; bottom: 12px; left: 18px; right: 18px;
-  display: flex; justify-content: space-between;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--on-ink-dim);
-  flex-wrap: wrap; gap: 8px;
-}
-.ir-widget__hud strong { color: var(--on-ink); font-weight: 500; }
-.ir-widget__controls {
+.evidence {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 14px;
+  grid-template-columns: 1.25fr 1fr;
+  gap: clamp(28px, 4vw, 64px);
   align-items: center;
-  padding: 12px 18px;
-  border-top: 1px solid var(--ink-3);
 }
-.ir-play {
-  width: 30px; height: 30px;
-  background: var(--accent); color: var(--ink);
-  border: none;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 1px;
-  transition: filter 0.15s;
+.evidence__media {
+  border: 1px solid var(--bg-3);
+  background: var(--ink);
 }
-.ir-play:hover { filter: brightness(1.1); }
-.ir-track {
-  position: relative;
-  height: 4px;
-  background: var(--ink-3);
-}
-.ir-track__fill {
-  position: absolute; left: 0; top: 0; bottom: 0;
-  background: var(--accent);
-}
-.ir-track__hand {
-  position: absolute; top: 50%; transform: translate(-50%, -50%);
-  width: 12px; height: 12px;
-  background: var(--accent);
-  border-radius: 50%;
-}
-.ir-track__ticks {
-  position: absolute; left: 0; right: 0; top: -16px;
-  display: flex; justify-content: space-between;
+.evidence__video { width: 100%; height: auto; display: block; }
+.evidence__caption {
   font-family: var(--mono);
-  font-size: 9px;
-  color: var(--on-ink-dim);
-  letter-spacing: 0.05em;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 8px 12px;
+  border-top: 1px solid var(--bg-3);
+  background: var(--bg);
+}
+.evidence__text h2.display { margin-bottom: 20px; }
+.evidence__body {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--text-dim);
+  margin: 0 0 24px;
+  text-wrap: pretty;
+}
+.evidence__body em { color: var(--text); }
+.evidence__body a { color: var(--accent-ink); border-bottom: 1px solid currentColor; }
+@media (max-width: 880px) {
+  .evidence { grid-template-columns: 1fr; }
 }
 
 /* --------------------------------------------------------------------------
@@ -586,7 +511,7 @@ h2.display em {
   border: 1px solid var(--text-dim);
   border-radius: 50%;
 }
-.t-entry__date.featured { color: var(--accent); }
+.t-entry__date.featured { color: var(--accent-ink); }
 .t-entry__date.featured::after {
   background: var(--accent);
   border-color: var(--accent);
@@ -600,7 +525,7 @@ h2.display em {
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-ink);
   margin-bottom: 10px;
 }
 .t-entry__title {
@@ -620,7 +545,7 @@ h2.display em {
   margin: 0 0 14px;
 }
 .t-entry__desc em { color: var(--text); }
-.t-entry__desc a { color: var(--accent); border-bottom: 1px solid currentColor; }
+.t-entry__desc a { color: var(--accent-ink); border-bottom: 1px solid currentColor; }
 .t-entry__media {
   margin-top: 14px;
   border: 1px solid var(--bg-3);
@@ -643,7 +568,7 @@ h2.display em {
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-ink);
   border-bottom: 1px solid currentColor;
   padding-bottom: 2px;
   margin-top: 8px;
@@ -739,25 +664,50 @@ h2.display em {
 }
 .project__desc em { color: var(--text); }
 .project__media {
-  aspect-ratio: 4 / 3;
-  background: var(--bg-2);
-  border: 1px solid var(--bg-3);
-  position: relative;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
 }
-.project__media .ph {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
+.project__fig {
+  margin: 0;
+  border: 1px solid var(--bg-3);
+  background: var(--bg-2);
+}
+.project__fig img, .project__fig video { width: 100%; height: auto; display: block; }
+.project__fig figcaption {
   font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
+  font-size: 10px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-dim);
-  text-align: center; padding: 16px;
-  background:
-    repeating-linear-gradient(135deg,
-      transparent 0 14px,
-      color-mix(in oklch, var(--text-dim) 8%, transparent) 14px 15px);
+  line-height: 1.5;
+  padding: 8px 12px;
+  border-top: 1px solid var(--bg-3);
+  background: var(--bg);
+}
+.project--textonly { grid-template-columns: 70px 1fr; }
+.project__quote {
+  margin: 4px 0 16px;
+  padding: 14px 20px;
+  border-left: 2px solid var(--accent);
+}
+.project__quote p {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--text);
+  margin: 0 0 8px;
+  text-wrap: pretty;
+}
+.project__quote cite {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
 }
 
 /* --------------------------------------------------------------------------
@@ -775,7 +725,7 @@ h2.display em {
 .pub__year {
   font-family: var(--mono);
   font-size: 12px;
-  color: var(--accent);
+  color: var(--accent-ink);
   letter-spacing: 0.06em;
 }
 .pub__tag {
@@ -809,7 +759,7 @@ h2.display em {
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-ink);
   border-bottom: 1px solid currentColor;
   align-self: center;
   white-space: nowrap;
@@ -818,6 +768,16 @@ h2.display em {
 /* --------------------------------------------------------------------------
    ERA5 PAGE — embedded Streamlit apps
    -------------------------------------------------------------------------- */
+.era5-intro {
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--text);
+  max-width: 72ch;
+  margin: 0 0 40px;
+  text-wrap: pretty;
+}
+.era5-intro a { color: var(--accent-ink); border-bottom: 1px solid currentColor; }
 .era5-embed {
   border: 1px solid var(--bg-3);
   background: var(--bg);
@@ -846,15 +806,13 @@ h2.display em {
   width: 24px; height: 1px; background: currentColor;
   opacity: 0.5;
 }
-.era5-embed__label .num { color: var(--accent); font-weight: 600; }
-.era5-embed__head h3,
-.era5-embed__head p { font-family: var(--serif); font-weight: 400; margin: 0; }
+.era5-embed__label .num { color: var(--accent-ink); font-weight: 600; }
 .era5-embed__desc {
   font-size: 16px;
   line-height: 1.55;
   color: var(--text);
   max-width: 60ch;
-  font-family: var(--sans) !important;
+  margin: 0;
 }
 .era5-embed__actions {
   display: flex; gap: 8px; flex-wrap: wrap;
@@ -892,9 +850,8 @@ h2.display em {
 .cv-embed {
   border: 1px solid var(--bg-3);
   background: var(--bg-2);
-  width: clamp(320px, 75vw, 1000px);   /* default ~75% of window, capped */
+  width: clamp(320px, 82vw, 1080px);   /* width-first: fill the viewport, page scrolls */
   aspect-ratio: 8.5 / 11;               /* US letter ratio */
-  max-height: 85vh;
   align-self: center;
 }
 .cv-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
@@ -925,7 +882,7 @@ h2.display em {
   color: var(--text);
   border-color: var(--bg-3);
 }
-.btn--ghost:hover { color: var(--accent); border-color: var(--accent); }
+.btn--ghost:hover { color: var(--accent-ink); border-color: var(--accent-ink); }
 
 /* --------------------------------------------------------------------------
    PLACES MAP
@@ -946,13 +903,13 @@ h2.display em {
 }
 /* Country fill / strokes */
 .places-stage .country {
-  fill: color-mix(in oklch, var(--text) 8%, var(--bg-2));
-  stroke: color-mix(in oklch, var(--text) 18%, transparent);
+  fill: color-mix(in oklch, var(--text) 20%, var(--bg-2));
+  stroke: color-mix(in oklch, var(--text) 30%, transparent);
   stroke-width: 0.5;
 }
 /* Latitude / longitude graticule */
 .places-stage .graticule {
-  stroke: color-mix(in oklch, var(--text) 10%, transparent);
+  stroke: color-mix(in oklch, var(--text) 14%, transparent);
   stroke-width: 0.4;
   fill: none;
 }
@@ -968,6 +925,11 @@ h2.display em {
 .places-stage .pin:hover,
 .places-stage .pin.active {
   filter: drop-shadow(0 0 8px var(--accent));
+}
+.places-stage .pin--remote {
+  fill: var(--bg);
+  stroke: var(--accent-ink);
+  stroke-width: 1.8;
 }
 .places-stage .pin-pulse {
   fill: var(--accent);
@@ -992,7 +954,7 @@ h2.display em {
   color: var(--text);
   font-size: 16px;
 }
-.places-zoom button:hover { border-color: var(--accent); color: var(--accent); }
+.places-zoom button:hover { border-color: var(--accent-ink); color: var(--accent-ink); }
 
 /* Popup card */
 .places-popup {
@@ -1023,13 +985,13 @@ h2.display em {
   color: var(--text-dim);
   font-size: 18px;
 }
-.places-popup__close:hover { color: var(--accent); border-color: var(--accent); }
+.places-popup__close:hover { color: var(--accent-ink); border-color: var(--accent-ink); }
 .places-popup__city {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-ink);
   margin-bottom: 8px;
 }
 .places-popup__entries { display: flex; flex-direction: column; gap: 28px; }
@@ -1041,7 +1003,7 @@ h2.display em {
   text-transform: uppercase; color: var(--text-dim);
   margin-bottom: 6px;
 }
-.places-entry__tag { color: var(--accent); }
+.places-entry__tag { color: var(--accent-ink); }
 .places-entry h3 {
   font-family: var(--serif);
   font-size: 22px;
@@ -1053,6 +1015,12 @@ h2.display em {
   font-size: 15px; line-height: 1.55;
   color: var(--text); margin: 0;
 }
+.places-entry__story {
+  font-size: 14px; line-height: 1.6;
+  color: var(--text-dim); margin: 10px 0 0;
+  text-wrap: pretty;
+}
+.places-entry__story em { color: var(--text); }
 .places-materials-btn {
   margin-top: 14px;
   background: transparent;
@@ -1063,7 +1031,7 @@ h2.display em {
   text-transform: uppercase;
   padding: 8px 12px;
 }
-.places-materials-btn:hover { color: var(--accent); border-color: var(--accent); }
+.places-materials-btn:hover { color: var(--accent-ink); border-color: var(--accent-ink); }
 .places-materials {
   display: none;
   margin-top: 14px;
@@ -1164,8 +1132,8 @@ h2.display em {
   backdrop-filter: blur(10px);
   transition: transform 0.3s ease, border-color 0.15s;
 }
-.tweaks__toggle:hover { border-color: var(--accent); color: var(--accent); }
-.tweaks.open .tweaks__toggle { transform: rotate(180deg); border-color: var(--accent); color: var(--accent); }
+.tweaks__toggle:hover { border-color: var(--accent-ink); color: var(--accent-ink); }
+.tweaks.open .tweaks__toggle { transform: rotate(180deg); border-color: var(--accent-ink); color: var(--accent-ink); }
 
 .tweaks__panel {
   position: absolute; bottom: 52px; right: 0;

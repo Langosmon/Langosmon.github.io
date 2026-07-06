@@ -2,7 +2,7 @@
 // app.js — tiny vanilla JS layer for the site.
 // Handles: theme toggle, language toggle, content rendering from data.js,
 //          scroll reveals, tweaks panel, mobile menu.
-// No framework, no build step. ~10KB unminified.
+// No framework, no build step.
 // ============================================================================
 
 (function () {
@@ -62,6 +62,17 @@
     return frag;
   };
 
+  // A muted looping clip that only downloads + plays while on screen.
+  const inlineVideo = (src, poster, cls) => {
+    const v = el("video", {
+      class: cls || "", poster: poster || null,
+      muted: "", loop: "", playsinline: "", preload: "none",
+      "data-src": src, "data-inview": "",
+    });
+    v.muted = true; // attribute alone isn't enough in some browsers
+    return v;
+  };
+
   // --- LANGUAGE ----------------------------------------------------------
   const getLang = () => localStorage.getItem("lang") || (navigator.language || "en").slice(0, 2);
   let LANG = getLang() === "es" ? "es" : "en";
@@ -80,12 +91,27 @@
   const systemPrefersDark = () =>
     window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
 
+  const syncThemeColorMeta = () => {
+    // Keep the browser-chrome colour in lockstep with the real background.
+    requestAnimationFrame(() => {
+      const bg = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+      if (!bg) return;
+      let meta = $('meta[name="theme-color"]:not([media])');
+      if (!meta) {
+        meta = el("meta", { name: "theme-color" });
+        document.head.append(meta);
+      }
+      meta.setAttribute("content", bg);
+    });
+  };
+
   const applyTheme = (theme) => {
     if (theme === "light" || theme === "dark") {
       document.documentElement.setAttribute("data-theme", theme);
     } else {
       document.documentElement.removeAttribute("data-theme");
     }
+    syncThemeColorMeta();
   };
 
   const currentTheme = () => {
@@ -106,11 +132,17 @@
   // Re-render if user changes system theme & has no override
   if (window.matchMedia) {
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-      if (!getStoredTheme()) document.dispatchEvent(new CustomEvent("themechange"));
+      if (!getStoredTheme()) {
+        syncThemeColorMeta();
+        document.dispatchEvent(new CustomEvent("themechange"));
+      }
     });
   }
 
   // --- NAV ---------------------------------------------------------------
+  const SUN_SVG  = '<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><circle cx="8" cy="8" r="3.2"/><path d="M8 1.2v1.8M8 13v1.8M1.2 8H3M13 8h1.8M3.2 3.2l1.3 1.3M11.5 11.5l1.3 1.3M12.8 3.2l-1.3 1.3M4.5 11.5l-1.3 1.3"/></svg>';
+  const MOON_SVG = '<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="M13.2 9.8A5.8 5.8 0 0 1 6.2 2.8a5.8 5.8 0 1 0 7 7z"/></svg>';
+
   const renderNav = () => {
     const slot = $("[data-nav]");
     if (!slot) return;
@@ -144,8 +176,10 @@
         el("button", {
           class: "nav__btn",
           title: "Toggle theme",
+          "aria-label": "Toggle theme",
+          html: theme === "dark" ? SUN_SVG : MOON_SVG,
           onclick: toggleTheme,
-        }, theme === "dark" ? "☼" : "☾"),
+        }),
         el("button", {
           class: "nav__btn",
           title: "Toggle language",
@@ -169,11 +203,8 @@
     const foot = el("footer", { class: "foot" }, [
       el("div", { class: "foot__grid" }, [
         el("div", {}, [
-          el("div", { class: "section-label", style: "color: var(--on-ink-dim);" }, [
-            el("span", { class: "num" }, "04"),
-            " ",
-            LANG === "es" ? "Contacto" : "Get in touch",
-          ]),
+          el("div", { class: "section-label", style: "color: var(--on-ink-dim);" },
+            LANG === "es" ? "· Contacto" : "· Get in touch"),
           cta,
           el("a", { class: "foot__email", href: `mailto:${D.profile.email}` }, D.profile.email),
         ]),
@@ -207,6 +238,7 @@
     const portrait = el("div", { class: "about__portrait" }, [
       el("img", {
         src: D.profile.portrait, alt: D.profile.name,
+        width: 720, height: 540, decoding: "async",
         onerror: (e) => e.currentTarget.style.display = "none",
       }),
       el("div", { class: "about__caption" }, t(D.profile.location, LANG)),
@@ -235,15 +267,38 @@
     );
 
     slot.append(
-      el("div", { class: "section-label" }, [
-        el("span", { class: "num" }, "01"),
-        " ",
-        LANG === "es" ? "Sobre mí" : "About",
-      ]),
+      el("div", { class: "section-label" },
+        LANG === "es" ? "· Sobre mí" : "· About"),
       el("div", { class: "about" }, [
         el("div", {}, [portrait, facts]),
         body,
       ])
+    );
+  };
+
+  // --- HOME: EVIDENCE BEAT -----------------------------------------------
+  const renderEvidence = () => {
+    const slot = $("[data-evidence]");
+    if (!slot || !D.evidence) return;
+    slot.innerHTML = "";
+    const ev = D.evidence;
+
+    const body = el("p", { class: "evidence__body" });
+    body.append(renderInlineMd(t(ev.body, LANG)));
+
+    slot.append(
+      el("div", { class: "section-label" }, "· " + t(ev.label, LANG)),
+      el("div", { class: "evidence reveal" }, [
+        el("div", { class: "evidence__media" }, [
+          inlineVideo(ev.media.src, ev.media.poster, "evidence__video"),
+          el("div", { class: "evidence__caption mono" }, t(ev.media.caption, LANG)),
+        ]),
+        el("div", { class: "evidence__text" }, [
+          el("h2", { class: "display" }, t(ev.title, LANG)),
+          body,
+          ev.cta ? el("a", { class: "btn", href: ev.cta.href }, t(ev.cta.label, LANG) + " →") : null,
+        ]),
+      ]),
     );
   };
 
@@ -268,11 +323,12 @@
       body.append(desc);
 
       if (n.mediaSrc) {
+        const isVideo = /\.(mp4|webm)$/i.test(n.mediaSrc);
         body.append(
           el("div", { class: "t-entry__media" }, [
-            n.mediaSrc.endsWith(".mp4")
-              ? el("video", { src: n.mediaSrc, autoplay: "", loop: "", muted: "", playsinline: "" })
-              : el("img", { src: n.mediaSrc, alt: t(n.mediaCaption, LANG) || "", loading: "lazy" }),
+            isVideo
+              ? inlineVideo(n.mediaSrc, n.mediaPoster)
+              : el("img", { src: n.mediaSrc, alt: t(n.mediaCaption, LANG) || "", loading: "lazy", decoding: "async" }),
             n.mediaCaption ? el("div", { class: "t-entry__media-cap" }, t(n.mediaCaption, LANG)) : null,
           ])
         );
@@ -286,23 +342,18 @@
     });
 
     slot.append(
-      el("div", { class: "section-label" }, [
-        el("span", { class: "num" }, "02"),
-        " ",
-        LANG === "es" ? "Bitácora" : "Logbook",
-      ]),
+      el("div", { class: "section-label" },
+        LANG === "es" ? "· Bitácora" : "· Logbook"),
       el("h2", { class: "display" }, [
         ...(LANG === "es"
           ? [document.createTextNode("Lo más reciente — "), el("em", {}, "noticias, papers, momentos.")]
           : [document.createTextNode("Recently — "), el("em", {}, "news, papers, small moments.")]),
       ]),
       el("div", { class: "timeline" }, [rail]),
-      el("p", { style: "margin-top:28px;font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:0.06em;" },
-        "↳ " + (LANG === "es" ? "Edita data.js para añadir una entrada." : "Edit data.js to add an entry.")),
     );
   };
 
-  // --- HOME: HERO LINES (just titles/subs, IR canvas handled separately)
+  // --- HOME: HERO LINES (video source is picked in initHeroVideo) ---------
   const renderHeroText = () => {
     const slot = $("[data-hero]");
     if (!slot) return;
@@ -335,6 +386,20 @@
   };
 
   // --- RESEARCH PAGE -----------------------------------------------------
+  const buildProjectMedia = (m) => {
+    if (!m || !m.src) return null;
+    const wrap = el("figure", { class: "project__fig" });
+    if (m.kind === "video") {
+      wrap.append(inlineVideo(m.src, m.poster, "project__video"));
+    } else {
+      wrap.append(el("img", {
+        src: m.src, alt: t(m.caption, LANG) || "", loading: "lazy", decoding: "async",
+      }));
+    }
+    if (m.caption) wrap.append(el("figcaption", { class: "mono" }, t(m.caption, LANG)));
+    return wrap;
+  };
+
   const renderResearch = () => {
     const slot = $("[data-research]");
     if (!slot) return;
@@ -344,18 +409,36 @@
     D.research.forEach(p => {
       const desc = el("p", { class: "project__desc" });
       desc.append(renderInlineMd(t(p.body, LANG)));
+
+      const main = el("div", { class: "project__main" }, [
+        el("h3", {}, t(p.title, LANG)),
+        el("div", { class: "project__tags" },
+          p.tags.map(tg => el("span", { class: "project__tag" }, tg))),
+        desc,
+      ]);
+      if (p.quote) {
+        main.append(el("blockquote", { class: "project__quote" }, [
+          el("p", {}, t(p.quote.text, LANG)),
+          p.quote.cite ? el("cite", { class: "mono" }, p.quote.cite) : null,
+        ]));
+      }
+      if (p.link) {
+        main.append(el("a", {
+          class: "t-entry__link", href: p.link.url, target: "_blank", rel: "noopener",
+        }, `${t(p.link.label, LANG)} ↗`));
+      }
+
+      const mediaCol = el("div", { class: "project__media" });
+      const fig1 = buildProjectMedia(p.media);
+      const fig2 = buildProjectMedia(p.media2);
+      if (fig1) mediaCol.append(fig1);
+      if (fig2) mediaCol.append(fig2);
+
       grid.append(
-        el("article", { class: "project reveal" }, [
+        el("article", { class: "project reveal" + (fig1 ? "" : " project--textonly") }, [
           el("div", { class: "project__num" }, p.num),
-          el("div", { class: "project__main" }, [
-            el("h3", {}, t(p.title, LANG)),
-            el("div", { class: "project__tags" },
-              p.tags.map(tg => el("span", { class: "project__tag" }, tg))),
-            desc,
-          ]),
-          el("div", { class: "project__media" }, [
-            el("div", { class: "ph" }, t(p.caption, LANG)),
-          ]),
+          main,
+          fig1 ? mediaCol : null,
         ])
       );
     });
@@ -402,6 +485,12 @@
     if (!slot) return;
     slot.innerHTML = "";
 
+    if (D.era5.intro) {
+      const intro = el("p", { class: "era5-intro" });
+      intro.append(renderInlineMd(t(D.era5.intro, LANG)));
+      slot.append(intro);
+    }
+
     D.era5.apps.forEach((a, i) => {
       const block = el("article", { class: "era5-embed reveal" }, [
         el("header", { class: "era5-embed__head" }, [
@@ -446,7 +535,7 @@
           el("a", { class: "btn btn--ghost", href: D.cv.pdf, target: "_blank", rel: "noopener" }, LANG === "es" ? "Abrir en nueva pestaña" : "Open in new tab"),
         ]),
         el("div", { class: "cv-embed" }, [
-          el("iframe", { src: D.cv.pdf + "#view=FitH", title: "CV PDF" }),
+          el("iframe", { src: D.cv.pdf + "#view=FitH", title: "CV PDF", loading: "lazy" }),
         ]),
       ])
     );
@@ -471,9 +560,33 @@
     $$(".reveal:not(.in)").forEach(n => io.observe(n));
   };
 
+  // Inline videos: fetch + play only while on screen, pause when scrolled away.
+  let vio = null;
+  const wireInlineVideos = () => {
+    if (vio) vio.disconnect();
+    const vids = $$("video[data-inview]");
+    if (!vids.length) return;
+    if (!window.IntersectionObserver) {
+      vids.forEach(v => { v.src = v.dataset.src; v.play().catch(() => {}); });
+      return;
+    }
+    vio = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        const v = e.target;
+        if (e.isIntersecting) {
+          if (!v.src) v.src = v.dataset.src;
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { rootMargin: "120px 0px", threshold: 0.05 });
+    vids.forEach(v => vio.observe(v));
+  };
+
   // --- TWEAKS PANEL ------------------------------------------------------
-  const TWEAKS_KEY = "tweaks-v1";
-  const TWEAK_DEFAULTS = { accentHue: 55, irSpeed: 1.0 };
+  const TWEAKS_KEY = "tweaks-v2";
+  const TWEAK_DEFAULTS = { accentHue: 38, otisSpeed: 1.0 };  // 38 ≈ true Jalisco terracotta
   let TWEAKS = (() => {
     try {
       const stored = JSON.parse(localStorage.getItem(TWEAKS_KEY) || "null");
@@ -483,7 +596,8 @@
 
   const applyTweaks = () => {
     document.documentElement.style.setProperty("--accent-h", TWEAKS.accentHue);
-    window.IR_SPEED = TWEAKS.irSpeed;
+    const hero = $(".hero__video");
+    if (hero) hero.playbackRate = TWEAKS.otisSpeed;
     document.dispatchEvent(new CustomEvent("tweakschange", { detail: { ...TWEAKS } }));
   };
 
@@ -492,7 +606,8 @@
     if (!slot) return;
     slot.innerHTML = "";
 
-    const panel = el("div", { class: "tweaks__panel" }, [
+    const onHome = !!$(".hero__video");
+    const rows = [
       el("div", { class: "tweaks__row" }, [
         el("div", { class: "tweaks__label" }, [
           LANG === "es" ? "Color de acento" : "Accent color",
@@ -503,30 +618,31 @@
           oninput: (e) => { TWEAKS.accentHue = +e.target.value; applyTweaks(); saveTweaks(); },
         }),
       ]),
-      el("div", { class: "tweaks__row" }, [
+    ];
+    if (onHome) {
+      rows.push(el("div", { class: "tweaks__row" }, [
         el("div", { class: "tweaks__label" }, [
-          LANG === "es" ? "Velocidad IR" : "IR speed",
-          el("span", {}, `${TWEAKS.irSpeed.toFixed(1)}×`),
+          LANG === "es" ? "Velocidad del loop de Otis" : "Otis loop speed",
+          el("span", {}, `${TWEAKS.otisSpeed.toFixed(1)}×`),
         ]),
         el("input", {
-          type: "range", min: 0.2, max: 3.0, step: 0.1, value: TWEAKS.irSpeed,
+          type: "range", min: 0.2, max: 3.0, step: 0.1, value: TWEAKS.otisSpeed,
           oninput: (e) => {
-            TWEAKS.irSpeed = +e.target.value;
+            TWEAKS.otisSpeed = +e.target.value;
             applyTweaks();
             saveTweaks();
-            // live-update label text — re-render panel cheaply
-            e.target.previousElementSibling.lastElementChild.textContent = `${TWEAKS.irSpeed.toFixed(1)}×`;
+            e.target.previousElementSibling.lastElementChild.textContent = `${TWEAKS.otisSpeed.toFixed(1)}×`;
           },
         }),
-      ]),
-    ]);
+      ]));
+    }
 
     const wrap = el("div", { class: "tweaks" }, [
       el("button", {
         class: "tweaks__toggle", "aria-label": "open tweaks panel",
         onclick: (e) => e.currentTarget.parentElement.classList.toggle("open"),
       }, "⚙"),
-      panel,
+      el("div", { class: "tweaks__panel" }, rows),
     ]);
 
     slot.append(wrap);
@@ -536,7 +652,18 @@
     try { localStorage.setItem(TWEAKS_KEY, JSON.stringify(TWEAKS)); } catch {}
   };
 
-  // --- HOME HERO META BANNER --------------------------------------------
+  // --- HOME HERO ----------------------------------------------------------
+  // Pick the right encode with JS: browsers don't reliably honour the `media`
+  // attribute on <video><source>, so a plain <source> list would send the
+  // 480p file to phones.
+  const initHeroVideo = () => {
+    const v = $(".hero__video");
+    if (!v || v.src) return;
+    const w = window.innerWidth || document.documentElement.clientWidth || 1024;
+    v.src = w < 760 ? v.dataset.srcMobile : v.dataset.srcDesktop;
+    v.playbackRate = TWEAKS.otisSpeed;
+  };
+
   const renderHeroMeta = () => {
     const slot = $("[data-hero-meta]");
     if (!slot) return;
@@ -544,9 +671,16 @@
     slot.append(
       el("span", {}, [
         el("span", { class: "live-dot" }),
-        " GOES-16 · ABI Band 13 · Hurricane Otis",
+        " GOES-18 · ABI Band 13 · Hurricane Otis",
       ]),
-      el("span", {}, "2023-10-24 → 25 · Cat 5 landfall, Acapulco · CIRA"),
+      el("span", {}, [
+        "2023-10-24 → 25 · Cat 5 landfall, Acapulco · ",
+        el("a", {
+          href: "https://commons.wikimedia.org/wiki/Category:Hurricane_Otis",
+          target: "_blank", rel: "noopener", class: "bare",
+          title: "Source: CSU/CIRA & NOAA, public domain",
+        }, "CSU/CIRA & NOAA"),
+      ]),
     );
   };
 
@@ -556,6 +690,7 @@
     renderHeroText();
     renderHeroMeta();
     renderAbout();
+    renderEvidence();
     renderNews();
     renderResearch();
     renderPublications();
@@ -565,23 +700,25 @@
     renderFooter();
     renderTweaks();
     wireReveals();
+    wireInlineVideos();
+  };
+
+  const boot = () => {
+    document.documentElement.setAttribute("data-lang", LANG);
+    document.documentElement.lang = LANG;
+    applyTweaks();
+    initHeroVideo();
+    renderAll();
+    syncThemeColorMeta();
   };
 
   // Initial run after DOM ready
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
-      document.documentElement.setAttribute("data-lang", LANG);
-      document.documentElement.lang = LANG;
-      applyTweaks();
-      renderAll();
-    });
+    document.addEventListener("DOMContentLoaded", boot);
   } else {
-    document.documentElement.setAttribute("data-lang", LANG);
-    document.documentElement.lang = LANG;
-    applyTweaks();
-    renderAll();
+    boot();
   }
 
-  // Export tiny API for places-map.js / ir-satellite.js
+  // Export tiny API for places-map.js
   window.SITE_APP = { get lang() { return LANG; }, t, renderInlineMd, el, $, $$ };
 })();

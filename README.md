@@ -1,4 +1,4 @@
-# Langosmon.github.io — v2
+# Langosmon.github.io
 
 Personal site for Jose Alfredo Ocegueda Sanchez. Vanilla HTML + CSS + a small
 amount of JS. Zero dependencies, zero build step.
@@ -137,13 +137,11 @@ For pin coordinates, look up `lat, lon` on Google Maps (right-click → "What's 
 This repo is `Langosmon.github.io` — pushing to `main` deploys automatically to
 https://Langosmon.github.io.
 
-To go live with this v2:
-1. Preview locally first (`python -m http.server 8000`).
-2. Once happy, copy these files into your existing
-   `/Users/jocegue/Documents/Langosmon.github.io/` repo, replacing the old
-   `index.html`, `research.html`, etc. Keep `files/cv.pdf` and `images/`.
-3. Add a `.nojekyll` file at the repo root so GitHub doesn't try to run Jekyll.
-4. `git add . && git commit -m "Site redesign" && git push`.
+To publish a change:
+1. Preview locally first (`python3 -m http.server 8000`).
+2. `git add . && git commit -m "describe the change" && git push`.
+   GitHub Pages redeploys within a minute or two.
+(`.nojekyll` at the repo root keeps GitHub from running Jekyll — leave it there.)
 
 ## License
 

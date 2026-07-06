@@ -93,15 +93,12 @@
 
   const syncThemeColorMeta = () => {
     // Keep the browser-chrome colour in lockstep with the real background.
+    // The browser picks the FIRST matching meta, so update the existing
+    // media-scoped ones in place (appending a new meta would never win).
     requestAnimationFrame(() => {
       const bg = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
       if (!bg) return;
-      let meta = $('meta[name="theme-color"]:not([media])');
-      if (!meta) {
-        meta = el("meta", { name: "theme-color" });
-        document.head.append(meta);
-      }
-      meta.setAttribute("content", bg);
+      $$('meta[name="theme-color"]').forEach(m => m.setAttribute("content", bg));
     });
   };
 
@@ -311,7 +308,7 @@
     const rail = el("div", { class: "timeline__rail" });
     D.news.forEach(n => {
       const date = new Date(n.date);
-      const dateStr = date.toLocaleDateString(LANG === "es" ? "es" : "en", { month: "short", year: "numeric" }).toUpperCase();
+      const dateStr = date.toLocaleDateString(LANG === "es" ? "es" : "en", { month: "short", year: "numeric", timeZone: "UTC" }).toUpperCase();
       const dateEl = el("div", { class: "t-entry__date" + (n.featured ? " featured" : "") }, dateStr);
       const body = el("div", { class: "t-entry__body reveal" });
 
@@ -364,7 +361,7 @@
       sub.append(
         "Investigando ",
         el("strong", {}, "ciclones tropicales, la ZCIT y los monzones"),
-        " — por qué las tormentas tocan tierra donde lo hacen, y qué hace que algunas temporadas sean catastróficas."
+        " — por qué las tormentas tocan tierra donde lo hacen, y qué hace que algunas temporadas sean calladamente tensas y otras francamente catastróficas."
       );
     } else {
       sub.append(
@@ -469,7 +466,8 @@
           el("div", { class: "pub__tag" }, t(p.tag, LANG)),
           main,
           p.url
-            ? el("a", { class: "pub__link", href: p.url, target: "_blank", rel: "noopener" }, "Read ↗")
+            ? el("a", { class: "pub__link", href: p.url, target: "_blank", rel: "noopener" },
+                (LANG === "es" ? "Leer" : "Read") + " ↗")
             : null,
         ]);
       })),
@@ -477,20 +475,37 @@
   };
 
   // --- ERA5 PAGE ---------------------------------------------------------
-  // Renders one full-width embed block per app, with a top bar (title/desc/
-  // open-in-new-tab + repo link), an iframe to the Streamlit embed URL, and
-  // a visible "open in new tab" fallback if the iframe is blocked.
+  // Renders one full-width embed block per app. The iframes are built ONCE:
+  // a language toggle only retouches the text (re-inserting an iframe would
+  // reload the Streamlit app and wipe the visitor's session). The embed URL
+  // carries the site's current theme; a theme toggle reloads the embeds so
+  // they match (explicit user action, worth the refresh).
+  const era5EmbedSrc = (a) =>
+    a.embedUrl + "&embed_options=" + (currentTheme() === "dark" ? "dark_theme" : "light_theme");
+
   const renderEra5 = () => {
     const slot = $("[data-era5]");
     if (!slot) return;
-    slot.innerHTML = "";
 
-    if (D.era5.intro) {
-      const intro = el("p", { class: "era5-intro" });
-      intro.append(renderInlineMd(t(D.era5.intro, LANG)));
-      slot.append(intro);
+    // Page-hero intro comes from data.js so it's editable in one place.
+    const introSlot = $("[data-era5-intro]");
+    if (introSlot && D.era5.intro) introSlot.textContent = t(D.era5.intro, LANG);
+
+    if (slot.dataset.built) {
+      // Retouch translatable text only — never touch the iframes.
+      D.era5.apps.forEach((a, i) => {
+        const block = slot.children[i];
+        if (!block) return;
+        block.querySelector(".era5-embed__title-txt").textContent = t(a.title, LANG);
+        block.querySelector(".era5-embed__desc").textContent = t(a.desc, LANG);
+        const open = block.querySelector(".era5-embed__actions .btn");
+        if (open) open.textContent = (LANG === "es" ? "Abrir en pestaña nueva" : "Open in new tab") + " ↗";
+        block.querySelector("iframe").title = t(a.title, LANG);
+      });
+      return;
     }
 
+    slot.innerHTML = "";
     D.era5.apps.forEach((a, i) => {
       const block = el("article", { class: "era5-embed reveal" }, [
         el("header", { class: "era5-embed__head" }, [
@@ -498,7 +513,7 @@
             el("div", { class: "era5-embed__label" }, [
               el("span", { class: "num" }, String(i + 1).padStart(2, "0")),
               " ",
-              t(a.title, LANG),
+              el("span", { class: "era5-embed__title-txt" }, t(a.title, LANG)),
             ]),
             el("p", { class: "era5-embed__desc" }, t(a.desc, LANG)),
           ]),
@@ -511,7 +526,7 @@
         ]),
         el("div", { class: "era5-embed__frame" }, [
           el("iframe", {
-            src: a.embedUrl,
+            src: era5EmbedSrc(a),
             title: t(a.title, LANG),
             loading: "lazy",
             allow: "fullscreen",
@@ -521,24 +536,50 @@
       ]);
       slot.append(block);
     });
+    slot.dataset.built = "1";
   };
 
+  // Theme toggle → reload embeds in the matching theme.
+  document.addEventListener("themechange", () => {
+    const slot = $("[data-era5]");
+    if (!slot || !slot.dataset.built) return;
+    D.era5.apps.forEach((a, i) => {
+      const iframe = slot.children[i] && slot.children[i].querySelector("iframe");
+      if (iframe) iframe.src = era5EmbedSrc(a);
+    });
+  });
+
   // --- CV PAGE -----------------------------------------------------------
+  // Same build-once pattern: language toggles must not reload the PDF.
   const renderCv = () => {
     const slot = $("[data-cv]");
     if (!slot) return;
+
+    const introSlot = $("[data-cv-intro]");
+    if (introSlot && D.cv.intro) introSlot.textContent = t(D.cv.intro, LANG);
+
+    const dl = LANG === "es" ? "Descargar PDF" : "Download PDF";
+    const nt = LANG === "es" ? "Abrir en nueva pestaña" : "Open in new tab";
+    if (slot.dataset.built) {
+      const btns = slot.querySelectorAll(".cv-actions a");
+      if (btns[0]) btns[0].textContent = dl;
+      if (btns[1]) btns[1].textContent = nt;
+      return;
+    }
+
     slot.innerHTML = "";
     slot.append(
       el("div", { class: "cv-stage" }, [
         el("div", { class: "cv-actions" }, [
-          el("a", { class: "btn", href: D.cv.pdf, download: "" }, LANG === "es" ? "Descargar PDF" : "Download PDF"),
-          el("a", { class: "btn btn--ghost", href: D.cv.pdf, target: "_blank", rel: "noopener" }, LANG === "es" ? "Abrir en nueva pestaña" : "Open in new tab"),
+          el("a", { class: "btn", href: D.cv.pdf, download: "" }, dl),
+          el("a", { class: "btn btn--ghost", href: D.cv.pdf, target: "_blank", rel: "noopener" }, nt),
         ]),
         el("div", { class: "cv-embed" }, [
           el("iframe", { src: D.cv.pdf + "#view=FitH", title: "CV PDF", loading: "lazy" }),
         ]),
       ])
     );
+    slot.dataset.built = "1";
   };
 
   // --- SCROLL REVEALS ----------------------------------------------------

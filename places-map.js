@@ -32,12 +32,13 @@
     v.y = Math.min(500 - v.h, Math.max(0, v.y));
     state.svg.setAttribute("viewBox", `${v.x} ${v.y} ${v.w} ${v.h}`);
 
-    // counter-scale pins so they keep their on-screen size
+    // counter-scale pins so they keep their on-screen size (style.strokeWidth
+    // wins over the stylesheet; a plain attribute would lose to CSS)
     const k = v.w / 1000;
-    state.pinEls.forEach(({ dot, halo }) => {
+    state.pinEls.forEach(({ dot, halo, baseStroke }) => {
       dot.setAttribute("r", 5.5 * k);
       halo.setAttribute("r", 6 * k);
-      dot.setAttribute("stroke-width", 1.6 * k);
+      dot.style.strokeWidth = (baseStroke * k) + "px";
     });
     state.svg.style.cursor = v.w < 1000 ? "grab" : "default";
   };
@@ -58,6 +59,9 @@
 
     state.svg.addEventListener("pointerdown", (e) => {
       if (state.view.w >= 1000) return;         // nothing to pan at world view
+      // Never capture on a pin: pointer capture retargets the click to the
+      // svg, which would make pins unclickable while zoomed.
+      if (e.target.closest(".pin")) return;
       dragging = true; moved = false;
       sx = e.clientX; sy = e.clientY;
       ox = state.view.x; oy = state.view.y;
@@ -152,8 +156,10 @@
       dot.setAttribute("role", "button");
       dot.setAttribute("aria-label", place.city);
       dot.dataset.idx = idx;
+      const baseStroke = place.remote ? 1.8 : 1.5;
+      dot.style.strokeWidth = baseStroke + "px";
       pins.append(dot);
-      state.pinEls.push({ dot, halo });
+      state.pinEls.push({ dot, halo, baseStroke });
     });
     svg.append(pins);
     stage.append(svg);
@@ -272,7 +278,7 @@
 
       const dateStr = entry.date
         ? new Date(entry.date).toLocaleDateString(lang === "es" ? "es" : "en",
-            { month: "short", year: "numeric" }).toUpperCase()
+            { month: "short", year: "numeric", timeZone: "UTC" }).toUpperCase()
         : "";
 
       const meta = document.createElement("div");

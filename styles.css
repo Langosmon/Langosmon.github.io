@@ -15,7 +15,6 @@
 
   --accent:     oklch(var(--accent-l) var(--accent-c) var(--accent-h));
   --accent-dim: oklch(0.55 calc(var(--accent-c) - 0.02) var(--accent-h));
-  --cool:       oklch(0.68 0.110 235);
 
   --serif: "Source Serif 4", "Source Serif Pro", Georgia, serif;
   --sans:  "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
@@ -342,7 +341,6 @@ section.block.dark {
   color: var(--on-ink);
 }
 .wrap        { max-width: var(--maxw); margin: 0 auto; }
-.wrap--narrow { max-width: 760px;    margin: 0 auto; }
 
 .section-label {
   font-family: var(--mono);
@@ -768,16 +766,6 @@ h2.display em {
 /* --------------------------------------------------------------------------
    ERA5 PAGE — embedded Streamlit apps
    -------------------------------------------------------------------------- */
-.era5-intro {
-  font-family: var(--serif);
-  font-size: 19px;
-  line-height: 1.55;
-  color: var(--text);
-  max-width: 72ch;
-  margin: 0 0 40px;
-  text-wrap: pretty;
-}
-.era5-intro a { color: var(--accent-ink); border-bottom: 1px solid currentColor; }
 .era5-embed {
   border: 1px solid var(--bg-3);
   background: var(--bg);
@@ -917,9 +905,9 @@ h2.display em {
 .places-stage .pin {
   fill: var(--accent);
   stroke: color-mix(in oklch, var(--bg) 75%, transparent);
-  stroke-width: 1.5;
+  /* stroke-width set inline from places-map.js so it counter-scales with zoom */
   cursor: pointer;
-  transition: r 0.15s, filter 0.15s;
+  transition: filter 0.15s;
   filter: drop-shadow(0 1px 2px color-mix(in oklch, var(--ink) 30%, transparent));
 }
 .places-stage .pin:hover,
@@ -929,16 +917,17 @@ h2.display em {
 .places-stage .pin--remote {
   fill: var(--bg);
   stroke: var(--accent-ink);
-  stroke-width: 1.8;
 }
 .places-stage .pin-pulse {
   fill: var(--accent);
   opacity: 0.35;
+  transform-box: fill-box;
+  transform-origin: center;
   animation: pinPulse 2.4s ease-in-out infinite;
 }
 @keyframes pinPulse {
-  0%,100% { transform-origin: center; r: 6; opacity: 0.35; }
-  50%     { transform-origin: center; r: 14; opacity: 0; }
+  0%,100% { transform: scale(1);   opacity: 0.35; }
+  50%     { transform: scale(2.3); opacity: 0; }
 }
 
 .places-zoom {

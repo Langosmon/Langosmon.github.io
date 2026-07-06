@@ -40,7 +40,7 @@ window.SITE_DATA = {
       "I'm also a foodie; I see food and language as windows into other cultures, and the most delicious way to express ourselves. *We do science for the people.*",
     ],
     es: [
-      "Soy José Alfredo Ocegueda Sanchez, originario de Guadalajara, Jalisco. Soy candidato a doctor en ciencias atmosféricas en Purdue, trabajando con [Dan Chavas](https://web.ics.purdue.edu/~dchavas/) sobre la dinámica de la atmósfera tropical.",
+      "Soy José Alfredo Ocegueda Sánchez, originario de Guadalajara, Jalisco. Soy candidato a doctor en ciencias atmosféricas en Purdue, trabajando con [Dan Chavas](https://web.ics.purdue.edu/~dchavas/) sobre la dinámica de la atmósfera tropical.",
       "Mi investigación gira en torno al *clima tropical y la dinámica tropical* — en particular los ciclones tropicales, la ZCIT y los sistemas monzónicos. Busco las razones físicas por las que las tormentas tocan tierra donde lo hacen, y qué circulaciones de gran escala hacen que algunas temporadas sean calladamente tensas y otras francamente catastróficas.",
       "Antes de Purdue estudié física en la Universidad de Guadalajara (medalla al Mejor de la Generación), y antes fui tecnólogo en química industrial — con un premio estatal de innovación por una nueva patente de diseño industrial en el camino.",
       "También soy foodie; veo la comida y los idiomas como ventanas hacia otras culturas, y la forma más deliciosa de expresarnos. *Hacemos ciencia para la gente.*",
@@ -170,7 +170,7 @@ window.SITE_DATA = {
       },
       body: {
         en: "My first Purdue project — Eastern North Pacific tropical cyclone landfalls — landed in *Geophysical Research Letters* (with Dan Chavas and Jhordanne Jones). Headline findings: (1) ENP landfalls have a bimodal seasonal cycle set up by the region's orography; (2) in high-landfall years a northward-shifted ITCZ turns the steering winds westerly, guiding storms into vulnerable Southwest Mexico; (3) steering-wind anomalies — not storm counts — drive the year-to-year variability.",
-        es: "Mi primer proyecto en Purdue — llegadas a tierra de ciclones tropicales del Pacífico Norte oriental — se publicó en *Geophysical Research Letters* (con Dan Chavas y Jhordanne Jones). Hallazgos: (1) las llegadas a tierra en el ENP tienen un ciclo estacional bimodal moldeado por la orografía de la región; (2) en años de muchas llegadas, una ZCIT desplazada al norte vuelve westerlies los vientos de dirección, guiando tormentas hacia el vulnerable suroeste de México; (3) las anomalías del viento de dirección — no el número de tormentas — dominan la variabilidad interanual.",
+        es: "Mi primer proyecto en Purdue — llegadas a tierra de ciclones tropicales del Pacífico Norte oriental — se publicó en *Geophysical Research Letters* (con Dan Chavas y Jhordanne Jones). Hallazgos: (1) las llegadas a tierra en el ENP tienen un ciclo estacional bimodal moldeado por la orografía de la región; (2) en años de muchas llegadas, una ZCIT desplazada al norte vuelve *westerlies* los vientos de dirección, guiando tormentas hacia el vulnerable suroeste de México; (3) las anomalías del viento de dirección — no el número de tormentas — dominan la variabilidad interanual.",
       },
       link: {
         url: "https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2024GL113807",
@@ -210,12 +210,12 @@ window.SITE_DATA = {
       tags: ["Tropical Cyclones", "Landfall", "Steering Winds", "GRL 2025"],
       body: {
         en: "The Eastern North Pacific is the densest tropical-cyclone basin on Earth, yet its landfalls were barely studied. We found the seasonal cycle of landfalls is *bimodal* — June, then September–October — because in July the Caribbean Low-Level Jet squeezes through gaps in the Central American cordillera and shoves storms away from the coast. Year to year, it's the steering winds (not how many storms form) that decide who gets hit: when the ITCZ sits farther north, cross-equatorial winds curl into westerlies that guide hurricanes into Southwest Mexico — the country's most vulnerable coastline. Published in *Geophysical Research Letters* (2025).",
-        es: "El Pacífico Norte oriental es la cuenca de ciclones tropicales más densa del planeta, y aun así sus llegadas a tierra estaban apenas estudiadas. Encontramos que el ciclo estacional es *bimodal* — junio, luego septiembre–octubre — porque en julio el jet de bajo nivel del Caribe se cuela por los pasos de la cordillera centroamericana y empuja las tormentas lejos de la costa. De un año a otro, son los vientos de dirección (no cuántas tormentas se forman) los que deciden a quién le toca: cuando la ZCIT se asienta más al norte, los vientos que cruzan el ecuador se curvan en westerlies que guían huracanes hacia el suroeste de México — el litoral más vulnerable del país. Publicado en *Geophysical Research Letters* (2025).",
+        es: "El Pacífico Norte oriental es la cuenca de ciclones tropicales más densa del planeta, y aun así sus llegadas a tierra estaban apenas estudiadas. Encontramos que el ciclo estacional es *bimodal* — junio, luego septiembre–octubre — porque en julio el jet de bajo nivel del Caribe se cuela por los pasos de la cordillera centroamericana y empuja las tormentas lejos de la costa. De un año a otro, son los vientos de dirección (no cuántas tormentas se forman) los que deciden a quién le toca: cuando la ZCIT se asienta más al norte, los vientos que cruzan el ecuador se curvan en *westerlies* que guían huracanes hacia el suroeste de México — el litoral más vulnerable del país. Publicado en *Geophysical Research Letters* (2025).",
       },
       quote: {
         text: {
           en: "The Eastern North Pacific differs from most basins: land lies east of where storms form, so it takes a weakening of the easterlies to steer a storm onto the coast.",
-          es: "El Pacífico Norte oriental es distinto a casi todas las cuencas: la tierra queda al este de donde nacen las tormentas, así que hace falta que los easterlies se debiliten para que una tormenta llegue a la costa.",
+          es: "El Pacífico Norte oriental es distinto a casi todas las cuencas: la tierra queda al este de donde nacen las tormentas, así que hace falta que los *easterlies* se debiliten para que una tormenta llegue a la costa.",
         },
         cite: "GRL 2025 · doi:10.1029/2024GL113807",
       },
@@ -584,8 +584,8 @@ window.SITE_DATA = {
       ],
     },
     {
-      city: "Cambridge, UK",
-      lat: 52.2053, lon: 0.1218,
+      city: "Leeds, UK",
+      lat: 53.8067, lon: -1.5550,
       entries: [
         {
           date: "2025-09-08",
@@ -639,8 +639,8 @@ window.SITE_DATA = {
             es: "El póster de tipos de semillas ganó el segundo lugar como Póster Estudiantil Sobresaliente.",
           },
           story: {
-            en: "Same coastline where Patricia's remnants once aimed, now full of hurricane scientists. Bringing home an AMS award for East Pacific seeds science felt like the basin finally getting its due.",
-            es: "El mismo litoral al que alguna vez apuntaron los remanentes de Patricia, ahora lleno de científicos de huracanes. Traer a casa un premio de la AMS por ciencia de semillas del Pacífico Oriental se sintió como si por fin la cuenca recibiera lo suyo.",
+            en: "The same coastline Hurricane Hilary soaked in 2023, now full of hurricane scientists. Bringing home an AMS award for East Pacific seeds science felt like the basin finally getting its due.",
+            es: "El mismo litoral que el huracán Hilary empapó en 2023, ahora lleno de científicos de huracanes. Traer a casa un premio de la AMS por ciencia de semillas del Pacífico Oriental se sintió como si por fin la cuenca recibiera lo suyo.",
           },
           materials: [
             { kind: "pdf", src: "assets/places/ams2026-poster.pdf", label: { en: "Poster (PDF)", es: "Póster (PDF)" } },
@@ -723,7 +723,7 @@ window.SITE_DATA = {
   footer: {
     cta: {
       en: "Always up to talk *cyclones, ITCZ, or tacos.*",
-      es: "Siempre dispuesto a hablar de *ciclones, ZCIT, o tacos.*",
+      es: "Siempre dispuesto a hablar de *ciclones, ZCIT o tacos.*",
     },
   },
 };

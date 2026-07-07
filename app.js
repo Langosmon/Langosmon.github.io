@@ -10,7 +10,7 @@
 
   const D = window.SITE_DATA;
   if (!D) {
-    console.error("data.js not loaded — site has no content.");
+    console.error("data.js not loaded, site has no content.");
     return;
   }
 
@@ -220,7 +220,7 @@
       ]),
       el("div", { class: "foot__bottom" }, [
         el("span", {}, `© ${new Date().getFullYear()} ${D.profile.name}`),
-        el("span", {}, LANG === "es" ? "construido con cariño · y tacos" : "built with care · and tacos"),
+        el("span", {}, LANG === "es" ? "construido con cariño · y café" : "built with care · and coffee"),
       ]),
     ]);
     slot.append(foot);
@@ -343,8 +343,8 @@
         LANG === "es" ? "· Bitácora" : "· Logbook"),
       el("h2", { class: "display" }, [
         ...(LANG === "es"
-          ? [document.createTextNode("Lo más reciente — "), el("em", {}, "noticias, papers, momentos.")]
-          : [document.createTextNode("Recently — "), el("em", {}, "news, papers, small moments.")]),
+          ? [document.createTextNode("Lo más reciente: "), el("em", {}, "noticias, papers, momentos.")]
+          : [document.createTextNode("Recently: "), el("em", {}, "news, papers, small moments.")]),
       ]),
       el("div", { class: "timeline" }, [rail]),
     );
@@ -367,7 +367,7 @@
       sub.append(
         "Studying ",
         el("strong", {}, "tropical cyclones, the ITCZ, and monsoon systems"),
-        ". Understanding why storms form in the Eastern and Central Pacific, what controls landfall variability — and what makes some seasons quietly tense and others catastrophic."
+        ". Understanding why storms form in the Eastern and Central Pacific, what controls landfall variability, and what makes some seasons quietly tense and others catastrophic."
       );
     }
 
@@ -474,78 +474,164 @@
     );
   };
 
-  // --- ERA5 PAGE ---------------------------------------------------------
-  // Renders one full-width embed block per app. The iframes are built ONCE:
-  // a language toggle only retouches the text (re-inserting an iframe would
-  // reload the Streamlit app and wipe the visitor's session). The embed URL
-  // carries the site's current theme; a theme toggle reloads the embeds so
-  // they match (explicit user action, worth the refresh).
-  const era5EmbedSrc = (a) =>
+  // --- SCIENCE MAPS PAGE ---------------------------------------------------
+  // Two in-page tab groups (TC Diagnostics / ERA5 Reanalysis), one full-width
+  // embed block per app. Everything is built ONCE: a language toggle only
+  // retouches the text, and switching tabs hides/shows panels via [hidden]
+  // (re-inserting an iframe would reload the Streamlit app and wipe the
+  // visitor's session). The embed URL carries the site's current theme; a
+  // theme toggle reloads the embeds so they match (explicit user action,
+  // worth the refresh). Apps flagged `pending: true` render a "coming
+  // online" card instead of an iframe.
+  const smEmbedSrc = (a) =>
     a.embedUrl + "&embed_options=" + (currentTheme() === "dark" ? "dark_theme" : "light_theme");
 
-  const renderEra5 = () => {
-    const slot = $("[data-era5]");
-    if (!slot) return;
+  const SM_TAB_KEY = "sm-tab";
+  const smOpenLabel = () => (LANG === "es" ? "Abrir en pestaña nueva" : "Open in new tab") + " ↗";
+  const smPendingLine = () => LANG === "es"
+    ? "Próximamente: el archivo 1980–2022 se está calculando."
+    : "Coming online: the 1980–2022 archive is being computed.";
+
+  const smSetActiveTab = (key) => {
+    const slot = $("[data-science-maps]");
+    const tabsSlot = $("[data-sm-tabs]");
+    if (!slot || !tabsSlot) return;
+    $$(".sm-tabs__tab", tabsSlot).forEach(b => {
+      const on = b.dataset.key === key;
+      b.classList.toggle("active", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    $$(".sm-group", slot).forEach(p => {
+      if (p.dataset.group === key) p.removeAttribute("hidden");
+      else p.setAttribute("hidden", "");
+    });
+    try { sessionStorage.setItem(SM_TAB_KEY, key); } catch {}
+  };
+
+  const renderScienceMaps = () => {
+    const slot = $("[data-science-maps]");
+    const tabsSlot = $("[data-sm-tabs]");
+    if (!slot || !tabsSlot) return;
+    const SM = D.scienceMaps;
 
     // Page-hero intro comes from data.js so it's editable in one place.
-    const introSlot = $("[data-era5-intro]");
-    if (introSlot && D.era5.intro) introSlot.textContent = t(D.era5.intro, LANG);
+    const introSlot = $("[data-science-maps-intro]");
+    if (introSlot && SM.intro) introSlot.textContent = t(SM.intro, LANG);
 
     if (slot.dataset.built) {
       // Retouch translatable text only — never touch the iframes.
-      D.era5.apps.forEach((a, i) => {
-        const block = slot.children[i];
-        if (!block) return;
-        block.querySelector(".era5-embed__title-txt").textContent = t(a.title, LANG);
-        block.querySelector(".era5-embed__desc").textContent = t(a.desc, LANG);
-        const open = block.querySelector(".era5-embed__actions .btn");
-        if (open) open.textContent = (LANG === "es" ? "Abrir en pestaña nueva" : "Open in new tab") + " ↗";
-        block.querySelector("iframe").title = t(a.title, LANG);
+      SM.groups.forEach((g, gi) => {
+        const tab = tabsSlot.children[gi];
+        if (tab) tab.textContent = t(g.label, LANG);
+        const panel = slot.children[gi];
+        if (!panel) return;
+        const gDesc = panel.querySelector(".sm-group__desc");
+        if (gDesc) { gDesc.innerHTML = ""; gDesc.append(renderInlineMd(t(g.desc, LANG))); }
+        g.apps.forEach((a, i) => {
+          const block = panel.children[i + 1];  // children[0] is the group desc
+          if (!block) return;
+          if (a.pending) {
+            block.querySelector(".sm-pending__title").textContent = t(a.title, LANG);
+            block.querySelector(".sm-pending__desc").textContent = t(a.desc, LANG);
+            block.querySelector(".sm-pending__status").textContent = smPendingLine();
+            return;
+          }
+          block.querySelector(".era5-embed__title-txt").textContent = t(a.title, LANG);
+          block.querySelector(".era5-embed__desc").textContent = t(a.desc, LANG);
+          const open = block.querySelector(".era5-embed__actions .btn:not(.btn--ghost)");
+          if (open) open.textContent = smOpenLabel();
+          block.querySelector("iframe").title = t(a.title, LANG);
+        });
       });
       return;
     }
 
+    // Restore the tab the visitor was on (this session), default to the first.
+    let activeKey = SM.groups[0].key;
+    try {
+      const stored = sessionStorage.getItem(SM_TAB_KEY);
+      if (SM.groups.some(g => g.key === stored)) activeKey = stored;
+    } catch {}
+
+    tabsSlot.innerHTML = "";
     slot.innerHTML = "";
-    D.era5.apps.forEach((a, i) => {
-      const block = el("article", { class: "era5-embed reveal" }, [
-        el("header", { class: "era5-embed__head" }, [
-          el("div", {}, [
-            el("div", { class: "era5-embed__label" }, [
-              el("span", { class: "num" }, String(i + 1).padStart(2, "0")),
-              " ",
-              el("span", { class: "era5-embed__title-txt" }, t(a.title, LANG)),
-            ]),
-            el("p", { class: "era5-embed__desc" }, t(a.desc, LANG)),
-          ]),
-          el("div", { class: "era5-embed__actions" }, [
-            a.openUrl ? el("a", { class: "btn", href: a.openUrl, target: "_blank", rel: "noopener" },
-              (LANG === "es" ? "Abrir en pestaña nueva" : "Open in new tab") + " ↗") : null,
+    SM.groups.forEach(g => {
+      const active = g.key === activeKey;
+      tabsSlot.append(el("button", {
+        class: "sm-tabs__tab" + (active ? " active" : ""),
+        type: "button",
+        
+        "data-key": g.key,
+        "aria-pressed": active ? "true" : "false",
+        onclick: () => smSetActiveTab(g.key),
+      }, t(g.label, LANG)));
+
+      const gDesc = el("p", { class: "sm-group__desc" });
+      gDesc.append(renderInlineMd(t(g.desc, LANG)));
+      const panel = el("div", {
+        class: "sm-group",
+        "data-group": g.key,
+        hidden: active ? null : "",
+      }, [gDesc]);
+
+      g.apps.forEach((a, i) => {
+        if (a.pending) {
+          // Placeholder card — no iframe until the app is deployed.
+          panel.append(el("article", { class: "sm-pending reveal" }, [
+            el("h3", { class: "sm-pending__title" }, t(a.title, LANG)),
+            el("p", { class: "sm-pending__desc" }, t(a.desc, LANG)),
+            el("p", { class: "sm-pending__status" }, smPendingLine()),
             a.repo ? el("a", { class: "btn btn--ghost", href: a.repo, target: "_blank", rel: "noopener" },
               "GitHub ↗") : null,
+          ]));
+          return;
+        }
+        panel.append(el("article", { class: "era5-embed reveal" }, [
+          el("header", { class: "era5-embed__head" }, [
+            el("div", {}, [
+              el("div", { class: "era5-embed__label" }, [
+                el("span", { class: "num" }, String(i + 1).padStart(2, "0")),
+                " ",
+                el("span", { class: "era5-embed__title-txt" }, t(a.title, LANG)),
+              ]),
+              el("p", { class: "era5-embed__desc" }, t(a.desc, LANG)),
+            ]),
+            el("div", { class: "era5-embed__actions" }, [
+              a.openUrl ? el("a", { class: "btn", href: a.openUrl, target: "_blank", rel: "noopener" },
+                smOpenLabel()) : null,
+              a.repo ? el("a", { class: "btn btn--ghost", href: a.repo, target: "_blank", rel: "noopener" },
+                "GitHub ↗") : null,
+            ]),
           ]),
-        ]),
-        el("div", { class: "era5-embed__frame" }, [
-          el("iframe", {
-            src: era5EmbedSrc(a),
-            title: t(a.title, LANG),
-            loading: "lazy",
-            allow: "fullscreen",
-            referrerpolicy: "no-referrer-when-downgrade",
-          }),
-        ]),
-      ]);
-      slot.append(block);
+          el("div", { class: "era5-embed__frame" }, [
+            el("iframe", {
+              src: smEmbedSrc(a),
+              title: t(a.title, LANG),
+              loading: "lazy",
+              allow: "fullscreen",
+              referrerpolicy: "no-referrer-when-downgrade",
+            }),
+          ]),
+        ]));
+      });
+      slot.append(panel);
     });
     slot.dataset.built = "1";
   };
 
   // Theme toggle → reload embeds in the matching theme.
   document.addEventListener("themechange", () => {
-    const slot = $("[data-era5]");
+    const slot = $("[data-science-maps]");
     if (!slot || !slot.dataset.built) return;
-    D.era5.apps.forEach((a, i) => {
-      const iframe = slot.children[i] && slot.children[i].querySelector("iframe");
-      if (iframe) iframe.src = era5EmbedSrc(a);
+    D.scienceMaps.groups.forEach(g => {
+      const panel = slot.querySelector(`.sm-group[data-group="${g.key}"]`);
+      if (!panel) return;
+      g.apps.forEach((a, i) => {
+        if (a.pending) return;
+        const block = panel.children[i + 1];  // children[0] is the group desc
+        const iframe = block && block.querySelector("iframe");
+        if (iframe) iframe.src = smEmbedSrc(a);
+      });
     });
   });
 
@@ -735,7 +821,7 @@
     renderNews();
     renderResearch();
     renderPublications();
-    renderEra5();
+    renderScienceMaps();
     renderCv();
     if (window.renderPlaces) window.renderPlaces(LANG);  // places page hooks in via places-map.js
     renderFooter();

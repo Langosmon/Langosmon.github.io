@@ -764,8 +764,84 @@ h2.display em {
 }
 
 /* --------------------------------------------------------------------------
-   ERA5 PAGE — embedded Streamlit apps
+   SCIENCE MAPS PAGE — tabbed groups of embedded Streamlit apps
    -------------------------------------------------------------------------- */
+/* Tab bar — one mono button per app group (TC Diagnostics / ERA5 Reanalysis) */
+.sm-tabs {
+  display: flex; gap: 28px;
+  border-bottom: 1px solid var(--bg-3);
+  margin-bottom: 36px;
+}
+.sm-tabs__tab {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 10px 2px 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  transition: color 0.15s;
+}
+.sm-tabs__tab:hover { color: var(--text); }
+.sm-tabs__tab.active { color: var(--text); }
+.sm-tabs__tab.active::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px;
+  height: 1px; background: var(--accent-ink);
+}
+
+/* One paragraph introducing each group, above its app blocks */
+.sm-group__desc {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-dim);
+  max-width: 70ch;
+  margin: 0 0 32px;
+}
+
+/* Placeholder card for apps flagged pending (not deployed yet) — no iframe */
+.sm-pending {
+  border: 1px solid var(--bg-3);
+  background: var(--bg-2);
+  padding: 28px;
+  margin-bottom: 56px;
+}
+.sm-pending:last-child { margin-bottom: 0; }
+.sm-pending__title {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 24px;
+  letter-spacing: -0.01em;
+  margin: 0 0 10px;
+}
+.sm-pending__desc {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--text-dim);
+  max-width: 60ch;
+  margin: 0 0 18px;
+}
+.sm-pending__status {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  margin: 0 0 20px;
+}
+.sm-pending__status::before {
+  content: ""; display: inline-block;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: currentColor;
+  animation: sm-pulse 2s ease-in-out infinite;
+}
+@keyframes sm-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.35; }
+}
+
 .era5-embed {
   border: 1px solid var(--bg-3);
   background: var(--bg);

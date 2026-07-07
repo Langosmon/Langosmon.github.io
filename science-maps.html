@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Research · Jose Alfredo Ocegueda Sanchez</title>
-  <meta name="description" content="Research projects and publications on tropical cyclones, ITCZ dynamics, and monsoon systems." />
+  <title>Science Maps · Jose Alfredo Ocegueda Sanchez</title>
+  <meta name="description" content="Interactive science maps: tropical cyclone diagnostics (vPI, PI, ventilation, GPIv) and ERA5 reanalysis visualizations." />
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8C%80%3C/text%3E%3C/svg%3E" />
 
@@ -20,35 +20,32 @@
 </head>
 <body>
 
-  <div data-nav="research" data-on-dark></div>
+  <div data-nav="science" data-on-dark></div>
 
-  <!-- ============ PAGE HERO ============ -->
   <section class="page-hero">
     <div class="page-hero__grid"></div>
     <div class="wrap">
       <div class="section-label" style="color:var(--on-ink-dim);">
-        <span class="num">01</span>
-        <span class="lang-en">Research</span><span class="lang-es">Investigación</span>
+        <span class="num">02</span>
+        <span class="lang-en">Science Maps</span>
+        <span class="lang-es">Mapas Científicos</span>
       </div>
       <h1>
-        <span class="lang-en">Why storms <em>land</em> where they do.</span>
-        <span class="lang-es">Por qué las tormentas <em>tocan tierra</em> donde lo hacen.</span>
+        <span class="lang-en">The atmosphere, <em>browsable.</em></span>
+        <span class="lang-es">La atmósfera, <em>navegable.</em></span>
       </h1>
-      <p>
-        <span class="lang-en">A selection of ongoing projects on tropical cyclones, the ITCZ, and monsoon dynamics, followed by the formal publication catalogue. Click any DOI to read.</span>
-        <span class="lang-es">Una selección de proyectos sobre ciclones tropicales, la ZCIT y la dinámica monzónica, seguida del catálogo formal de publicaciones. Haz clic en cualquier DOI para leer.</span>
+      <p data-science-maps-intro>
+        <span class="lang-en">Interactive climate maps hosted on Streamlit Cloud, with tropical cyclone diagnostics on one tab and general ERA5 reanalysis browsing on the other.</span>
+        <span class="lang-es">Mapas climáticos interactivos alojados en Streamlit Cloud, con diagnósticos de ciclones tropicales en una pestaña y exploración general del reanálisis ERA5 en la otra.</span>
       </p>
     </div>
   </section>
 
-  <!-- ============ PROJECTS ============ -->
   <section class="block">
-    <div class="wrap" data-research></div>
-  </section>
-
-  <!-- ============ PUBLICATIONS ============ -->
-  <section class="block" style="padding-top:0;">
-    <div class="wrap" data-publications></div>
+    <div class="wrap">
+      <div class="sm-tabs" role="tablist" data-sm-tabs></div>
+      <div data-science-maps></div>
+    </div>
   </section>
 
   <div data-footer></div>

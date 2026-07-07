@@ -106,13 +106,23 @@ all show in the same popup when you click the pin).
 
 For pin coordinates, look up `lat, lon` on Google Maps (right-click → "What's here?").
 
+### Science Maps apps
+
+The Science Maps page reads `scienceMaps:` in `data.js` — two `groups:`
+("TC Diagnostics" and "ERA5 Reanalysis"), each with its own `apps:` array of
+embedded Streamlit apps. An app with `pending: true` renders a "coming
+online" card instead of an iframe; once the app is deployed on Streamlit
+Cloud, flip it to `pending: false` (or delete the line) to embed it. See
+`EDITING.md` § "Change Science Maps apps" for the full block.
+
 ## File map
 
 | File | Purpose |
 |---|---|
 | `index.html`        | Home: Hurricane Otis IR hero, about, evidence beat, news timeline |
 | `research.html`     | Research projects + publications list |
-| `era5.html`         | ERA5 maps landing (links to your existing interactive apps) |
+| `science-maps.html` | Science Maps: two in-page tabs — TC Diagnostics (vPI/PI/ventilation/GPIv) + ERA5 reanalysis Streamlit apps |
+| `era5.html`         | Redirect stub → `science-maps.html` (keeps old links alive — leave it) |
 | `cv.html`           | CV embedded PDF + download |
 | `places.html`       | World map with clickable pins |
 | `data.js`           | **All content lives here** (edit this) |

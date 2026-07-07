@@ -21,7 +21,7 @@ things:
 | Add a research project                        | `data.js`               | `research:` array           |
 | Add a publication                             | `data.js`               | `publications:` array       |
 | Add a pin to the world map                    | `data.js`               | `places:` array             |
-| Change ERA5 app URLs                          | `data.js`               | `era5:` → `apps:`           |
+| Change Science Maps apps (URLs, tabs)         | `data.js`               | `scienceMaps:` → `groups:`  |
 | Replace your CV PDF                           | drop new file at        | `files/cv.pdf`              |
 | Replace your portrait photo                   | `data.js`               | `profile:` → `portrait:`    |
 | Add an image / GIF to a news item             | `data.js` + drop file   | `news:` `mediaSrc:`         |
@@ -297,24 +297,44 @@ To rename "Research" → "Science", just change the `label.en` / `label.es`
 text. To add a new page, you'd also need to create that HTML file — ask
 Claude if you want a new page.
 
-## 8. Change ERA5 app URLs
+## 8. Change Science Maps apps
 
-If you re-deploy your Streamlit apps with new URLs, edit `data.js`:
+The Science Maps page (`science-maps.html`) shows two in-page tabs — "TC
+Diagnostics" and "ERA5 Reanalysis". Each tab is a `groups:` entry in
+`data.js`, and each group holds one or more `apps:`:
 
 ```js
-era5: {
+scienceMaps: {
   ...
-  apps: [
+  groups: [
     {
-      title: { en: "Monthly Means + Anomalies", ... },
-      embedUrl: "https://YOUR-NEW-URL.streamlit.app/?embed=true&embed_options=light_theme,dark_theme,hide_loading_screen",
-      openUrl:  "https://YOUR-NEW-URL.streamlit.app/",
-      repo:     "https://github.com/Langosmon/ERA5_streamlit",
+      key: "tcdiag",
+      label: { en: "TC Diagnostics", es: "Diagnósticos de CT" },
+      desc: { en: "...", es: "..." },      // paragraph shown above the group's apps
+      apps: [
+        {
+          title: { en: "vPI · PI · Ventilation · GPIv", ... },
+          desc: { en: "...", es: "..." },
+          pending: true,                   // ← "coming online" card instead of the app
+          embedUrl: "https://YOUR-URL.streamlit.app/?embed=true&embed_options=hide_loading_screen",
+          openUrl:  "https://YOUR-URL.streamlit.app/",
+          repo:     "https://github.com/Langosmon/TCdiag_streamlit",
+        },
+      ],
     },
-    ...
+    { key: "era5", ... },                  // the two ERA5 apps live here
   ],
 },
 ```
+
+**If you re-deploy a Streamlit app with a new URL**, update that app's
+`embedUrl` and `openUrl` (keep the `?embed=true&embed_options=hide_loading_screen`
+part on `embedUrl`).
+
+**When the TC Diagnostics app goes live**: it currently has `pending: true`,
+which renders a "Coming online" card instead of embedding the app. Once the
+Streamlit app is deployed, change it to `pending: false` (or delete the
+`pending:` line entirely) and the embedded app appears in its place.
 
 ---
 
